@@ -9,7 +9,7 @@ const thirdtab =() =>{
                 <a href="/">Home</a>
                 <a href="/">Saved items</a>                              
                 <a href="/">1</a>
-                <a href="2">Notfication</a>
+                <a href="2">2</a>
             </nav>
         </header>
     </div>

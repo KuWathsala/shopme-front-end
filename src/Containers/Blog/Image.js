@@ -4,9 +4,9 @@ import './Blog.css';
 import logo from '../../Assets/logo.png';
 
 const img=[
-    {'id':"1",'src':"../../Assets/logo.png"},
-    {'id':'2','src':'../../Assets/logo2.png'},
-    {'id':'2','src':'../../Assets/logo2.png'}
+    {'id':"1",'src':"../../Assets/image1.jpg"},
+    {'id':'2','src':'../../Assets/image2.jpg'},
+    {'id':'2','src':'../../Assets/image3.jpg'}
 ];
 
 class Image extends Component{

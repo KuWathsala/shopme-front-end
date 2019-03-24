@@ -5,7 +5,7 @@ import Blog from './Containers/Blog/Blog';
 class App extends Component {
   render() {
     return (      
-      <div>
+      <div> 
       <Blog/>
       </div>
     );

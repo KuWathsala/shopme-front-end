@@ -7,9 +7,11 @@ const secondtab =() =>{
     return(
     <div className="b">
         <div><img src={logo}/></div>
-        <div className="category"><Categories/></div>
-        <div><input type="text"/></div>            
-        <div className="blues"><input type="button" name="search" value="Search"/></div>
+        
+        <div><input type="text"/></div>     
+         
+        <div><input type="button" name="search" value="Search"/></div>
+        <div className="category"><Categories/></div>      
     </div>
     )
 };
