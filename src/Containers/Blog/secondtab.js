@@ -6,12 +6,18 @@ import Categories from '../Categories/Categories';
 const secondtab =() =>{
     return(
     <div className="b">
-        <div><img src={logo}/></div>
-        
-        <div><input type="text"/></div>     
-         
-        <div><input type="button" name="search" value="Search"/></div>
-        <div className="category"><Categories/></div>      
+        <nav>
+            <ul>
+                <div className='form-control'>
+                    <li><div><img src={logo}/></div></li>      
+                    <li><div><input type="text" className='form-control'/></div> </li>
+                    <li><div><input type="button" name="search" value="Search"/></div></li>
+                   
+                </div>
+                <div className="category" ><Categories/></div>
+            </ul>
+        </nav>
+          
     </div>
     )
 };

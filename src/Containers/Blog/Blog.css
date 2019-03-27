@@ -8,6 +8,7 @@
     overflow: auto;
     background: #eee;
     color: white;
+    width:100%;
 }
 
 .Blog a{
@@ -19,6 +20,7 @@
     border-block-end-width: 1px;    
     padding-inline-end: 22px;
     font-weight: bold; 
+    padding-top: 20px;
 }
 
 .Blog :hover,
@@ -35,11 +37,10 @@
 }
 .b{
     display:inline-block;  
-    background: white; 
+    background: rgba(187, 204, 125, 0.933); 
     padding-top: 5px; 
     margin-bottom: 10px; 
     position: relative; 
-    padding-right: 25px;  
 
   }
 
@@ -47,7 +48,7 @@
       width: 25px;
   }
 
-  .b div{
+ /* .b div{
     display: inline-block;
     width:250px;
     padding-right: 25px;  
@@ -64,7 +65,7 @@
     color:white;
     background-color: blue;
 }      
-
+/*
 .b input[type ="text"]{
     width: 250px;
     border-color:lightseagreen;
@@ -76,12 +77,7 @@
     border-color:darkgreen;
     border-radius: 24px;
 }
-
-
-.search{
-    float: right;
-}
-
+*/
 
 
 .categories{
@@ -122,14 +118,15 @@
 
 .container{
     align-content: center;
-    width:90%;
-    overflow: scroll;
+    width:100%;
+    overflow: auto;
 }
 
 .footer{
     background-color: rgba(22, 22, 22, 0.933);
     color: #ccc;
     margin-top: 25px;
+  
 }
 
 .footer table{
@@ -156,7 +153,18 @@
 */
 
 .slide{
-width: 95%; 
-padding-left: 5%;
+width: 100%; 
 padding-top: 2px;
+}
+
+.login{
+    float:right;
+    margin-right:0;
+}
+
+.b { display: block; height: 100px; background: #eee; padding-top: 5px; margin-bottom: 5px; position: relative; padding-inline-end: 5px; }
+.b ul { margin: 0px 15px; font-family: Candara, Calibri, "Segoe UI", Segoe, Arial, sans-serif; }
+.b ul li {  background: #eee; display: block; font-size: 1.2em; position: relative; float: left;padding-inline-end: 5px;}
+.category{
+    width:25%;
 }
