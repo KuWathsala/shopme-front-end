@@ -3,7 +3,7 @@ import Row from'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
 export default class Signup extends React.Component {
-    displayName = Signup.name
+    //displayName = Signup.name
 
     constructor(props) {
         super(props);

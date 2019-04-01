@@ -10,7 +10,7 @@ const home =() =>{
     return(
     <div className="container">
             <Secondtab/>
-            <Thirdtab/>
+           {/*<Thirdtab/>*/} 
             <Slideshow/>
             <div className="categories">
                  <p>categoriesR</p>

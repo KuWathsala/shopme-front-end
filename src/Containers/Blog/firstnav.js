@@ -10,11 +10,18 @@ const firstnav =() =>{
             <nav>
                 <ul>
                     <div className="col-md-10 ol-md">
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/Signup">Register</a></li>
-                        <li><a href="/">Help</a></li>
-                        <li><a href="/">Notfication</a></li>
-                        <div className="login"><li><a href="/Signin">Hi, Sign In</a></li></div>                        
+                        <div className="row">
+                            <div className="col">
+                                <li><a href="/">Home</a></li>
+                                <li><a href="/Signup">Register</a></li>
+                                <li><a href="/">Help</a></li>
+                                <li><a href="/">Notfication</a></li>
+                            </div>
+                            <div className="col">
+                                <div className="login"><li><a href="/Signin">Hi, Sign In</a></li></div>
+                            </div>
+                            
+                        </div>                        
                     </div>                  
                 </ul>
             </nav>

@@ -1,9 +1,9 @@
-.bar { display: block; height: 45px; background: #eee; padding-top: 5px; margin-bottom: 10px; position: relative; }
+.bar { display: block; height: 45px; background: white; padding-top: 5px; margin-bottom: 10px; position: relative; }
 .bar ul { margin: 0px 15px; font-family: Candara, Calibri, "Segoe UI", Segoe, Arial, sans-serif; }
-.bar ul li {  background: #eee; display: block; font-size: 1.2em; position: relative; float: left; }
+.bar ul li {  background:white; display: block; font-size: 1.2em; position: relative; float: left; }
 .bar ul li a { 
 display: block; 
-color: rgb(77, 76, 76); 
+color: grey; 
 line-height: 40px; 
 font-weight: bold; 
 padding: 0px 10px; 

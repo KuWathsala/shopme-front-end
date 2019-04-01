@@ -2,7 +2,7 @@ import React from 'react';
 import './signin.css';
 
 export default class Signin extends React.Component {
-    displayName = Signin.name
+    //displayName = Signin.name
 
     constructor(props) {
         super(props);
