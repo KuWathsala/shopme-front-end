@@ -82,10 +82,7 @@
     
 }
 
-.container{
-    align-content: center;
-    overflow: auto;
-}
+
 
 .footer{
     background-color: rgba(22, 22, 22, 0.933);
@@ -119,7 +116,9 @@
 
 .slide{
 width: 100%; 
-padding-top: 2px;
+height:700px;
+padding-top: 5px;
+padding-bottom:50px;
 }
 
 .login{

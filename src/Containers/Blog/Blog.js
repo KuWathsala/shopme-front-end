@@ -6,9 +6,11 @@ import Secondtab from './secondtab';
 import Thirdtab from './thirdtab';
 import { Route } from 'react-router-dom';
 import Signup from '../../Components/Signup/Signup';
-import Signin from '../../Components/Signin/Signin';
+import SignIn from '../../Components/SignIn/SignIn';
+import BsignUp from '../../Components/ToSignup/BsignUp'
 import Home from './Home';
 import { BrowserRouter } from 'react-router-dom';
+import '../../Assets/bootstrap.min.css';
 
 
 
@@ -19,16 +21,17 @@ class Blog extends Component{
     render(){
        
         return (
-            <div className="container">
+            <div>
                 
                 <Firstnav/>
                 <BrowserRouter>
                 <Route path="/"exact component={Home}/>
-                <Route path="/Signin" exact component={Signin}/>
-                <Route path="/Signup"exact component={Signup}/>
+                <Route path="/Signin" exact component={SignIn}/>
+                <Route path="/Bsignup"exact component={BsignUp}/>
+                <Route path="/SignUp" component={Signup}/>
                 </BrowserRouter>
                 
-                <div className="container">
+                <div>
                     <Footer/>
                 </div>
             </div>

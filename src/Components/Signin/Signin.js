@@ -1,86 +1,38 @@
-import React from 'react';
-import './signin.css';
+import React, { Component } from 'react';
+import './SignIn.css';
 
-export default class Signin extends React.Component {
-    //displayName = Signin.name
+class SignIn extends Component{
+    render(){
+        return(
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            email: '',
-            password: ''
-        }
-
-        this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleChange(e) {
-        const { name, value } = e.target;
-        this.setState({ [name]: value });
-    }
-
-    handleSubmit(e) {
-        e.preventDefault();
-        const data = new FormData(e.target);
-
-        // PUT request for Edit employee.
-        //if (this.state.empData.employeeId) {2
-        //    fetch('api/Employee/Edit', {
-        //        method: 'PUT',
-        //        body: data,
-
-        //    }).then((response) => response.json())
-        //        .then((responseJson) => {
-        //            this.props.history.push("/fetchemployee");
-        //        })
-        //}
-
-        // POST request for Add employee.
-        //else {
-            fetch('api/addProduct/create', {
-                method: 'POST',
-                body: data,
-
-            }).then((response) => response.json())
-                .then((responseJson) => {
-                    this.props.history.push("/fetchAddProduct");
-            
-                })
-    }
-
+<div className="login-page">
+  <div className="form">
+  <h3> Sign In</h3>
+    <form className="register-form">
+          <input type="text" placeholder="name"/>
+      <input type="password" placeholder="password"/>
+      <input type="text" placeholder="email address"/>
+      <button>create</button>
+      <p className="message">Already registered? <a href="#">Sign In</a></p>
+    </form>
+    <form className="login-form">
+      <input type="text" placeholder="username"/>
+      <input type="password" placeholder="password"/>
+      <button>login</button>
+    <br></br>
+    <br></br>
+    <p>or Sign In using</p>
     
-    // This will handle Cancel button click event.
-    handleCancel(e) {
-        e.preventDefault();
-        this.props.history.push("/fetch");
-    }
+      <a href="#" className="fa fa-google"></a>
+      <a href="#" className="fa fa-facebook"></a>
+      <a href="#" className="fa fa-twitter"></a>
+      <p className="message">Not registered? <a href="#">Create an account</a></p>
 
-    render() {
-        const { email } = this.state;
-        const { password } = this.state;
-
-        return (
-            <div className="sign">
-            <div className="col-md-15 ol-md-offset-3">
-                <h3>Sign in</h3>
-                <form className="pure-form" name="signUp" onSubmit={this.handleSubmit}>
-
-                    <div className="form-group">
-                        <label htmlFor="email" className="col-form-label">email</label>
-                        <input type="email" className="form-control" name="email" value={email} onChange={this.handleChange} />
-                    </div>
-
-                    <div className="form-group">
-                        <label htmlFor="password" className="col-form-label">password</label>
-                        <input type="password" className="form-control" name="password" value={password} onChange={this.handleChange} />
-                    </div>
-
-                    <button variant="primary" type="submit" className="btn btn-primary">Sign in</button>
-                </form>
-            </div>
-        </div>
+    </form>
+  </div>
+</div>
         );
     }
 }
+
+export default SignIn;

@@ -15,7 +15,7 @@ class Image extends Component{
     render(){
         return(
             <div className="slide">
-                <SwiftSlider data={img}/>
+                <SwiftSlider data={img} height={460}/>
             </div>
         );
     }

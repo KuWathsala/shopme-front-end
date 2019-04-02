@@ -8,14 +8,10 @@ import Slideshow from '../Blog/Slideshow';
 
 const home =() =>{
     return(
-    <div className="container">
+    <div>
             <Secondtab/>
            {/*<Thirdtab/>*/} 
             <Slideshow/>
-            <div className="categories">
-                 <p>categoriesR</p>
-            </div>
-            
             <div className="popular">
                  
              </div>

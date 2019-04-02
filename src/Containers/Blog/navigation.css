@@ -1,4 +1,4 @@
-.bar { display: block; height: 45px; background: white; padding-top: 5px; margin-bottom: 10px; position: relative; }
+.bar { display: block; height: 45px; background: white; padding-top: 1px; margin-bottom: 10px; position: relative; width:100%; }
 .bar ul { margin: 0px 15px; font-family: Candara, Calibri, "Segoe UI", Segoe, Arial, sans-serif; }
 .bar ul li {  background:white; display: block; font-size: 1.2em; position: relative; float: left; }
 .bar ul li a { 

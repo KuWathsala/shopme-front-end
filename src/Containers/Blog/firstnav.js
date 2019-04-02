@@ -13,7 +13,7 @@ const firstnav =() =>{
                         <div className="row">
                             <div className="col">
                                 <li><a href="/">Home</a></li>
-                                <li><a href="/Signup">Register</a></li>
+                                <li><a href="/Bsignup">Register</a></li>
                                 <li><a href="/">Help</a></li>
                                 <li><a href="/">Notfication</a></li>
                             </div>
