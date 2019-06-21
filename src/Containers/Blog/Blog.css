@@ -87,20 +87,16 @@
 .footer{
     background-color: rgba(22, 22, 22, 0.933);
     color: #ccc;
-    margin-top: 25px;
+    margin-top: 0px;
   
 }
 
-.footer table{
-    width:100%;
-    text-align: center;
-}
+
 
 .footer div{
-    text-align: center;
     font-family: 'Courier New', Courier, monospace;
     font-size: 10pt;
-    margin-top: 20px;
+    margin-top: 0px;
 }
 
 /*.footer{

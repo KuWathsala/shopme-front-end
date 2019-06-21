@@ -1,0 +1,13 @@
+/*.table tr:nth-child(even){background-color: #f2f2f2*/
+
+.table-stripped{
+    border:soild;
+    color: white;
+};
+
+.personalInfo div{
+    text-align: center;
+    padding-bottom: 3px;
+    color: darkblue;
+    background: gold;
+}

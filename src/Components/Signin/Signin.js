@@ -1,38 +1,144 @@
 import React, { Component } from 'react';
-import './SignIn.css';
+import {connect} from 'react-redux';
+import * as actions from '../../Stores/Actions/Index';
 
-class SignIn extends Component{
-    render(){
-        return(
+import "../Signup/Signup.css";
+import { FacebookLoginButton, GoogleLoginButton } from "react-social-login-buttons";
+import FacebookSignin from "./FacebookSignin.js";
+import GoogleSignin from "./GoogleSignin.js";
+import axios from 'axios';
 
-<div className="login-page">
-  <div className="form">
-  <h3> Sign In</h3>
-    <form className="register-form">
-          <input type="text" placeholder="name"/>
-      <input type="password" placeholder="password"/>
-      <input type="text" placeholder="email address"/>
-      <button>create</button>
-      <p className="message">Already registered? <a href="#">Sign In</a></p>
-    </form>
-    <form className="login-form">
-      <input type="text" placeholder="username"/>
-      <input type="password" placeholder="password"/>
-      <button>login</button>
-    <br></br>
-    <br></br>
-    <p>or Sign In using</p>
-    
-      <a href="#" className="fa fa-google"></a>
-      <a href="#" className="fa fa-facebook"></a>
-      <a href="#" className="fa fa-twitter"></a>
-      <p className="message">Not registered? <a href="#">Create an account</a></p>
+const emailRegex=RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i);
 
-    </form>
-  </div>
-</div>
-        );
-    }
+const formValid=({formErrors,...rest})=>{
+    let valid=true;
+    Object.values(formErrors).forEach(val=>{
+        val.length>0 &&(valid=false)
+    });
+
+    Object.values(rest).forEach(val=>{
+        val=null && (valid=false);
+    });
+
+    return valid;
 }
 
-export default SignIn;
+class SignIn extends Component{
+  constructor(props){
+    super(props);
+    this.state={
+      email:null,
+      password:null,
+      formErrors:{
+        email:'',
+        password:''
+      }
+    }
+  }
+
+  handleChange=e=>{
+    e.preventDefault();
+    const{name,value}=e.target;
+    let formErrors=this.state.formErrors;
+
+    switch(name){
+        case "email":
+        formErrors.email=
+        emailRegex.test(value) 
+        ?"":"Invalid email address";
+        break;
+
+        case "password":
+        formErrors.password=
+        value.length<1
+        ?"required":"";
+        break;
+         
+        default:
+        break;
+    }
+    this.setState({formErrors,[name]:value},()=>console.log(this.state));
+};
+
+ /* handleSubmit= e=>{
+    e.preventDefault();
+    alert("process");
+    axios.post('https://localhost:44337/api/users/create')
+    .then(response=>{
+        console.log(response);
+        this.props.history.push("/");
+    })
+    .catch(error=>{
+      console.log(error);
+    });
+    alert("Success");
+};*/
+
+SubmitHandeler= (event)=>{
+    event.preventDefault();
+    this.props.onAuth(this.state.email,this.state.password,"signUp");
+};
+
+
+  render(){
+    const {formErrors}=this.state;
+      return(
+        <div className="wrapper">
+        <div className="form-wrapper">
+          <h3>Welcome Back, Sign in</h3><br/>
+          <form className="pure-form" name="signin" onSubmit={this.SubmitHandeler}>
+
+            <div className="email">
+              <label htmlFor="email" className="col-form-label">Email</label>
+              <input
+                type="email" 
+                className={formErrors.email.length>0?"error":null}
+                placeholder="Email" 
+
+                name="email"
+                noValidate
+                onChange={this.handleChange}
+              />
+
+              {formErrors.email.length>0 &&(
+                  <span className="errorMessage">{formErrors.email}</span>
+              )}
+            </div>
+                
+            <div className="password">
+              <label htmlFor="password" className="col-form-label">Password</label>
+              <input
+                  type="password" 
+                  className={formErrors.password.length>0?"error":null}
+                  placeholder="Password" 
+
+                  name="password"
+                  noValidate
+                  onChange={this.handleChange}
+              />
+              {formErrors.password.length>0 &&(
+                  <span className="errorMessage">{formErrors.password}</span>
+              )}
+            </div>             
+              
+            <button variant="outline-primary" type="submit" className="col-md-12 btn btn-primary btn-lg" style={{marginTop: 30}}>Sign in</button>
+          </form>
+          <div className="col-lg-12  row " style={{marginTop: 40}} >
+            <div style={{marginLeft: 10}}><FacebookSignin /></div>
+            <div style={{marginLeft: 14}}><GoogleSignin/></div>
+          </div>
+
+          <div class="text-center createAccount">
+              <label className="col-form-label">New to <b>shopMe?</b></label><a href="/Bsignup"> Create an account</a>
+          </div>
+            </div>
+          </div>
+      );
+  }
+}
+const mapDispatchToProps=dispatch=>{
+  return{
+      onAuth:(email,password,isSignInUp)=>dispatch(actions.auth(email,password,isSignInUp))
+  };
+}
+export default connect(null,mapDispatchToProps)(SignIn);

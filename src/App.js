@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Blog from './Containers/Blog/Blog';
-import {BrowserRouter,Switch} from 'react-router-dom';
+import {BrowserRouter} from 'react-router-dom';
 
 class App extends Component {
   render() {
