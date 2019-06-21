@@ -1,6 +1,9 @@
 import React,{Component} from "react";
 import "./Signup.css";
 import axios from 'axios';
+import {connect} from 'react-redux';
+import * as actions from '../../Stores/Actions/Index';
+
 const emailRegex=RegExp(/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/);
 
 const formValid=({formErrors,...rest})=>{
@@ -32,9 +35,15 @@ class Signup extends Component{
                 email:"",
                 password:"",
                 confirmPassword:""
-            } 
+            },
+            showresults: false,
         };
     }
+
+   boxHandeler = () =>{
+       this.setState({showresults:true});
+   }
+
 
     submitDataHandler =()=>{
         const formdetails={
@@ -50,14 +59,16 @@ class Signup extends Component{
 
 
         }
-        axios.post('https://localhost:44314/api/customers',formdetails)
+       /* axios.post('https://localhost:44314/api/customers',formdetails)
         .then(response=>{
             console.log(response);
-        });
+        });*/
     }
+   
 
-    handleSubmit= e=>{
-        e.preventDefault();
+    handleSubmit= (event)=>{
+        event.preventDefault();
+        //this.props.onAuth(this.state.email,this.state.formdetails.password.value);
 
         if(formValid(this.state)){
             console.log(
@@ -72,7 +83,12 @@ class Signup extends Component{
         }else{
             console.error(`FORM INVALID=DISPLAY ERROR MESSAGE`);
         }
-    };
+};
+
+SubmitHandeler= (event)=>{
+    event.preventDefault();
+    this.props.onAuth(this.state.email,this.state.password,"signUp");
+};
 
     handleChange=e=>{
         e.preventDefault();
@@ -205,17 +221,29 @@ return(
     </div>
 
     <div className="createAccount">
-    <button type="submit">SUBMIT</button>
+    <button type="submit" onClick={this.SubmitHandeler}>SUBMIT</button>
     <small>Already have an Account</small>
     </div>
+    
+    {
+        this.state.showresults ===true ? 
+            <div>
+                <label>Shop Name</label>
+                <input type="text" placeholder="Shop Name"  />
+            </div>:null
+    }       
+    
     </form>
-    </div>
 </div>
-
+</div>
 );
+}
 
 }
 
-
+const mapDispatchToProps=dispatch=>{
+    return{
+        onAuth:(email,password,isSignInUp)=>dispatch(actions.auth(email,password,isSignInUp))
+    };
 }
-export default Signup;
+export default connect(null,mapDispatchToProps)(Signup);
