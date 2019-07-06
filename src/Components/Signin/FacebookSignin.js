@@ -1,7 +1,7 @@
 import React from 'react';
 import FacebookLogin from 'react-facebook-login';
 //import '../../Assets/fb.svg';
-import '../SignIn/SignIn.css';
+import '../Signin/signin.css';
 
 export default class FacebookSignin extends React.Component {
     displayName = FacebookSignin.name

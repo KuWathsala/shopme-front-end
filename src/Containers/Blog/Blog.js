@@ -6,7 +6,7 @@ import Footer from './Footer';
 import Firstnav from './firstnav';
 import { Route } from 'react-router-dom';
 import Signup from '../../Components/Signup/Signup';
-import SignIn from '../../Components/SignIn/SignIn';
+import SignIn from '../../Components/Signin/Signin';
 import BsignUp from '../../Components/ToSignup/BsignUp'
 import Home from './Home';
 import Search from '../../Components/Items/items';
@@ -19,7 +19,7 @@ import Map from '../../Components/map/Map_home';
 import ProductList from '../../Components/Pcatogory/Cofiles/ProductList';
 import Details from '../../Components/Pcatogory/Cofiles/Details';
 import Cart from '../../Components/Pcatogory/Cofiles/Cart/Cart';
-import Logout from '../../Components/SignIn/Logout/Logout';
+import Logout from '../../Components/Signin/Logout/Logout';
 
 
 
