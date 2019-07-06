@@ -87,7 +87,13 @@ class Signup extends Component{
 
 SubmitHandeler= (event)=>{
     event.preventDefault();
-    this.props.onAuth(this.state.email,this.state.password,"signUp");
+    this.props.onAuth(
+        this.state.email,
+        this.state.password,
+        this.state.firstName,
+        this.state.lastName,
+        "signUp"
+        );
 };
 
     handleChange=e=>{
@@ -243,7 +249,7 @@ return(
 
 const mapDispatchToProps=dispatch=>{
     return{
-        onAuth:(email,password,isSignInUp)=>dispatch(actions.auth(email,password,isSignInUp))
+        onAuth:(email,password,firatName,lastName,isSignInUp)=>dispatch(actions.auth(email,password,firatName,lastName,isSignInUp))
     };
 }
 export default connect(null,mapDispatchToProps)(Signup);

@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import * as actions from '../../Stores/Actions/Index';
+import {Redirect} from 'react-router-dom';
+import axios from 'axios';
 
 import "../Signup/Signup.css";
 import { FacebookLoginButton, GoogleLoginButton } from "react-social-login-buttons";
 import FacebookSignin from "./FacebookSignin.js";
 import GoogleSignin from "./GoogleSignin.js";
-import axios from 'axios';
+import Spinner from '../../Containers/Spinner/Spinner'
+
 
 const emailRegex=RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i);
 
@@ -76,15 +79,29 @@ class SignIn extends Component{
 
 SubmitHandeler= (event)=>{
     event.preventDefault();
-    this.props.onAuth(this.state.email,this.state.password,"signUp");
+    this.props.onAuth(this.state.email,this.state.password,);
 };
 
 
   render(){
+
+    let authRedirect=null;
+    if(this.props.isAuthenticated){
+        authRedirect=<Redirect to="/"/>
+    }
+
+    let fomm=null;
+    if(this.props.loading){
+      fomm=<Spinner/>
+    }
+
     const {formErrors}=this.state;
       return(
+        
         <div className="wrapper">
         <div className="form-wrapper">
+        {authRedirect}
+        {fomm}
           <h3>Welcome Back, Sign in</h3><br/>
           <form className="pure-form" name="signin" onSubmit={this.SubmitHandeler}>
 
@@ -136,9 +153,16 @@ SubmitHandeler= (event)=>{
       );
   }
 }
+
+const mapStateToProps=state=>{
+  return{
+    isAuthenticated:state.auth.token!=null,
+    loading:state.auth.loading
+  }
+}
 const mapDispatchToProps=dispatch=>{
   return{
-      onAuth:(email,password,isSignInUp)=>dispatch(actions.auth(email,password,isSignInUp))
+      onAuth:(email,password)=>dispatch(actions.authVerify(email,password))
   };
 }
-export default connect(null,mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps,mapDispatchToProps)(SignIn);

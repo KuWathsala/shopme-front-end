@@ -19,6 +19,7 @@ import Map from '../../Components/map/Map_home';
 import ProductList from '../../Components/Pcatogory/Cofiles/ProductList';
 import Details from '../../Components/Pcatogory/Cofiles/Details';
 import Cart from '../../Components/Pcatogory/Cofiles/Cart/Cart';
+import Logout from '../../Components/SignIn/Logout/Logout';
 
 
 
@@ -45,7 +46,7 @@ class Blog extends Component{
                 <Route path="/map" component={Map}/>
                 <Route path="/details" component={Details}/>
                 <Route path="/cart" component={Cart}/>
-                
+                <Route path="/logout" component={Logout}/>
                 <Footer/>
                 
             </div>

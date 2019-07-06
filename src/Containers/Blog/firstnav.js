@@ -27,8 +27,8 @@ const firstnav =(props) =>{
                                 </div>
                             <div className="other">
                             <div className="col">
-                                <li><a href="/Profile"><span class="glyphicon glyphicon-user"></span></a></li>
-                                <li><a href="/Cart"><span class="glyphicon glyphicon-shopping-cart"></span></a></li>
+                                <li><a><Link to='/Profile'><span class="glyphicon glyphicon-user"></span></Link></a></li>
+                                <li><a><Link to='/Cart'><span class="glyphicon glyphicon-shopping-cart"></span></Link></a></li>
                             </div>
                         </div>
                     </div>
