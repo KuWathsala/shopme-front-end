@@ -3,8 +3,8 @@ import {updateObject} from '../utility';
 import { submission } from '../Actions/Index';
 
 const intialState={
-    latValue:null,
-    lngValue:null,
+    latValue:6.9271,
+    lngValue:79.8612,
     submit:false,
     address:''
 }
