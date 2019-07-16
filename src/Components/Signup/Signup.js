@@ -1,6 +1,8 @@
 import React,{Component} from "react";
+import {Link,withRouter} from 'react-router-dom';
+import Select from 'react-select';
 import "./Signup.css";
-import axios from 'axios';
+//import axios from 'axios';
 import {connect} from 'react-redux';
 import * as actions from '../../Stores/Actions/Index';
 
@@ -29,21 +31,35 @@ class Signup extends Component{
             email:null,
             password:null,
             confirmPassword:null,
+            shopLocation:{
+                lat:null,
+                lng:null
+            },
+            mobileNumber:null,
+            shopname:null,
+            accNo:null,
+            VHno:null,
+            Vehicle:null,
             formErrors:{
                 firstName:"",
                 lastName:"",
                 email:"",
                 password:"",
-                confirmPassword:""
+                confirmPassword:"",
+                shopLocation:{
+                    lat:"",
+                    lng:""
+                },
+                mobileNumber:"",
+                shopname:"",
+                accNo:"",
+                VHno:"",
+                Vehicle:"",
             },
-            showresults: false,
+            isLocationSet: false,
+
         };
     }
-
-   boxHandeler = () =>{
-       this.setState({showresults:true});
-   }
-
 
     submitDataHandler =()=>{
         const formdetails={
@@ -95,15 +111,18 @@ SubmitHandeler= (event)=>{
         "signUp"
         );
 };
+setLocation=()=>{
+    this.setState({isLocationSet:true})
+    this.props.history.push('/map');  
+}
+
 
     handleChange=e=>{
         e.preventDefault();
         const{name,value}=e.target;
         let formErrors=this.state.formErrors;
-
-       
-
-        switch(name){
+    
+            switch(name){
             case "firatName":
             formErrors.firstName=
             value.length<2 ?"minimum 2 characters required":"";
@@ -140,105 +159,194 @@ SubmitHandeler= (event)=>{
 render(){
     const{formErrors}=this.state;
 
+    const vehicles = [
+        { label: "Motor Bicycle", value: "motorbicyle" },
+        { label: "Three wheel", value: "threewheel" },
+      ];
+
 return(
 <div className="wrapper">
     <div className="form-wrapper">
     <h1>Create Account</h1>
     <form onSubmit={this.hadleSubmit} novalidate>
-    <div className="firstName">
-    <label htmlFor="firstName">First Name</label>
-
-    <input
-    type="text" 
-    className={formErrors.firstName.length>0?"error":null}
-    placeholder="First Name" 
-
-    name="firstName"
-    noValidate
-    onChange={this.handleChange}
-    />
-    {formErrors.firstName.length>0 &&(
-        <span className="errorMessage">{formErrors.firstName}</span>
-    )}
-    </div>
-
-    <div className="lastName">
-    <label htmlFor="lastName">Last Name</label>
-    <input
-    type="text" 
-    className={formErrors.lastName.length>0?"error":null}
-    placeholder="Last Name" 
-
-    name="lastName"
-    noValidate
-    onChange={this.handleChange}
-    />
-    {formErrors.lastName.length>0 &&(
-        <span className="errorMessage">{formErrors.lastName}</span>
-    )}
-    </div>
-
-    <div className="email">
-    <label htmlFor="email">Email</label>
-    <input
-    type="email" 
-    className={formErrors.email.length>0?"error":null}
-    placeholder="Email" 
-
-    name="email"
-    noValidate
-    onChange={this.handleChange}
-    />
-    {formErrors.email.length>0 &&(
-        <span className="errorMessage">{formErrors.email}</span>
-    )}
-    </div>
-
-    <div className="password">
-    <label htmlFor="password">Password</label>
-    <input
-    type="password" 
-    className={formErrors.password.length>0?"error":null}
-    placeholder="Password" 
-
-    name="password"
-    noValidate
-    onChange={this.handleChange}
-    />
-    {formErrors.password.length>0 &&(
-        <span className="errorMessage">{formErrors.password}</span>
-    )}
-    </div>
-
-    <div className="confirmPassword">
-    <label htmlFor="confirmPassword">Confirm Password</label>
-    <input
-    type="Password" 
-    className={formErrors.password.length>0?"error":null}
-    placeholder="Confirm Password" 
-
-    name="confirmPassword"
-    noValidate
-    onChange={this.handleChange}
-    />
-    {formErrors.password.length>0 &&(
-        <span className="errorMessage">{formErrors.confirmPassword}</span>
-    )}
-    </div>
-
-    <div className="createAccount">
-    <button type="submit" onClick={this.SubmitHandeler}>SUBMIT</button>
-    <small>Already have an Account</small>
-    </div>
-    
-    {
-        this.state.showresults ===true ? 
+        
             <div>
-                <label>Shop Name</label>
-                <input type="text" placeholder="Shop Name"  />
-            </div>:null
-    }       
-    
+            <div className="firstName">
+            <label htmlFor="firstName">First Name</label>
+
+            <input
+                type="text" 
+                className={formErrors.firstName.length>0?"error":null}
+                placeholder="First Name" 
+
+                name="firstName"
+                noValidate
+                onChange={this.handleChange}
+            />
+            {formErrors.firstName.length>0 &&(
+                <span className="errorMessage">{formErrors.firstName}</span>
+            )}
+        </div>
+
+        <div className="lastName">
+            <label htmlFor="lastName">Last Name</label>
+                <input
+                    type="text" 
+                    className={formErrors.lastName.length>0?"error":null}
+                    placeholder="Last Name" 
+
+                    name="lastName"
+                    noValidate
+                    onChange={this.handleChange}
+                />
+            {formErrors.lastName.length>0 &&(
+                <span className="errorMessage">{formErrors.lastName}</span>
+            )}
+        </div>
+        </div>
+        
+        {
+            this.props.usertype=="Seller" ?
+            <div>
+                        <div className="firstName">
+                    <label htmlFor="shopname">Shop Name</label>
+
+                    <input
+                        type="text" 
+                        className={formErrors.firstName.length>0?"error":null}
+                        placeholder="Shop Name" 
+
+                        name="shopname"
+                        noValidate
+                        onChange={this.handleChange}
+                    />
+                    {formErrors.firstName.length>0 &&(
+                        <span className="errorMessage">{formErrors.firstName}</span>
+                    )}
+                    </div>
+
+                    <div className="accNo">
+                    <label htmlFor="accNo">Account No.</label>
+
+                    <input
+                        type="text" 
+                        className={formErrors.firstName.length>0?"error":null}
+                        placeholder="Account No." 
+
+                        name="mobileNumber"
+                        noValidate
+                        onChange={this.handleChange}
+                    />
+                    {formErrors.firstName.length>0 &&(
+                        <span className="errorMessage">{formErrors.firstName}</span>
+                    )}
+                    </div>
+            </div>
+            
+            :null}
+
+            {this.props.usertype=="Deliverer" ?
+                <div>
+                        <div className="VHno">
+                                <label htmlFor="VHno">Vehicle No.</label>
+
+                                <input
+                                    type="text" 
+                                    className={formErrors.firstName.length>0?"error":null}
+                                    placeholder="Vehicle No." 
+
+                                    name="VHno"
+                                    noValidate
+                                    onChange={this.handleChange}
+                                />
+                                {formErrors.firstName.length>0 &&(
+                                    <span className="errorMessage">{formErrors.firstName}</span>
+                                )}
+                        </div>
+                        <Select options={ vehicles } />
+
+                    </div> :null}
+        
+        <div className="mobileNumber">
+            <label htmlFor="mobileNumber">Mobile No.</label>
+
+            <input
+                type="text" 
+                className={formErrors.firstName.length>0?"error":null}
+                placeholder="Mobile No." 
+
+                name="mobileNumber"
+                noValidate
+                onChange={this.handleChange}
+            />
+            {formErrors.firstName.length>0 &&(
+                <span className="errorMessage">{formErrors.firstName}</span>
+            )}
+        </div>
+
+        <div className="email">
+            <label htmlFor="email">Email</label>
+                <input
+                    type="email" 
+                    className={formErrors.email.length>0?"error":null}
+                    placeholder="Email" 
+
+                    name="email"
+                    noValidate
+                    onChange={this.handleChange}
+                />
+            {formErrors.email.length>0 &&(
+                <span className="errorMessage">{formErrors.email}</span>
+            )}
+        </div>
+
+        <div className="password">
+            <label htmlFor="password">Password</label>
+                <input
+                    type="password" 
+                    className={formErrors.password.length>0?"error":null}
+                    placeholder="Password" 
+
+                    name="password"
+                    noValidate
+                    onChange={this.handleChange}
+                />
+            {formErrors.password.length>0 &&(
+                <span className="errorMessage">{formErrors.password}</span>
+            )}
+        </div>
+
+        <div className="confirmPassword">
+            <label htmlFor="confirmPassword">Confirm Password</label>
+                <input
+                    type="Password" 
+                    className={formErrors.password.length>0?"error":null}
+                    placeholder="Confirm Password" 
+
+                    name="confirmPassword"
+                    noValidate
+                    onChange={this.handleChange}
+                />
+            {formErrors.password.length>0 &&(
+                <span className="errorMessage">{formErrors.confirmPassword}</span>
+            )}
+        </div>
+
+        {
+            this.props.usertype=="Seller" ? 
+                <div className='col col-md-12'>
+                    <input type="text" placeholder="Click to setup shop location" className='form-control 'onClick={this.setLocation} value={this.props.Address}/>
+                    <i class="glyphicon glyphicon-map-marker form-control-feedback"></i>
+                </div>
+             :null
+        }
+        
+         
+
+        <div className="createAccount">
+            <button type="submit" onClick={this.SubmitHandeler}>SUBMIT</button>
+            <Link to="/Signin"><small>Already have an Account</small></Link>
+        </div>   
     </form>
 </div>
 </div>
@@ -247,9 +355,16 @@ return(
 
 }
 
+const mapStateToProps=state=>{
+    return{
+      usertype:state.auth.userType,
+      Address:state.location.address
+    }
+  }
+
 const mapDispatchToProps=dispatch=>{
     return{
         onAuth:(email,password,firatName,lastName,isSignInUp)=>dispatch(actions.auth(email,password,firatName,lastName,isSignInUp))
     };
 }
-export default connect(null,mapDispatchToProps)(Signup);
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Signup));

@@ -79,7 +79,7 @@ class SignIn extends Component{
 
 SubmitHandeler= (event)=>{
     event.preventDefault();
-    this.props.onAuth(this.state.email,this.state.password,);
+    this.props.onAuth(this.state.email,this.state.password);
 };
 
 

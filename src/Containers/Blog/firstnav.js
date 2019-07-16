@@ -17,7 +17,7 @@ const firstnav =(props) =>{
                                 <div className="col col-md-11 col-sm-11">
                                     <li><a><Link to='/'><span class="glyphicon glyphicon-home">Home</span></Link></a></li>
                                     {!props.isAuth ?
-                                            <li><a><Link to='/Bsignup'>Register</Link></a></li>
+                                            <li><a><Link to='/seluser'>Register</Link></a></li>
                                             :null}
                                     <li><a><Link to='/'>Help</Link></a></li>
                                     <li><a><Link to='/'>Notfication</Link></a></li>

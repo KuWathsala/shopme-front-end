@@ -107,3 +107,11 @@ export const authCheckState=()=>{
         }
     };
 };
+
+export const setUserType=(userType)=>{
+    return{
+        
+        type:ActionTypes.USER_TYPE,
+        userType:userType
+    };
+}

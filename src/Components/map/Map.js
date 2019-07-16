@@ -1,37 +1,32 @@
 import React from 'react';
-import {Redirect,Link} from 'react-router-dom';
+import {Redirect,Link,withRouter} from 'react-router-dom';
+//import browserHistory from 'react-router-dom';
+//import { RedirectWithoutLastLocation } from 'react-router-last-location';
 import axios from 'axios';
 import { withGoogleMap, GoogleMap, withScriptjs, InfoWindow, Marker } from "react-google-maps";
 import Autocomplete from 'react-google-autocomplete';
 import Geocode from "react-geocode";
+import {connect} from 'react-redux';
+import * as actions from '../../Stores/Actions/Index';
+
 Geocode.setApiKey("AIzaSyDfp50rT_iIa365h388F4TjLEWBS39S2kM");
 Geocode.enableDebug();
-class Map extends React.Component{
-constructor( props ){
-  super( props );
-  this.state = {
-   address: '',
-   isLocationSet:false,
-   mapPosition: {
-    lat: this.props.center.lat,
-    lng: this.props.center.lng
-   },
-   markerPosition: {
-    lat: this.props.center.lat,
-    lng: this.props.center.lng
-},
 
+class Map extends React.Component{
+
+state = {
+   address: '',
   }
- }
+ 
  
 /**
   * Get the current address from the default map position and set those values in the state
   */
  componentDidMount() {
-  Geocode.fromLatLng( this.state.mapPosition.lat , this.state.mapPosition.lng ).then(
+  Geocode.fromLatLng( this.props.center.lat , this.props.center.lng ).then(
    response => {
     const address = response.results[0].formatted_address;
-  
+    this.props.onsetLocation(this.props.center.lat , this.props.center.lng,address );
     this.setState( {
      address: ( address ) ? address : '',
     } )
@@ -50,11 +45,11 @@ constructor( props ){
   */
  shouldComponentUpdate( nextProps, nextState ){
   if (
-   this.state.markerPosition.lat !== this.props.center.lat ||
+    this.props.latitude !== this.props.center.lat ||
    this.state.address !== nextState.address
   ) {
    return true
-  } else if ( this.props.center.lat === nextProps.center.lat ){
+  } else if ( this.props.latitude === nextProps.center.lat ){
    return false
   }
  }
@@ -76,17 +71,10 @@ constructor( props ){
 const address = place.formatted_address,
    latValue = place.geometry.location.lat(),
    lngValue = place.geometry.location.lng();
+   this.props.onsetLocation(latValue,lngValue,address);
 // Set these values in the state.
   this.setState({
    address: ( address ) ? address : '',
-    markerPosition: {
-      lat: latValue,
-      lng: lngValue
-    },
-   mapPosition: {
-    lat: latValue,
-    lng: lngValue
-   },
   })
  };
 /**
@@ -101,22 +89,17 @@ const address = place.formatted_address,
   let newLat = event.latLng.lat(),
       newLng = event.latLng.lng();
 
+
 Geocode.fromLatLng( newLat , newLng ).then(
    response => {
     const address = response.results[0].formatted_address;
+    this.props.onsetLocation(newLat,newLng,address);
+    
 
 this.setState( {
-     address: ( address ) ? address : '',
-     markerPosition: {
-      lat: newLat,
-      lng: newLng
-    },
-    mapPosition: {
-      lat: newLat,
-      lng: newLng
-     },
-  
+     address: ( address ) ? address : '',  
     } )
+
    },
    error => {
     console.error(error);
@@ -125,29 +108,26 @@ this.setState( {
  };
 
 setLocation=()=>{
-    this.setState({isLocationSet:true});
-    console.log("worksss");
-    axios.post('',this.state.markerPosition)
+    axios.post('',this.props)
         .then(response=>{
             console.log(response);
         });
-        // let mapRedirect=null;
-        // if(this.state.isLocationSet){
-        //     console.log("works")
-        //     mapRedirect=<Redirect to="/"/>
-        // }
-     
-    
- }
+    this.props.onSubmit(true);
+    this.try2();
+      }
+
+try2=()=>{this.props.history.goBack();  
+        //browserHistory.goBack;
+       
+    } 
 render(){
- 
   
 const AsyncMap = withScriptjs(
    withGoogleMap(
     props => (
      <GoogleMap google={this.props.google}
       defaultZoom={this.props.zoom}
-      defaultCenter={{ lat: this.state.mapPosition.lat, lng: this.state.mapPosition.lng }}
+      defaultCenter={{ lat: this.props.latitude, lng: this.props.longitude }}
      >
       {/* For Auto complete Search Box */}
       <Autocomplete
@@ -161,20 +141,20 @@ const AsyncMap = withScriptjs(
        onPlaceSelected={ this.onPlaceSelected }
        types={["geocode"]}
       />
-      <Link to='/'><div style={{float:'right'}}><input type="button" name="submit" value="Select Location" onClick={this.setLocation} /></div></Link>
+      <div style={{float:'right'}}><input type="button" name="submit" value="Select Location" onClick={this.setLocation}/></div>
       
 {/*Marker*/}
       <Marker google={this.props.google}
        name={'Dolores park'}
           draggable={true}
           onDragEnd={ this.onMarkerDragEnd }
-          position={{ lat: this.state.markerPosition.lat, lng: this.state.markerPosition.lng }}
+          position={{ lat: this.props.latitude, lng: this.props.longitude}}
       />
       <Marker />
 {/* InfoWindow on top of marker */}
       <InfoWindow
        onClose={this.onInfoWindowClose}
-       position={{ lat: ( this.state.markerPosition.lat + 0.0018 ), lng: this.state.markerPosition.lng }}
+       position={{ lat: ( this.props.latitude + 0.0018 ), lng: this.props.longitude }}
       >
        <div>
         <span style={{ padding: 0, margin: 0 }}>{ this.state.address }</span>
@@ -189,8 +169,8 @@ const AsyncMap = withScriptjs(
   <div style={{height:'500px'}}>
     
      <div>
-
-      <div className="form-group">
+     <b>Drag marker to set the Exact location</b>
+      <div className="form-group">        
        <label htmlFor="">Address</label>
        <input type="text" name="address" className="form-control" onChange={ this.onChange } readOnly="readOnly" value={ this.state.address }/>
       </div>
@@ -207,11 +187,23 @@ const AsyncMap = withScriptjs(
        <div style={{ height: '100%' }} />
       }
      />
-     
      </div>);
-  //return( map)
  
  };
  
 }
-export default Map
+const mapStateToProps=state=>{
+  return{
+    latitude:state.location.latValue,
+    longitude:state.location.lngValue,
+    isLocationSet:state.location.submit
+  }
+}
+
+const mapDispatchToProps=dispatch=>{
+  return{
+    onsetLocation:(lat,lng,address)=>dispatch(actions.location(lat,lng,address)),
+    onSubmit:(submit)=>dispatch(actions.submission(submit))
+  };
+}
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Map));

@@ -8,7 +8,7 @@ import thunk from 'redux-thunk';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import reducer from './Stores/Reducers/reducer';
+import locationReducer from './Stores/Reducers/Location';
 import authReducer from './Stores/Reducers/Auth';
 
 import {ProductProvider} from './Components/Pcatogory/context' 
@@ -28,7 +28,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer=combineReducers({
     auth:authReducer,
-    red:reducer
+    location:locationReducer
 });
 
 const store=createStore(rootReducer,composeEnhancers(applyMiddleware(logger,thunk)));
