@@ -24,6 +24,11 @@ const firstnav =(props) =>{
                                     {!props.isAuth ?
                                             <li><a><Link to='/Signin'>Hi, Sign In</Link></a></li>
                                             :<li><a><Link to='/logout'>Logout</Link></a></li>}
+                                     {props.userT=="Seller" && props.isAuth ? <div>
+                                            <li><a><Link to='/'>Add Products</Link></a></li>
+                                            <li><a><Link to='/'>Inventory</Link></a></li>
+                                            </div>
+                                            :null}
                                     
                                 </div>
                             <div className="other">

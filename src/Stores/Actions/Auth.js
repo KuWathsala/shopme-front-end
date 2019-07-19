@@ -38,20 +38,55 @@ export const checkAuthTImeout=(expirationTime)=>{
 };
 };
 
-export const auth=(email,password,firstName,lastName,isSignInUp)=>{
+export const auth=(email,password,firstName,lastName,shoplocation,userType,mobileno,shopname,accno,vhno,vehicle)=>{
     return dispatch=>{
         dispatch(authStart());
-        const authData={
-            email:email,
-            password:password,
+        const authCust={
+            login:{
+                email:email,
+                password:password,
+                role:userType
+            },
             firstName:firstName,
             lastName:lastName,
+            
+            mobilenumber:mobileno,
             returnSecureToken: true
         };
+
+        const authSeller={
+            login:{
+                email:email,
+                password:password,
+                role:userType
+            },
+            firstName:firstName,
+            lastName:lastName,
+            mobilenumber:mobileno,
+            shopname:shopname,
+            paypalAcc:accno,
+            shopLocationLatitude:shoplocation.lat,
+            shopLocationLongtitude:shoplocation.lng,
+        }
+
+        const authDeliver={
+            login:{
+                email:email,
+                password:password,
+                role:userType
+            },
+            firstName:firstName,
+            lastName:lastName,
+            mobilenumber:mobileno,
+            vehicleNo:vhno,
+            vehicleType:vehicle,
+        }
         
         let url='https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyAH_1vanm5ZV02dvZSUnrlberVRRSBL3-k';
-        axios.post(url,authData)
-        .then(response=>{
+        if(userType=='Customer'){
+            url='';
+            axios.post(url,authCust)
+                .then(response=>{
             console.log(response);
             dispatch(authSuccess(response.data.idToken,response.data.localId));
             dispatch(checkAuthTImeout(response.data.expiresIn));
@@ -60,7 +95,32 @@ export const auth=(email,password,firstName,lastName,isSignInUp)=>{
             console.log(err);
             dispatch(authFail(err));
         });
-    };
+        }else if(userType=='Seller'){
+            url='';
+            axios.post(url,authSeller)
+                .then(response=>{
+            console.log(response);
+            dispatch(authSuccess(response.data.idToken,response.data.localId));
+            dispatch(checkAuthTImeout(response.data.expiresIn));
+        })
+        .catch(err=>{
+            console.log(err);
+            dispatch(authFail(err));
+        });
+        }else if(userType=='Deliverer'){
+            url='';
+            axios.post(url,authDeliver)
+                .then(response=>{
+            console.log(response);
+            dispatch(authSuccess(response.data.idToken,response.data.localId));
+            dispatch(checkAuthTImeout(response.data.expiresIn));
+        })
+        .catch(err=>{
+            console.log(err);
+            dispatch(authFail(err));
+        });
+        }
+    }
 };
 
 export const authVerify=(email,password,isSignInUp)=>{

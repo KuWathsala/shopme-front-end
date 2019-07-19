@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import{storeProducts, detailProduct} from './data'; 
+import{storeProducts, detailProduct} from './data';
+import axios from 'axios';
 
 
 const ProductContext = React.createContext();
@@ -19,6 +20,16 @@ class ProductProvider extends Component {
 
    componentDidMount(){
        this.setProducts();
+       axios.get('')
+        .then(response=>{
+           this.setState(()=>{
+               return {products:response.data}
+           })
+        })
+        .catch(err=>{
+            console.log(err);
+        
+        });
    } 
 
    setProducts = () =>

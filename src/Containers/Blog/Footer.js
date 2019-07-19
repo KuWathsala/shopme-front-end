@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import './Blog.css';
 import playstore from '../../Assets/playstore.png';
 import applestore from '../../Assets/applestore.png';
@@ -10,28 +11,28 @@ const footer =() =>{
                <hr style={{paddingBlockEnd:"0px"}}/><hr/>
                <div className="row">
                     <div className="col-4 col-sm-4 col-md-4">
-                        <ul>
+                        
                             <li>
                                 Follow us on
                             </li>
-                        </ul>
+                        
                     </div>
                     <div className="col-4 col-sm-4 col-md-4">
-                        <ul>
-                            <li>About ShopMe</li>
-                            <li>Become a Delivery Partner</li>
-                            <li>Become a Restaurant Partner</li>
-                        </ul>
+                        
+                        <div><Link to='/'>About ShopMe</Link></div>
+                        <div><Link to='/'>Become a Delivery Partner</Link></div>
+                        <div><Link to='/'>Become a Shop Partner</Link></div>
+                        
                     </div>
                     
                     <div className="col-4 col-sm-4 col-md-4">
-                        <ul>
-                            <li>See all cities</li>
-                            <li>Pricing</li>
-                            <li>Help</li>
-                            <li>FAQs</li>
-                            <li>Blog</li>
-                        </ul>
+                    
+                        <div><Link to='/'>See all cities</Link></div>
+                        <div><Link to='/'>Pricing</Link></div>
+                        <div><Link to='/'>Help</Link></div>
+                        <div><Link to='/'>FAQs</Link></div>
+                        <div><Link to='/'>Blog</Link></div>
+                     
                     </div>
                 </div>
                     <hr/>
