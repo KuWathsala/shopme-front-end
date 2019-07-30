@@ -2,7 +2,6 @@ import React,{Component} from "react";
 import {Link,withRouter} from 'react-router-dom';
 import Select from 'react-select';
 import "./Signup.css";
-//import axios from 'axios';
 import {connect} from 'react-redux';
 import * as actions from '../../Stores/Actions/Index';
 
@@ -108,7 +107,13 @@ SubmitHandeler= (event)=>{
         this.state.password,
         this.state.firstName,
         this.state.lastName,
-        "signUp"
+        this.state.shopLocation,
+        this.props.usertype,
+        this.state.mobileNumber,
+        this.state.shopname,
+        this.state.accNo,
+        this.state.vhno,
+        this.state.vehicle
         );
 };
 setLocation=()=>{
@@ -364,7 +369,7 @@ const mapStateToProps=state=>{
 
 const mapDispatchToProps=dispatch=>{
     return{
-        onAuth:(email,password,firatName,lastName,isSignInUp)=>dispatch(actions.auth(email,password,firatName,lastName,isSignInUp))
+        onAuth:(email,password,firstName,lastName,shoplocation,userType,mobileno,shopname,accno,vhno,vehicle)=>dispatch(actions.auth(email,password,firstName,lastName,shoplocation,userType,mobileno,shopname,accno,vhno,vehicle))
     };
 }
 export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Signup));

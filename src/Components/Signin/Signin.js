@@ -146,7 +146,7 @@ SubmitHandeler= (event)=>{
           </div>
 
           <div class="text-center createAccount">
-              <label className="col-form-label">New to <b>shopMe?</b></label><a href="/Bsignup"> Create an account</a>
+              <label className="col-form-label">New to <b>shopMe?</b></label><a href="/BsignUp"> Create an account</a>
           </div>
             </div>
           </div>

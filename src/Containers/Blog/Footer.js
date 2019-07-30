@@ -11,28 +11,22 @@ const footer =() =>{
                <hr style={{paddingBlockEnd:"0px"}}/><hr/>
                <div className="row">
                     <div className="col-4 col-sm-4 col-md-4">
-                        
                             <li>
                                 Follow us on
-                            </li>
-                        
+                            </li>   
                     </div>
-                    <div className="col-4 col-sm-4 col-md-4">
-                        
+                    <div className="col-4 col-sm-4 col-md-4"> 
                         <div><Link to='/'>About ShopMe</Link></div>
                         <div><Link to='/'>Become a Delivery Partner</Link></div>
-                        <div><Link to='/'>Become a Shop Partner</Link></div>
-                        
+                        <div><Link to='/'>Become a Shop Partner</Link></div>    
                     </div>
                     
                     <div className="col-4 col-sm-4 col-md-4">
-                    
                         <div><Link to='/'>See all cities</Link></div>
                         <div><Link to='/'>Pricing</Link></div>
                         <div><Link to='/'>Help</Link></div>
                         <div><Link to='/'>FAQs</Link></div>
-                        <div><Link to='/'>Blog</Link></div>
-                     
+                        <div><Link to='/'>Blog</Link></div> 
                     </div>
                 </div>
                     <hr/>
@@ -49,5 +43,4 @@ const footer =() =>{
                     </div>
     )
 };
-
 export default footer;

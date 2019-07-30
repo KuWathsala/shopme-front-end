@@ -81,13 +81,15 @@ export const auth=(email,password,firstName,lastName,shoplocation,userType,mobil
             vehicleNo:vhno,
             vehicleType:vehicle,
         }
-        
-        let url='https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyAH_1vanm5ZV02dvZSUnrlberVRRSBL3-k';
+        console.log(userType);
+        let url='';
         if(userType=='Customer'){
-            url='';
+            console.log("workss");
+            url='https://localhost:5001/api/UserAuth/Signup-Customer';
             axios.post(url,authCust)
                 .then(response=>{
-            console.log(response);
+            console.log(response)
+            console.log("workss");
             dispatch(authSuccess(response.data.idToken,response.data.localId));
             dispatch(checkAuthTImeout(response.data.expiresIn));
         })
@@ -96,7 +98,7 @@ export const auth=(email,password,firstName,lastName,shoplocation,userType,mobil
             dispatch(authFail(err));
         });
         }else if(userType=='Seller'){
-            url='';
+            url='https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyAH_1vanm5ZV02dvZSUnrlberVRRSBL3-k';
             axios.post(url,authSeller)
                 .then(response=>{
             console.log(response);
@@ -108,7 +110,7 @@ export const auth=(email,password,firstName,lastName,shoplocation,userType,mobil
             dispatch(authFail(err));
         });
         }else if(userType=='Deliverer'){
-            url='';
+            url='https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyAH_1vanm5ZV02dvZSUnrlberVRRSBL3-k';
             axios.post(url,authDeliver)
                 .then(response=>{
             console.log(response);

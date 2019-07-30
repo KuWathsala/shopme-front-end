@@ -16,7 +16,7 @@ class secondtab extends Component{
         this.props.history.push('/map'); 
     } 
     try2=()=>{
-        this.props.history.push('/ProductList');  
+        this.props.history.push('/Shops');  
     } 
 
      render(){

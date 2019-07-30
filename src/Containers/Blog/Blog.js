@@ -13,6 +13,7 @@ import Profile from '../../Components/Profile/Profile';
 import '../../bootstrap-3.3.7-dist/css/bootstrap.min.css';
 import Map from '../../Components/map/Map_home';
 import ProductList from '../../Components/Pcatogory/Cofiles/ProductList';
+import ShopList from '../../Components/Pcatogory/Cofiles/ShopList';
 import Details from '../../Components/Pcatogory/Cofiles/Details';
 import Cart from '../../Components/Pcatogory/Cofiles/Cart/Cart';
 import Logout from '../../Components/Signin/Logout/Logout';
@@ -43,6 +44,7 @@ class Blog extends Component{
             <Route path="/seluser"exact component={BsignUp}/>
             <Route path="/SignUp" component={Signup}/>
             <Route path="/ProductList" exact component={ProductList}/>
+            <Route path="/Shops"exact component={ShopList}/>
             <Route path="/Profile" exact component={Profile}/>
             <Route path="/map" component={Map}/>
             <Route path="/details" component={Details}/>
@@ -89,6 +91,8 @@ class Blog extends Component{
                     <Route path="/seluser"exact component={BsignUp}/>
                     <Route path="/SignUp" component={Signup}/>
                     <Route path="/ProductList" exact component={ProductList}/>
+                    <Route path="/Shops"exact component={ShopList}/>
+                    <Route path="/ShopList" exact component={ShopList}/>
                     <Route path="/Profile" exact component={Profile}/>
                     <Route path="/map" component={Map}/>
                     <Route path="/details" component={Details}/>
@@ -105,6 +109,7 @@ class Blog extends Component{
                         <Route path="/seluser"exact component={BsignUp}/>
                         <Route path="/SignUp" component={Signup}/>
                         <Route path="/ProductList" exact component={ProductList}/>
+                        <Route path="/Shops"exact component={ShopList}/>
                         <Route path="/Profile" exact component={Profile}/>
                         <Route path="/map" component={Map}/>
                         <Route path="/details" component={Details}/>
@@ -116,12 +121,14 @@ class Blog extends Component{
          }
         return (
             <div>
-               
-                <Firstnav
+               <React.Fragment>
+               <Firstnav
                     isAuth={this.props.isAuthenticated}
                     userT={this.props.user}/>
                     {routes}               
                 <Footer/>
+               </React.Fragment>
+                
                 
             </div>
             

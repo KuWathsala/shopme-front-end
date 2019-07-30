@@ -76,16 +76,21 @@ input.error {
 .lastName,
 .email,
 .password,
+.accNo,
+ .mobileNumber,
+ .VHno,
+ .shopname,
 .confirmPassword{
     display:flex;
     flex-direction: column;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
 }
  .firstName,
- .lastName{
-     width:49%;
- }
-
+ .lastName
+ .accNo,
+ .mobileNumber,
+ .VHno,
+ .shopname,
  .email,
  .password,
  .confirmPassword{
