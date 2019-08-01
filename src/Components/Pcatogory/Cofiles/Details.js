@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
-import {ProductConsumer} from '../context';
+import {ProductConsumer,ProductProvider} from '../context';
 import {Link} from 'react-router-dom';
 import {ButtonContainer} from './Button';
 class Details extends Component {
     render() {
         return (
+            <ProductProvider>
             <ProductConsumer>
                 {value =>{
                     const{id,company,img,info,price,title,inCart}=
@@ -61,6 +62,7 @@ class Details extends Component {
                     )
                 }}
             </ProductConsumer>
+            </ProductProvider>
         );
     }
 }

@@ -19,6 +19,8 @@ import Cart from '../../Components/Pcatogory/Cofiles/Cart/Cart';
 import Logout from '../../Components/Signin/Logout/Logout';
 import OrderQueue from '../../Components/ShopView/OrderQueue';
 import AddProducts from '../../Components/ShopView/UploadForm';
+import Model from '../../Components/Pcatogory/Cofiles/Modal';
+import Navbar from '../../Components/Pcatogory/Cofiles/Navbar';
 
 
 
@@ -106,9 +108,10 @@ class Blog extends Component{
             );
          }else{
              routes=(
+                 <React.Fragment>
                 <Switch>
                       <Route path="/"exact component={Home}/>
-                    <Route path="/Signin" exact component={SignIn}/>
+                        <Route path="/Signin" exact component={SignIn}/>
                         <Route path="/seluser"exact component={BsignUp}/>
                         <Route path="/SignUp" component={Signup}/>
                         <Route path="/ProductList" exact component={ProductList}/>
@@ -120,7 +123,10 @@ class Blog extends Component{
                         <Route path="/logout" component={Logout}/>
                         <Route path="/LogAsSeller"exact component={OrderQueue}/>
                         <Route path="/AddProduct" exact component={AddProducts}/>
+                        
                 </Switch>
+                <Model/>
+                </React.Fragment>
              );
          }
         return (
@@ -129,6 +135,7 @@ class Blog extends Component{
                <Firstnav
                     isAuth={this.props.isAuthenticated}
                     userT={this.props.user}/>
+                    <Navbar/>
                     {routes}               
                 <Footer/>
             
