@@ -38,48 +38,48 @@ export const checkAuthTImeout=(expirationTime)=>{
 };
 };
 
-export const auth=(email,password,firstName,lastName,shoplocation,userType,mobileno,shopname,accno,vhno,vehicle)=>{
+export const auth=(email,password,firstName,lastName,lat,lng,userType,mobileno,shopname,accno,vhno,vehicle)=>{
     return dispatch=>{
         dispatch(authStart());
         const authCust={
-            login:{
-                email:email,
-                password:password,
-                role:userType
+            LoginVM:{
+                Email:email,
+                Password:password,
+                Role:userType
             },
-            firstName:firstName,
-            lastName:lastName,
-            
-            mobilenumber:mobileno,
+            FirstName:firstName,
+            LastName:lastName,
+            MobileNumber:mobileno,
             returnSecureToken: true
         };
 
         const authSeller={
-            login:{
-                email:email,
-                password:password,
-                role:userType
+            LoginVM:{
+                Email:email,
+                Password:password,
+                Role:userType
             },
-            firstName:firstName,
-            lastName:lastName,
-            mobilenumber:mobileno,
-            shopname:shopname,
-            paypalAcc:accno,
-            shopLocationLatitude:shoplocation.lat,
-            shopLocationLongtitude:shoplocation.lng,
+            FirstName:firstName,
+            LastName:lastName,
+            MobileNumber:mobileno,
+            ShopName:shopname,
+            AccountNo:accno,
+            ShopLocationLatitude:lat,
+            ShopLocationLongtitude:lng,
+            returnSecureToken: true
         }
 
         const authDeliver={
-            login:{
-                email:email,
-                password:password,
-                role:userType
+            LoginVM:{
+                Email:email,
+                Password:password,
+                Role:userType
             },
-            firstName:firstName,
-            lastName:lastName,
-            mobilenumber:mobileno,
-            vehicleNo:vhno,
-            vehicleType:vehicle,
+            FirstName:firstName,
+            LastName:lastName,
+            MobileNumber:mobileno,
+            VehicleNo:vhno,
+            VehicleType:vehicle,
         }
         console.log(userType);
         let url='';
@@ -88,34 +88,33 @@ export const auth=(email,password,firstName,lastName,shoplocation,userType,mobil
             url='https://localhost:5001/api/UserAuth/Signup-Customer';
             axios.post(url,authCust)
                 .then(response=>{
-            console.log(response)
-            console.log("workss");
-            dispatch(authSuccess(response.data.idToken,response.data.localId));
-            dispatch(checkAuthTImeout(response.data.expiresIn));
+            console.log(response);
+            dispatch(authSuccess(response.data.token,response.data.id));
+            dispatch(checkAuthTImeout(3600/*response.data.expiresIn*/));
         })
         .catch(err=>{
             console.log(err);
             dispatch(authFail(err));
         });
         }else if(userType=='Seller'){
-            url='https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyAH_1vanm5ZV02dvZSUnrlberVRRSBL3-k';
+            url='https://localhost:5001/api/UserAuth/Signup-Seller';
             axios.post(url,authSeller)
                 .then(response=>{
             console.log(response);
-            dispatch(authSuccess(response.data.idToken,response.data.localId));
-            dispatch(checkAuthTImeout(response.data.expiresIn));
+            dispatch(authSuccess(response.data.token,response.data.id));
+            dispatch(checkAuthTImeout(3600/*response.data.expiresIn*/));
         })
         .catch(err=>{
             console.log(err);
             dispatch(authFail(err));
         });
         }else if(userType=='Deliverer'){
-            url='https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=AIzaSyAH_1vanm5ZV02dvZSUnrlberVRRSBL3-k';
+            url='https://localhost:5001/api/UserAuth/Signup-Deliverer';
             axios.post(url,authDeliver)
                 .then(response=>{
             console.log(response);
-            dispatch(authSuccess(response.data.idToken,response.data.localId));
-            dispatch(checkAuthTImeout(response.data.expiresIn));
+            dispatch(authSuccess(response.data.token,response.data.id));
+            dispatch(checkAuthTImeout(3600/*response.data.expiresIn*/));
         })
         .catch(err=>{
             console.log(err);
@@ -134,16 +133,16 @@ export const authVerify=(email,password,isSignInUp)=>{
             returnSecureToken: true
         };
         
-        let url='https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyPassword?key=AIzaSyAH_1vanm5ZV02dvZSUnrlberVRRSBL3-k';
+        let url='https://localhost:5001/api/UserAuth/signin';
         axios.post(url,authVerifyData)
         .then(response=>{
             console.log(response);
             const expirationDate=new Date(new Date().getTime()+response.data.expiresIn*1000);
-            localStorage.setItem('token',response.data.idToken);
+            localStorage.setItem('token',response.data.token);
             localStorage.setItem('expirationDate',expirationDate);
             localStorage.setItem('userId',response.data.localId);
-            dispatch(authSuccess(response.data.idToken,response.data.localId));
-            dispatch(checkAuthTImeout(response.data.expiresIn));
+            dispatch(authSuccess(response.data.token,response.data.id));
+            dispatch(checkAuthTImeout(3600/*response.data.expiresIn*/));
         })
         .catch(err=>{
             console.log(err);

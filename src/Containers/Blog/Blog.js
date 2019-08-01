@@ -18,6 +18,7 @@ import Details from '../../Components/Pcatogory/Cofiles/Details';
 import Cart from '../../Components/Pcatogory/Cofiles/Cart/Cart';
 import Logout from '../../Components/Signin/Logout/Logout';
 import OrderQueue from '../../Components/ShopView/OrderQueue';
+import AddProducts from '../../Components/ShopView/UploadForm';
 
 
 
@@ -46,6 +47,7 @@ class Blog extends Component{
             <Route path="/ProductList" exact component={ProductList}/>
             <Route path="/Shops"exact component={ShopList}/>
             <Route path="/Profile" exact component={Profile}/>
+            <Route path="/Addaproduct" exact component={AddProducts}/>
             <Route path="/map" component={Map}/>
             <Route path="/details" component={Details}/>
             <Route path="/cart" component={Cart}/>
@@ -98,6 +100,7 @@ class Blog extends Component{
                     <Route path="/details" component={Details}/>
                     <Route path="/cart" component={Cart}/>
                     <Route path="/logout" component={Logout}/>
+                    <Route path="/AddProduct" exact component={AddProducts}/>
                     <Redirect to="/"/>
                 </Switch>
             );
@@ -116,18 +119,19 @@ class Blog extends Component{
                         <Route path="/cart" component={Cart}/>
                         <Route path="/logout" component={Logout}/>
                         <Route path="/LogAsSeller"exact component={OrderQueue}/>
+                        <Route path="/AddProduct" exact component={AddProducts}/>
                 </Switch>
              );
          }
         return (
             <div>
-               <React.Fragment>
+            
                <Firstnav
                     isAuth={this.props.isAuthenticated}
                     userT={this.props.user}/>
                     {routes}               
                 <Footer/>
-               </React.Fragment>
+            
                 
                 
             </div>

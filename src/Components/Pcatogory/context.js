@@ -24,6 +24,7 @@ class ProductProvider extends Component {
    };
 
    componentDidMount(){
+       console.log("hello")
        this.setShopes();
        this.setProducts();
    } 

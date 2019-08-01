@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import Product from './Product';
 import Title from "./Title";
-import {ProductConsumer} from '../context';
+import {ProductConsumer,ProductProvider} from '../context';
 
 
 class ProductList extends Component {
@@ -9,7 +9,7 @@ class ProductList extends Component {
     render() {
         
           return (
-            
+            <ProductProvider>
             <React.Fragment>
                 <div className="py-5" style={{height:'100%' ,width:'100%'}}>
                   <div className="container">
@@ -30,7 +30,7 @@ class ProductList extends Component {
                 </div>
                 
             </React.Fragment>
-          
+            </ProductProvider>
               //<Product/> 
             
         );
