@@ -28,7 +28,7 @@ import {ProductProvider} from '../../Components/Pcatogory/context';
 
 class Blog extends Component{
     constructor(props){
-        super(props);
+        super(props)
         this.state={
             lng:'12223',
         }
@@ -122,7 +122,7 @@ class Blog extends Component{
                <Firstnav
                     isAuth={this.props.isAuthenticated}
                     userT={this.props.user}/>
-                    <ProductProvider {...this.state}>
+                    <ProductProvider>
                        <Pindex/>
                     </ProductProvider>
                     {routes}               
@@ -138,7 +138,7 @@ const mapStateToProps = state =>{
     return{
         isAuthenticated: state.auth.token!==null,
         user:state.auth.userType,
-        lng:state.location.latValue
+        lng:state.location.lngValue
         
     };
 };

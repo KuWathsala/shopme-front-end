@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import{storeShopes, detailShop} from '../Pcatogory/ShopData'; 
 import{storeProducts, detailProduct} from '../Pcatogory/data';
-import {connect} from 'react-redux'
+import axios from 'axios';
 
 
 const ProductContext = React.createContext();
@@ -9,7 +9,7 @@ const ProductContext = React.createContext();
 //Consumer 
 class ProductProvider extends Component {
 constructor(props){
-    super(props)
+    super(props);
     this.state={
         shopes:[],
         detailShop: detailShop,
@@ -21,15 +21,15 @@ constructor(props){
         cartSubTotal:0,
         //cartTax:0,
         cartTotal:0,
-        lng:this.props.lng,
-        lat:'',
     };
-}
-
+};
    componentDidMount(){
        console.log(this.props.lng)
-       console.log(this.state.lng)
-       this.setShopes();
+       axios.get(`https://localhost:5001/api/sellers/${this.props.lat,this.props.lng}`)
+       .then(response=>{
+        this.setState({shopes:response.data})
+       }
+       ).catch()
        this.setProducts();
    } 
    

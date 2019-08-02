@@ -6,6 +6,7 @@ import './Blog.css';
 import logo from '../../Assets/logo.png';
 import '../../bootstrap-3.3.7-dist/css/bootstrap.min.css';
 import { withRouter} from 'react-router-dom';
+import { ProductProvider} from '../../Components/Pcatogory/context'
 //import Autocomplete from 'react-google-autocomplete';
 //import {Map, InfoWindow, Marker, GoogleApiWrapper} from 'google-maps-react';
 //import {Row} from 'react-bootstrap';
@@ -32,7 +33,8 @@ class secondtab extends Component{
                                 <i class="glyphicon glyphicon-map-marker form-control-feedback"></i>
                         </div>
                         </div>
-                        <div className=''><input type="button" name="search" value="Show Products" onClick={this.try2} /></div>
+                        
+                        <ProductProvider lng={this.props.lng} lat={this.props.lat}><div className=''><input type="button" name="search" value="Show Products" onClick={this.try2} /></div></ProductProvider>
                         </div>
                 </nav>
                   
@@ -42,7 +44,9 @@ class secondtab extends Component{
 }
 const mapStateToProps=state=>{
     return{
-        Address:state.location.address
+        Address:state.location.address,
+        lng:state.location.lngValue,
+        lat:state.location.latValue
     }
   }
 export default withRouter(connect(mapStateToProps,null)(secondtab));

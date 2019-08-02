@@ -9,7 +9,6 @@ class ShopList extends Component {
     render() {
         
           return (
-            <ProductProvider>
             <React.Fragment>
                 <div className="py-5">
                   <div className="container">
@@ -29,7 +28,6 @@ class ShopList extends Component {
                 </div>
                 
             </React.Fragment>
-            </ProductProvider>
               //<Product/> 
             
         );
