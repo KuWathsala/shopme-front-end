@@ -8,7 +8,6 @@ import {Link} from 'react-router-dom';
 class Modal extends Component {
     render() {
         return (
-            <ProductProvider>
             <ProductConsumer>
                 {(value)=>{
                     const{modalOpen,closeModal}= value;
@@ -35,7 +34,7 @@ class Modal extends Component {
                              </ButtonContainer>
                              </Link>
 
-                             <Link to='/cart'> 
+                             <Link to='/Cart'> 
                              <ButtonContainer cart onClick={()=>closeModal()}>
                                 go to cart
                              </ButtonContainer>
@@ -50,7 +49,6 @@ class Modal extends Component {
                     }
                 }}
             </ProductConsumer>
-            </ProductProvider>
         );
     }
 }

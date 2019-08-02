@@ -19,15 +19,20 @@ import Cart from '../../Components/Pcatogory/Cofiles/Cart/Cart';
 import Logout from '../../Components/Signin/Logout/Logout';
 import OrderQueue from '../../Components/ShopView/OrderQueue';
 import AddProducts from '../../Components/ShopView/UploadForm';
-import Model from '../../Components/Pcatogory/Cofiles/Modal';
+import Modal from '../../Components/Pcatogory/Cofiles/Modal';
+import Pindex from '../../Components/Pcatogory/Pindex';
 import Navbar from '../../Components/Pcatogory/Cofiles/Navbar';
+import {ProductProvider} from '../../Components/Pcatogory/context';
 
 
 
 class Blog extends Component{
-   state={
-
-   }
+    constructor(props){
+        super(props);
+        this.state={
+            lng:'12223',
+        }
+    }
 
 
 // componentDidMount=()=>{
@@ -45,29 +50,23 @@ class Blog extends Component{
             <Route path="/"exact component={Home}/>
             <Route path="/Signin" exact component={SignIn}/>
             <Route path="/seluser"exact component={BsignUp}/>
-            <Route path="/SignUp" component={Signup}/>
-            <Route path="/ProductList" exact component={ProductList}/>
-            <Route path="/Shops"exact component={ShopList}/>
+            <Route path="/SignUp" component={Signup}/>            
             <Route path="/Profile" exact component={Profile}/>
             <Route path="/Addaproduct" exact component={AddProducts}/>
             <Route path="/map" component={Map}/>
-            <Route path="/details" component={Details}/>
-            <Route path="/cart" component={Cart}/>
             <Route path="/logout" component={Logout}/>
             <Route path="/LogAsSeller"exact component={OrderQueue}/>
         </Switch>
+        
             
         );
         if(this.props.user=='Seller' && this.props.isAuthenticated){
-            // case 'customer':{return}
-            // case 'Seller':{return}
-            // case 'Deliverer':{return}  
             routes=(
                 <Switch>
                     <Route path="/"exact component={Home}/>
                     <Route path="/Signin" exact component={SignIn}/>
                     <Route path="/Profile" exact component={Profile}/>
-                    <Route path="/details" component={Details}/>
+
                     <Route path="/logout" component={Logout}/>
                     <Route path="/LogAsSeller"exact component={OrderQueue}/>
                     <Redirect to="/"/>
@@ -80,8 +79,6 @@ class Blog extends Component{
                     <Route path="/Signin" exact component={SignIn}/>
                     <Route path="/Profile" exact component={Profile}/>
                     <Route path="/map" component={Map}/>
-                    <Route path="/details" component={Details}/>
-                    <Route path="/cart" component={Cart}/>
                     <Route path="/logout" component={Logout}/>
                     <Route path="/LogAsSeller"exact component={OrderQueue}/>
                     <Redirect to="/"/>
@@ -94,13 +91,8 @@ class Blog extends Component{
                     <Route path="/Signin" exact component={SignIn}/>
                     <Route path="/seluser"exact component={BsignUp}/>
                     <Route path="/SignUp" component={Signup}/>
-                    <Route path="/ProductList" exact component={ProductList}/>
-                    <Route path="/Shops"exact component={ShopList}/>
-                    <Route path="/ShopList" exact component={ShopList}/>
                     <Route path="/Profile" exact component={Profile}/>
                     <Route path="/map" component={Map}/>
-                    <Route path="/details" component={Details}/>
-                    <Route path="/cart" component={Cart}/>
                     <Route path="/logout" component={Logout}/>
                     <Route path="/AddProduct" exact component={AddProducts}/>
                     <Redirect to="/"/>
@@ -114,18 +106,13 @@ class Blog extends Component{
                         <Route path="/Signin" exact component={SignIn}/>
                         <Route path="/seluser"exact component={BsignUp}/>
                         <Route path="/SignUp" component={Signup}/>
-                        <Route path="/ProductList" exact component={ProductList}/>
-                        <Route path="/Shops"exact component={ShopList}/>
                         <Route path="/Profile" exact component={Profile}/>
                         <Route path="/map" component={Map}/>
-                        <Route path="/details" component={Details}/>
-                        <Route path="/cart" component={Cart}/>
                         <Route path="/logout" component={Logout}/>
                         <Route path="/LogAsSeller"exact component={OrderQueue}/>
                         <Route path="/AddProduct" exact component={AddProducts}/>
                         
                 </Switch>
-                <Model/>
                 </React.Fragment>
              );
          }
@@ -135,12 +122,11 @@ class Blog extends Component{
                <Firstnav
                     isAuth={this.props.isAuthenticated}
                     userT={this.props.user}/>
-                    <Navbar/>
+                    <ProductProvider {...this.state}>
+                       <Pindex/>
+                    </ProductProvider>
                     {routes}               
                 <Footer/>
-            
-                
-                
             </div>
             
           
@@ -151,7 +137,8 @@ class Blog extends Component{
 const mapStateToProps = state =>{
     return{
         isAuthenticated: state.auth.token!==null,
-        user:state.auth.userType
+        user:state.auth.userType,
+        lng:state.location.latValue
         
     };
 };

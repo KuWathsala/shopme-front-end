@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import {ProductConsumer,ProductProvider} from '../context';
 import {Link} from 'react-router-dom';
 import {ButtonContainer} from './Button';
+import Modal from './Modal';
 class Details extends Component {
     render() {
         return (
-            <ProductProvider>
+            
             <ProductConsumer>
                 {value =>{
                     const{id,company,img,info,price,title,inCart}=
@@ -52,9 +53,12 @@ class Details extends Component {
                                             onClick={()=>{
                                                 value.addToCart(id);
                                                 value.openModal(id);
+                                                console.log("add to cart");
                                             }}>
                                                 {inCart ? "inCart" : "add to cart"}
+                                                
                                             </ButtonContainer>
+                                            
                                         </div>
                                     </div>
                             </div>
@@ -62,7 +66,7 @@ class Details extends Component {
                     )
                 }}
             </ProductConsumer>
-            </ProductProvider>
+           
         );
     }
 }

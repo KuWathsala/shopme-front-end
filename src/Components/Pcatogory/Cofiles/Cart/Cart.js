@@ -9,7 +9,7 @@ class Cart extends Component {
     render() {
         return (
             <section>
-                <ProductProvider>
+                
                 <ProductConsumer>
                     {value =>{
                         const {cart} = value;
@@ -30,7 +30,6 @@ class Cart extends Component {
                     }}
                 </ProductConsumer>
                 
-                </ProductProvider>
             </section>
         );
     }

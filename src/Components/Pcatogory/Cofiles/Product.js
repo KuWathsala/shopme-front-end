@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import styled from "styled-components";
 import {Link} from "react-router-dom";
-import {ProductConsumer} from "../context";
+import {ProductConsumer,ProductProvider} from "../context";
 import PropTypes from "prop-types";
 
 class Product extends Component {
@@ -27,6 +27,7 @@ class Product extends Component {
                        <button className="cart-btn" 
                        disabled={inCart ? true:false}
                        onClick={()=>{
+                           console.log("product clicked");
                            value.addToCart(id);
                            value.openModal(id);
                            }}

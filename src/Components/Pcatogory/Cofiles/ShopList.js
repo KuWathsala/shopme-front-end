@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Shop from './Shop';
 import Title from "./Title";
 import {ProductConsumer,ProductProvider} from '../context';
+import {connect} from 'react-redux';
 
 class ShopList extends Component {
     
@@ -34,5 +35,11 @@ class ShopList extends Component {
         );
     }
 }
+const mapStateToProps=state=>{
+  return{
+    lng:state.location.lngValue,
+    lat:state.location.latValue
+  }
+}
 
-export default ShopList;
+export default connect(mapStateToProps,null)(ShopList);

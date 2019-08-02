@@ -1,30 +1,34 @@
 import React, { Component } from 'react';
 import{storeShopes, detailShop} from '../Pcatogory/ShopData'; 
-import{storeProducts, detailProduct} from '../Pcatogory/data'; 
+import{storeProducts, detailProduct} from '../Pcatogory/data';
+import {connect} from 'react-redux'
 
 
 const ProductContext = React.createContext();
 //Provider
 //Consumer 
 class ProductProvider extends Component {
-   state={
-      
-      
-       shopes:[],
-       detailShop: detailShop,
-       products:[],
-       detailProduct: detailProduct,
-       cart: [],
-       modalOpen:false,
-       modalProduct:detailProduct,
-       cartSubTotal:0,
-       //cartTax:0,
-       cartTotal:0
-      
-   };
+constructor(props){
+    super(props)
+    this.state={
+        shopes:[],
+        detailShop: detailShop,
+        products:[],
+        detailProduct: detailProduct,
+        cart: [],
+        modalOpen:false,
+        modalProduct:detailProduct,
+        cartSubTotal:0,
+        //cartTax:0,
+        cartTotal:0,
+        lng:this.props.lng,
+        lat:'',
+    };
+}
 
    componentDidMount(){
-       console.log("hello")
+       console.log(this.props.lng)
+       console.log(this.state.lng)
        this.setShopes();
        this.setProducts();
    } 
@@ -83,6 +87,7 @@ setProducts = () =>
 
 
 getItem = id =>{
+    
  const product = this.state.products.find(item => item.id===id);
  return product;
 }
@@ -91,6 +96,7 @@ getItem = id =>{
 
 handleDetail =id =>{
     const product = this.getItem(id);
+    
     this.setState(()=>{
         return {detailProduct : product};
     })
