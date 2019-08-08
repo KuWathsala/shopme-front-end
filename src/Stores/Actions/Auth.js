@@ -65,7 +65,7 @@ export const auth=(email,password,firstName,lastName,lat,lng,userType,mobileno,s
             ShopName:shopname,
             AccountNo:accno,
             ShopLocationLatitude:lat,
-            ShopLocationLongtitude:lng,
+            ShopLocationLongitude:lng,
             returnSecureToken: true
         }
 

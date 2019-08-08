@@ -29,9 +29,6 @@ import {ProductProvider} from '../../Components/Pcatogory/context';
 class Blog extends Component{
     constructor(props){
         super(props)
-        this.state={
-            lng:'12223',
-        }
     }
 
 

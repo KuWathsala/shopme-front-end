@@ -5,40 +5,36 @@ import {ProductConsumer} from "../context";
 import PropTypes from "prop-types";
 
 class Shop extends Component {
+    
     render() {
-        const {sid,stitle,simg,}=this.props.shop;
+        const {id,shopName,image,distance}=this.props.shop;
+        console.log("Shop")
+        console.log(id)
         return (
            <ProductWrapper className="col-9 mx-auto col-md-6 col-lg-3 my-3">
                <div className="card">
-
-
                <ProductConsumer>
                    {
                        value=>(
                         <div className="img-container p-5"  
-                        onClick={()=>
-                        value.handleDetail(sid)
+                            onClick={()=>
+                            value.handleDetails(id)
                         }>
                        
-                       <Link to ="/productList">
-                       <img src={simg} alt="product" className="card-img-top"  height="200px" width="200px"/>
-                       </Link> 
-         
-                      
+                        <Link to ="/productList">
+                            <img src={"data:image/jpeg;base64,"+image} alt="product" className="card-img-top"  height="200px" width="200px"/>
+                        </Link> 
                         </div>
                        )
                    }
-                    
-
-           
+        
               </ProductConsumer>
 
                {/* card footer */}
-               <div className="card-footer d-flex justify-content-between">
-               <p className="align-self-center mb-0">
-               {stitle}</p>
-               
-               </div>
+                <div className="card-footer d-flex justify-content-between">
+                    <p className="align-self-center mb-0">{shopName} {id}</p>
+                    <p className="align-self-center mb-0">close to you: {distance}</p>
+                </div>
 
                </div>
            </ProductWrapper>
@@ -48,10 +44,10 @@ class Shop extends Component {
 
 Shop.propTypes ={
 shop:PropTypes.shape({
-        sid:PropTypes.number,
-        simg:PropTypes.string,
-        stitle:PropTypes.string,
-       
+        id:PropTypes.number,
+        shopName:PropTypes.string,
+        image:PropTypes.string,
+        distance:PropTypes.string,
     }).isRequired
 }
 
