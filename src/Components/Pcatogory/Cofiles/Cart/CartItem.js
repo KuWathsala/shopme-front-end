@@ -1,13 +1,14 @@
 import React from 'react';
 
 export default function CartItem({item,value}) {
-  const {id,title,img,price,total,count}=item;
+    console.log("item")
+  const {id,title,image,price,total,count, description}=item;
   const{increment,decrement,removeItem} =value;  
         return (
         <div className="row my-2 text-capitalize text-center">
         <div className="col-10 mx-auto col-lg-2">
         <img
-        src={img}
+        src={"data:image/jpeg;base64,"+image}
         style={{width:"5rem", height :"5rem"}}
         className="img-fluid"
         alt="product"
@@ -16,7 +17,7 @@ export default function CartItem({item,value}) {
 
 <div className="col-10 mx-auto col-lg-2">
 <span className="d-lg-none">product :</span>
-{title}
+{description}
 </div>
 
 <div className="col-10 mx-auto col-lg-2">
@@ -42,13 +43,11 @@ export default function CartItem({item,value}) {
 </div>
 
 <div className="col-10 mx-auto col-lg-2">
-<strong>item total : $ {total}</strong>
+<strong>item total : LKR {total}</strong>
 </div>
 
         </div>
         );
-            
-        
     }
 
 

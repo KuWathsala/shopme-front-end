@@ -10,10 +10,10 @@ import axios from 'axios';
 class OrderItems extends Component{
 
 finishOrderHandeler=()=>{
-        axios.delete('')
-                .then(response=>{
-                    console.log(response);
-                });
+    axios.delete('')
+    .then(response=>{
+        console.log(response);
+    });
 };
 
 render(){
