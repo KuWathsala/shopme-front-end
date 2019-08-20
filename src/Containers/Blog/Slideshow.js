@@ -1,6 +1,5 @@
 import SwiftSlider from 'react-swift-slider'
 import React, { Component } from 'react';
-import './Blog.css';
 
 const img=[
     {'id':"1",'src':"/image/img1.jpg"},
@@ -16,7 +15,7 @@ const img=[
 class Image extends Component{
     render(){
         return(
-            <div className="slide">
+            <div style={{height:'100%',width:'100%',paddingBottom:50,marginTop:'5%'}}>
                 <SwiftSlider data={img} height={460}/>
             </div>
         );

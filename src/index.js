@@ -4,14 +4,13 @@ import {BrowserRouter} from 'react-router-dom'
 import { createStore,compose,applyMiddleware,combineReducers} from 'redux';
 import { Provider} from 'react-redux'
 import thunk from 'redux-thunk';
+import {reducer as formReducer} from 'redux-form';
 
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import locationReducer from './Stores/Reducers/Location';
 import authReducer from './Stores/Reducers/Auth';
-
-import {ProductProvider} from './Components/Pcatogory/context' 
 
 const logger=store=>{
     return next=>{
@@ -28,7 +27,8 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer=combineReducers({
     auth:authReducer,
-    location:locationReducer
+    location:locationReducer,
+    form:formReducer
 });
 
 const store=createStore(rootReducer,composeEnhancers(applyMiddleware(logger,thunk)));

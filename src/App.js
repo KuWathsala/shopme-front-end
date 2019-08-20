@@ -13,12 +13,12 @@ class App extends Component {
   }
 
   render() {
-    return ( 
-      <BrowserRouter>
-        <div> 
+    return (
+
+        <BrowserRouter>
           <Blog/>
-        </div>
-      </BrowserRouter>
+        </BrowserRouter>  
+
     );
   }
 }

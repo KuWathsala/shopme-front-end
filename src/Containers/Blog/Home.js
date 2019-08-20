@@ -1,5 +1,4 @@
 import React from 'react';
-import './Blog.css';
 import Secondtab from './secondtab';
 import Slideshow from '../Blog/Slideshow';
 

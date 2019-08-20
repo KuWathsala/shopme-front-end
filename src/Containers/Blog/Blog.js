@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 
-import './Blog.css';
 import Footer from './Footer';
 import Firstnav from './firstnav';
 import { Route,Switch,Redirect} from 'react-router-dom';

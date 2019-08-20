@@ -1,6 +1,5 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-//import './Blog.css';
 import './footer.css'
 import playstore from '../../Assets/playstore.png';
 import applestore from '../../Assets/applestore.png';
@@ -78,8 +77,11 @@ const footer =() =>{
 <div className="thumb-content"><a href="#.">Lifestyle</a></div>	
 </li>
 <li>
-<div className="thumb-content"><a href="#.">About</a></div>	
+<Link to='/about'><div className="thumb-content"><a>About</a></div>	</Link>
 </li>
+ {/*!this.props.isAuth ? <Link to='/Signin'><div className="thumb-content"><a>Sign In</a></div></Link>
+// :<Link to='/logout'><div className="thumb-content"><a>Log Out</a></div></Link>*/}
+
 </ul>
 </div>
 </div>
@@ -87,8 +89,8 @@ const footer =() =>{
 <div className="col-xs-12 col-sm-6 col-md-3">
 <div className="widget no-box">
 <h5 className="widget-title">Get Registered<span></span></h5>
-<p>Become a Delivery partner of ShopMe .</p>
-<a className="btn" href="#." target="_blank">Register Now</a>
+<p>Become a registered Shop partner of ShopMe .</p>
+<Link to='/selUser'><a className="btn" href="#." target="_blank">Register Now</a></Link>
 </div>
 </div>
 
