@@ -30,7 +30,6 @@ export default class Firstnav extends React.Component {
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Home</a>
     </div>
 
     <div className={"collapse navbar-collapse " + show}>

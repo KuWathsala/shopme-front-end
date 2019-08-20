@@ -5,7 +5,7 @@ import "./Signup.css";
 import {connect} from 'react-redux';
 import * as actions from '../../Stores/Actions/Index';
 import { Field, reduxForm } from 'redux-form';
-//import submit from './submit';
+import submit from './submit';
 import { relative } from "path";
 
 const renderField = ({ input,label,type,click,value,meta: { touched, error, warning }}) => (
@@ -23,29 +23,6 @@ const renderField = ({ input,label,type,click,value,meta: { touched, error, warn
   const isValidEmail=value=> value && !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i.test(value) ? 'Invalid email address':undefined;
   const isValidPassword=value=> value && !/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i.test(value) ? 'Password must contain UPPERCASE lowercase and numbers':undefined;
   const passwordMatch=(value,allValues)=> value!==allValues.Password ? 'Passwords do not Match':undefined;
-  
-  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
-
-  function submit(values) {
-    return sleep(1000).then(() => {
-      // simulate server latency
-      // if (!['john', 'paul', 'george', 'ringo'].includes(values.username)) {
-      //   throw new SubmissionError({
-      //     username: 'User does not exist',
-      //     _error: 'Login failed!'
-      //   })
-      // } else if (values.password !== 'redux-form') {
-      //   throw new SubmissionError({
-      //     password: 'Wrong password',
-      //     _error: 'Login failed!'
-      //   })
-      // } else {
-        window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`)
-        console.log(values);
-   
-         }     ) 
-  }
-  
 
 class Signup extends Component{
     constructor(props){

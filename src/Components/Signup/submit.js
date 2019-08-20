@@ -1,4 +1,5 @@
-import { SubmissionError } from 'redux-form'
+import { SubmissionError } from 'redux-form';
+import axios from 'axios';
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
@@ -19,7 +20,7 @@ function submit(values) {
       window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`)
       console.log(values);
  
-       }     ) 
+       }) 
 }
 
 export default submit;
