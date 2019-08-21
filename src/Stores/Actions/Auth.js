@@ -38,56 +38,56 @@ export const checkAuthTImeout=(expirationTime)=>{
 };
 };
 
-export const auth=(email,password,firstName,lastName,lat,lng,userType,mobileno,shopname,accno,vhno,vehicle)=>{
-    console.log(email,password)
+export const auth=(authData)=>{
+    console.log(authData)
     return dispatch=>{
         dispatch(authStart());
-        const authCust={
-            LoginVM:{
-                Email:email,
-                Password:password,
-                Role:userType
-            },
-            FirstName:firstName,
-            LastName:lastName,
-            MobileNumber:mobileno,
-            returnSecureToken: true
-        };
+        // const authCust={
+        //     LoginVM:{
+        //         Email:email,
+        //         Password:password,
+        //         Role:userType
+        //     },
+        //     FirstName:firstName,
+        //     LastName:lastName,
+        //     MobileNumber:mobileno,
+        //     returnSecureToken: true
+        // };
 
-        const authSeller={
-            LoginVM:{
-                Email:email,
-                Password:password,
-                Role:userType
-            },
-            FirstName:firstName,
-            LastName:lastName,
-            MobileNumber:mobileno,
-            ShopName:shopname,
-            AccountNo:accno,
-            ShopLocationLatitude:lat,
-            ShopLocationLongitude:lng,
-            returnSecureToken: true
-        }
+        // const authSeller={
+        //     LoginVM:{
+        //         Email:email,
+        //         Password:password,
+        //         Role:userType
+        //     },
+        //     FirstName:firstName,
+        //     LastName:lastName,
+        //     MobileNumber:mobileno,
+        //     ShopName:shopname,
+        //     AccountNo:accno,
+        //     ShopLocationLatitude:lat,
+        //     ShopLocationLongitude:lng,
+        //     returnSecureToken: true
+        // }
 
-        const authDeliver={
-            LoginVM:{
-                Email:email,
-                Password:password,
-                Role:userType
-            },
-            FirstName:firstName,
-            LastName:lastName,
-            MobileNumber:mobileno,
-            VehicleNo:vhno,
-            VehicleType:vehicle,
-        }
-        console.log(userType);
+        // const authDeliver={
+        //     LoginVM:{
+        //         Email:email,
+        //         Password:password,
+        //         Role:userType
+        //     },
+        //     FirstName:firstName,
+        //     LastName:lastName,
+        //     MobileNumber:mobileno,
+        //     VehicleNo:vhno,
+        //     VehicleType:vehicle,
+        // }
+        console.log("auth : ",authData);
         let url='';
-        if(userType=='Customer'){
+        if(authData.Role=='Customer'){
             console.log("workss");
             url='https://localhost:5001/api/UserAuth/Signup-Customer';
-            axios.post(url,authCust)
+            axios.post(url,authData)
                 .then(response=>{
             console.log(response);
             dispatch(authSuccess(response.data.token,response.data.id));
@@ -97,9 +97,9 @@ export const auth=(email,password,firstName,lastName,lat,lng,userType,mobileno,s
             console.log(err);
             dispatch(authFail(err));
         });
-        }else if(userType=='Seller'){
+        }else if(authData.Role=='Seller'){
             url='https://localhost:5001/api/UserAuth/Signup-Seller';
-            axios.post(url,authSeller)
+            axios.post(url,authData)
                 .then(response=>{
             console.log(response);
             dispatch(authSuccess(response.data.token,response.data.id));
@@ -109,9 +109,9 @@ export const auth=(email,password,firstName,lastName,lat,lng,userType,mobileno,s
             console.log(err);
             dispatch(authFail(err));
         });
-        }else if(userType=='Deliverer'){
+        }else if(authData.Role=='Deliverer'){
             url='https://localhost:5001/api/UserAuth/Signup-Deliverer';
-            axios.post(url,authDeliver)
+            axios.post(url,authData)
                 .then(response=>{
             console.log(response);
             dispatch(authSuccess(response.data.token,response.data.id));
@@ -125,17 +125,11 @@ export const auth=(email,password,firstName,lastName,lat,lng,userType,mobileno,s
     }
 };
 
-export const authVerify=(email,password,isSignInUp)=>{
+export const authVerify=(authData)=>{
     return dispatch=>{
         dispatch(authStart());
-        const authVerifyData={
-            email:email,
-            password:password,
-            returnSecureToken: true
-        };
-        
         let url='https://localhost:5001/api/UserAuth/signin';
-        axios.post(url,authVerifyData)
+        axios.post(url,authData)
         .then(response=>{
             console.log(response);
             const expirationDate=new Date(new Date().getTime()+response.data.expiresIn*1000);

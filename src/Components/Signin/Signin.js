@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import * as actions from '../../Stores/Actions/Index';
 import {Redirect} from 'react-router-dom';
+import { Field, reduxForm } from 'redux-form';
 import axios from 'axios';
+import {store} from '../../index'
 
 import "../Signup/Signup.css";
 import { FacebookLoginButton, GoogleLoginButton } from "react-social-login-buttons";
@@ -10,80 +12,35 @@ import FacebookSignin from "./FacebookSignin.js";
 import GoogleSignin from "./GoogleSignin.js";
 import Spinner from '../../Containers/Spinner/Spinner'
 
+const renderField = ({ input,label,type,click,value,meta: { touched, error, warning }}) => (
+  <div className='row' style={{marginBottom:10,display:'flex'}}>
+      <div className='col' style={{}}><label style={{color:'#ffff',fontWeight:'bold',columnWidth:120,paddingLeft:30}}>{label}</label></div>
+      <div className='col col-xs-7 col-sm-7 col-lg-7' >
+          <input {...input} placeholder={label} type={type} value={value} onclick={click} style={{alignSelf:'center',width:200}}/>
+        {touched && ((error && <span style={{color:'red',backgroundColor:'white',fontWeight:'bold'}}>{error}</span>) ||(warning && <span>{warning}</span>))}
+      </div>
+  </div>
+)
+const required=value=> value ? undefined:'Required';
+const isValidEmail=value=> value && !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i.test(value) ? 'Invalid email address':undefined;
 
-const emailRegex=RegExp(/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i);
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
-const formValid=({formErrors,...rest})=>{
-    let valid=true;
-    Object.values(formErrors).forEach(val=>{
-        val.length>0 &&(valid=false)
-    });
-
-    Object.values(rest).forEach(val=>{
-        val=null && (valid=false);
-    });
-
-    return valid;
+const submit=(values)=> {
+  return sleep(1000).then(() => {
+      let authData
+      authData={...values,returnSecureToken: true}
+      console.log(authData)
+     store.dispatch(actions.authVerify(authData));
+      window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`)
+      }) 
 }
 
 class SignIn extends Component{
   constructor(props){
-    super(props);
-    this.state={
-      email:null,
-      password:null,
-      formErrors:{
-        email:'',
-        password:''
-      }
-    }
-  }
+    super(props);}
 
-  handleChange=e=>{
-    e.preventDefault();
-    const{name,value}=e.target;
-    let formErrors=this.state.formErrors;
-
-    switch(name){
-        case "email":
-        formErrors.email=
-        emailRegex.test(value) 
-        ?"":"Invalid email address";
-        break;
-
-        case "password":
-        formErrors.password=
-        value.length<1
-        ?"required":"";
-        break;
-         
-        default:
-        break;
-    }
-    this.setState({formErrors,[name]:value},()=>console.log(this.state));
-};
-
- /* handleSubmit= e=>{
-    e.preventDefault();
-    alert("process");
-    axios.post('https://localhost:44337/api/users/create')
-    .then(response=>{
-        console.log(response);
-        this.props.history.push("/");
-    })
-    .catch(error=>{
-      console.log(error);
-    });
-    alert("Success");
-};*/
-
-SubmitHandeler= (event)=>{
-    event.preventDefault();
-    this.props.onAuth(this.state.email,this.state.password);
-};
-
-
-  render(){
+render(){
 
     let authRedirect=null;
     if(this.props.isAuthenticated){
@@ -94,51 +51,49 @@ SubmitHandeler= (event)=>{
     if(this.props.loading){
       fomm=<Spinner/>
     }
-
-    const {formErrors}=this.state;
-      return(
+    const {handleSubmit, pristine, reset, submitting}=this.props;
+    return(
         
         <div className="wrapper">
-        <div className="form-wrapper">
+        <div style={{
+                alignSelf:'center',
+                justifyContent:'center',
+                flex:1,
+                backgroundColor:'rgb(73, 71, 71)',
+                margin: '10px',
+                width: '400px',
+                display: 'flex',
+                flexDirection: 'column',
+                /* border-radius: 10px; */
+                boxShadow: '0px 10px 50px #555',
+                opacity: 0.6,
+                filter: 'alpha(opacity=60)', 
+                flexWrap:'wrap',}}>
         {authRedirect}
         {fomm}
-          <h3>Welcome Back, Sign in</h3><br/>
-          <form className="pure-form" name="signin" onSubmit={this.SubmitHandeler}>
-
-            <div className="email">
-              <label htmlFor="email" className="col-form-label">Email</label>
-              <input
-                type="email" 
-                className={formErrors.email.length>0?"error":null}
-                placeholder="Email" 
-
-                name="email"
-                noValidate
-                onChange={this.handleChange}
-              />
-
-              {formErrors.email.length>0 &&(
-                  <span className="errorMessage">{formErrors.email}</span>
-              )}
-            </div>
+          <h3 style={{alignSelf:'center',fontWeight:'bold',color:'white'}}>Welcome Back, Sign in</h3><br/>
+          <form onSubmit={handleSubmit(submit)}>
+                <Field
+                    name="Email"
+                    type="text"
+                    component={renderField}
+                    label="Email"
+                    click={null}
+                    value={null}
+                    validate={[required,isValidEmail]}
+                />
                 
-            <div className="password">
-              <label htmlFor="password" className="col-form-label">Password</label>
-              <input
-                  type="password" 
-                  className={formErrors.password.length>0?"error":null}
-                  placeholder="Password" 
-
-                  name="password"
-                  noValidate
-                  onChange={this.handleChange}
-              />
-              {formErrors.password.length>0 &&(
-                  <span className="errorMessage">{formErrors.password}</span>
-              )}
-            </div>             
+                <Field
+                    name="Password"
+                    type="password"
+                    component={renderField}
+                    label="Password"
+                    click={null}
+                    value={null}
+                    validate={[required]}
+                />             
               
-            <button variant="outline-primary" type="submit" className="col-md-12 btn btn-primary btn-lg" style={{marginTop: 30}}>Sign in</button>
+            <button variant="outline-primary" type="submit" className="col-md-12 btn btn-primary btn-lg" disabled={submitting} style={{marginTop: 30}}>Sign in</button>
           </form>
           <div className="col-lg-12  row " style={{marginTop: 40}} >
             <div style={{marginLeft: 10}}><FacebookSignin /></div>
@@ -146,7 +101,7 @@ SubmitHandeler= (event)=>{
           </div>
 
           <div class="text-center createAccount">
-              <label className="col-form-label">New to <b>shopMe?</b></label><a href="/BsignUp"> Create an account</a>
+              <label className="col-form-label" style={{alignSelf:'center',fontWeight:'bold',color:'white'}}>New to <b>shopMe?</b></label><a href="/BsignUp"> Create an account</a>
           </div>
             </div>
           </div>
@@ -160,9 +115,6 @@ const mapStateToProps=state=>{
     loading:state.auth.loading
   }
 }
-const mapDispatchToProps=dispatch=>{
-  return{
-      onAuth:(email,password)=>dispatch(actions.authVerify(email,password))
-  };
-}
-export default connect(mapStateToProps,mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps,null)(reduxForm({
+  form: 'SignIn',
+})(SignIn))

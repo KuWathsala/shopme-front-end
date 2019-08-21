@@ -19,31 +19,12 @@ const renderField = ({ input,label,type,click,value,meta: { touched, error, warn
     </div>
   )
 
-  const renderFieldformap = ({ input,label,type,onclick,value,meta: { touched, error, warning }}) => (
-    <div className='row' style={{marginBottom:10,display:'flex'}}>
-        <div className='col' style={{}}><label style={{color:'#ffff',fontWeight:'bold',columnWidth:120,paddingLeft:30}}>{label}</label></div>
-        <div className='col col-xs-7 col-sm-7 col-lg-7' >
-            <input {...input} placeholder={label} type={type} value={value} onclick={onclick} style={{alignSelf:'center',marginLeft:relative,width:200}}/>
-          {touched && ((error && <span style={{color:'red',backgroundColor:'white',fontWeight:'bold'}}>{error}</span>) ||(warning && <span>{warning}</span>))}
-        </div>
-    </div>
-  )
-
-
-//   const vehicles = [
-//     { label: "Motor Bicycle", value: "motorbicyle" },
-//     { label: "Three wheel", value: "threewheel" },
-//   ];
-
-//   const renderSelectOptions = () => (
-//     <Select options={ vehicles } value={vehicles}/>
-//   )
-
 
   const required=value=> value ? undefined:'Required';
   const isValidEmail=value=> value && !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i.test(value) ? 'Invalid email address':undefined;
-  const isValidPassword=value=> value && !/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/i.test(value) ? 'Password must contain UPPERCASE lowercase and numbers':undefined;
+  const isValidPassword=value=> value && !/^(?=.{10,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*$/i.test(value) ? 'Required UPPERCASE, lowercase, digit, symbol and minimum 10 characters ':undefined;
   const passwordMatch=(value,allValues)=> value!==allValues.Password ? 'Passwords do not Match':undefined;
+  const isMobile=(value)=> value && !/^[0-9]{10}$/i.test(value) ? "Invalid mobile number":undefined;
 
 class Signup extends Component{
     constructor(props){
@@ -56,6 +37,7 @@ class Signup extends Component{
     
 
 render() {
+    const vehicles = ["Motor Bicycle", "Three Wheel"];
     const {handleSubmit, pristine, reset, submitting}=this.props;
     
 return(
@@ -113,6 +95,20 @@ return(
                     value={null}
                     validate={[required]}
                 />
+                <Field
+                    name="Address"
+                    type="text"
+                    component={renderField}
+                    label="Address"
+                    click={null}
+                    value={null}
+                    validate={[required]}
+                />
+                {/* <Field name = "eventLocation"
+                    values="gghhgghh"
+                    component = {renderLatLng}
+                     /> */}
+
                 {/* <p>{this.props.Address}</p> */}
             </div>
                 :null}
@@ -128,13 +124,21 @@ return(
                     value={null}
                     validate={[required]}
                 />
-                {/* <Field
-                    name="VehicleType"
-                    // component="select"
-                    label="VehicleType"
-                    component={renderSelectOptions}
-                    /> */}
-                    </div> :null}
+                <div className='row' style={{marginBottom:10,display:'flex'}}>
+                <label style={{color:'#ffff',fontWeight:'bold',columnWidth:140,paddingLeft:30}}>Vehicle Type</label>
+                <div>
+                <Field name="VehicleType" component="select" style={{alignSelf:'center',marginLeft:relative,height:37,width:200}}>
+                <option value="">Select a vehicle...</option>
+                    {vehicles.map(Option => (
+                        <option value={Option} key={Option}>
+                    {Option}
+                </option>
+                        
+                    ))}
+                </Field>
+                </div>
+                </div>
+                </div> :null}
         
                 <Field
                     name="MobileNo"
@@ -143,7 +147,7 @@ return(
                     label="Mobile No"
                     click={null}
                     value={null}
-                    validate={[required]}
+                    validate={[required,isMobile]}
                 />
 
                 <Field
@@ -179,13 +183,7 @@ return(
             <div><Link to="/Signin"><small>Already have an Account</small></Link></div>
         </div>   
     </form>
-    
-    
 </div>
-
-
-
-
 </div>
 );
 };
@@ -202,10 +200,5 @@ const mapStateToProps=state=>{
   }
 
   export default withRouter(connect(mapStateToProps,null)(reduxForm({
-    form: 'SignUp', // a unique identifier for this form
-   // validate, // <--- validation function given to redux-form
-    // <--- warning function given to redux-form
+    form: 'SignUp',
   })(Signup)))
-
-
-/*export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Signup));*/
