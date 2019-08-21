@@ -1,9 +1,9 @@
 import { SubmissionError } from 'redux-form';
-import axios from 'axios';
+import * as actions from '../../Stores/Actions/Index';
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
-function submit(values) {
+const submit=(values)=> {
   return sleep(1000).then(() => {
     // simulate server latency
     // if (!['john', 'paul', 'george', 'ringo'].includes(values.username)) {
@@ -17,8 +17,10 @@ function submit(values) {
     //     _error: 'Login failed!'
     //   })
     // } else {
+      actions.auth(values.Email,values.Password);
       window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`)
       console.log(values);
+      
  
        }) 
 }

@@ -31,7 +31,7 @@ const rootReducer=combineReducers({
     form:formReducer
 });
 
-const store=createStore(rootReducer,composeEnhancers(applyMiddleware(logger,thunk)));
+export const store=createStore(rootReducer,composeEnhancers(applyMiddleware(logger,thunk)));
 
 ReactDOM.render(<Provider store={store}><BrowserRouter><App /></BrowserRouter></Provider>, document.getElementById('root'));
 

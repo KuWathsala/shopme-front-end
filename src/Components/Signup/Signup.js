@@ -7,6 +7,7 @@ import * as actions from '../../Stores/Actions/Index';
 import { Field, reduxForm } from 'redux-form';
 import submit from './submit';
 import { relative } from "path";
+import map from '../map/Map'
 
 const renderField = ({ input,label,type,click,value,meta: { touched, error, warning }}) => (
     <div className='row' style={{marginBottom:10,display:'flex'}}>
@@ -18,6 +19,26 @@ const renderField = ({ input,label,type,click,value,meta: { touched, error, warn
     </div>
   )
 
+  const renderFieldformap = ({ input,label,type,onclick,value,meta: { touched, error, warning }}) => (
+    <div className='row' style={{marginBottom:10,display:'flex'}}>
+        <div className='col' style={{}}><label style={{color:'#ffff',fontWeight:'bold',columnWidth:120,paddingLeft:30}}>{label}</label></div>
+        <div className='col col-xs-7 col-sm-7 col-lg-7' >
+            <input {...input} placeholder={label} type={type} value={value} onclick={onclick} style={{alignSelf:'center',marginLeft:relative,width:200}}/>
+          {touched && ((error && <span style={{color:'red',backgroundColor:'white',fontWeight:'bold'}}>{error}</span>) ||(warning && <span>{warning}</span>))}
+        </div>
+    </div>
+  )
+
+
+//   const vehicles = [
+//     { label: "Motor Bicycle", value: "motorbicyle" },
+//     { label: "Three wheel", value: "threewheel" },
+//   ];
+
+//   const renderSelectOptions = () => (
+//     <Select options={ vehicles } value={vehicles}/>
+//   )
+
 
   const required=value=> value ? undefined:'Required';
   const isValidEmail=value=> value && !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i.test(value) ? 'Invalid email address':undefined;
@@ -28,23 +49,29 @@ class Signup extends Component{
     constructor(props){
         super(props);}
 
-        setLocation=()=>{
-           // this.setState({isLocationSet:true})
-            this.props.history.push('/map');  
-        }
-        
+ setLocation=()=>{
+    // this.setState({isLocationSet:true})
+    this.props.history.push('/map');  
+}
     
 
 render() {
     const {handleSubmit, pristine, reset, submitting}=this.props;
-    const vehicles = [
-        { label: "Motor Bicycle", value: "motorbicyle" },
-        { label: "Three wheel", value: "threewheel" },
-      ];
+    
 return(
 <div className="wrapper">
-    <div className="form">
+    <div className="wrapForm">
     <h1 style={{fontWeight:'bold' ,color:'white'}}>Create Account</h1>
+    <div>
+    {
+    this.props.usertype=="Seller" ? 
+        <div className='col col-md-12'>
+            <input type="text" placeholder="Click to setup shop location" className='form-control 'onClick={this.setLocation} value={this.props.Address}/>
+            <i class="glyphicon glyphicon-map-marker form-control-feedback"></i>
+        </div>
+     :null
+}
+    </div>
     <form onSubmit={handleSubmit(submit)}>
         <Field
             name="FirstName"
@@ -86,7 +113,9 @@ return(
                     value={null}
                     validate={[required]}
                 />
-                </div>:null}
+                {/* <p>{this.props.Address}</p> */}
+            </div>
+                :null}
 
         {this.props.usertype=="Deliverer" ?
             <div>
@@ -99,7 +128,13 @@ return(
                     value={null}
                     validate={[required]}
                 />
-                <Select options={ vehicles } /></div> :null}
+                {/* <Field
+                    name="VehicleType"
+                    // component="select"
+                    label="VehicleType"
+                    component={renderSelectOptions}
+                    /> */}
+                    </div> :null}
         
                 <Field
                     name="MobileNo"
@@ -139,35 +174,18 @@ return(
                     value={null}
                     validate={[required,passwordMatch]}
                 />
-
-        {
-            this.props.usertype=="Seller" ? 
-            // <div onclick={this.setLocation}>
-            //      <div style={{}}>
-            //     <button type="default" onClick={this.setLocation}>Set location</button>
-            //     </div> 
-                <Field
-                    name="Location"
-                    type="text"
-                    component={renderField}
-                    label="Shop Location"
-                    click={this.setLocation} 
-                    value={this.props.Address}
-                    validate={[required]}
-                />
-
-                // <div className='col col-md-12'>
-                //     <input type="text" placeholder="Click to setup shop location" className='form-control 'onClick={this.setLocation} value={this.props.Address}/>
-                //     <i class="glyphicon glyphicon-map-marker form-control-feedback"></i>
-                // </div>
-                 :null
-        }
          <div style={{alignContent:'center',marginLeft:'30%'}}>
             <button type="submit" className="btn btn-default" disabled={submitting}>SUBMIT</button>
             <div><Link to="/Signin"><small>Already have an Account</small></Link></div>
         </div>   
     </form>
+    
+    
 </div>
+
+
+
+
 </div>
 );
 };
@@ -182,12 +200,6 @@ const mapStateToProps=state=>{
       lat:state.location.latValue
     }
   }
-
-  const mapDispatchToProps=dispatch=>{
-    return{
-        onAuth:(email,password,firstName,lastName,lat,lng,userType,mobileno,shopname,accno,vhno,vehicle)=>dispatch(actions.auth(email,password,firstName,lastName,lat,lng,userType,mobileno,shopname,accno,vhno,vehicle))
-    };
-}
 
   export default withRouter(connect(mapStateToProps,null)(reduxForm({
     form: 'SignUp', // a unique identifier for this form

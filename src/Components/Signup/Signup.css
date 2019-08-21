@@ -148,7 +148,7 @@ input.error {
     background: url(../../Assets/img2.jpg);
 }
 
-.form{
+.wrapForm{
     align-self:flex-end;
     justify-content: center;
     flex:1;

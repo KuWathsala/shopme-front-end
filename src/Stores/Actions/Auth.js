@@ -39,6 +39,7 @@ export const checkAuthTImeout=(expirationTime)=>{
 };
 
 export const auth=(email,password,firstName,lastName,lat,lng,userType,mobileno,shopname,accno,vhno,vehicle)=>{
+    console.log(email,password)
     return dispatch=>{
         dispatch(authStart());
         const authCust={
