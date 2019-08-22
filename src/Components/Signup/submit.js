@@ -24,7 +24,50 @@ const submit=(values)=> {
       const role=store.getState().auth.userType;
       console.log(store.getState().auth.userType)
       let authData
-      store.getState().auth.userType=="Seller" ? authData={...values,ShopLocationLatitude:latitude,ShopLocationLongitude:longitude,Role:role}:authData={...values,Role:role}
+      if(role=="Seller")
+        authData={
+          LoginVM:{
+            Email:values.Email,
+            Password:values.Password,
+            Role:role
+          },
+          FirstName:values.FirstName,
+          LastName:values.LastName,
+          MobileNumber:values.MobileNumber,
+          ShopName:values.ShopName,
+          AccountNo:values.AccountNo,
+          ShopLocationLatitude:latitude,
+          ShopLocationLongtitude:longitude,
+          ShopAddress:values.Address,
+          returnSecureToken: true,
+            }
+      else if(role=="Deliverer")
+        authData={
+          LoginVM:{
+            Email:values.Email,
+            Password:values.Password,
+            Role:role
+          },
+          FirstName:values.FirstName,
+          LastName:values.LastName,
+          MobileNumber:values.MobileNumber,
+          VehicleNo:values.VehicleNo,
+          VehicleType:values.VehicleType,
+          returnSecureToken: true,
+        }
+      else if(role=="Customer")
+        authData={
+          LoginVM:{
+            Email:values.Email,
+            Password:values.Password,
+            Role:role
+          },
+          FirstName:values.FirstName,
+          LastName:values.LastName,
+          MobileNumber:values.MobileNumber,
+          returnSecureToken: true,
+        }
+          
       console.log(authData)
       store.dispatch(actions.auth(authData));
       //actions.auth(authData);

@@ -7,10 +7,11 @@ export const authStart=()=>{
     };
 };
 
-export const authSuccess=(token,userId)=>{
+export const authSuccess=(token,userId,role)=>{
     return{
         type:ActionTypes.AUTH_SUCCESS,
         idToken:token,
+        userType:role,
         userId:userId
     };
 };
@@ -84,8 +85,8 @@ export const auth=(authData)=>{
         // }
         console.log("auth : ",authData);
         let url='';
-        if(authData.Role=='Customer'){
-            console.log("workss");
+        if(authData.LoginVM.Role=='Customer'){
+            console.log("customer");
             url='https://localhost:5001/api/UserAuth/Signup-Customer';
             axios.post(url,authData)
                 .then(response=>{
@@ -97,19 +98,21 @@ export const auth=(authData)=>{
             console.log(err);
             dispatch(authFail(err));
         });
-        }else if(authData.Role=='Seller'){
+        }else if(authData.LoginVM.Role=='Seller'){
+            console.log("seller");
             url='https://localhost:5001/api/UserAuth/Signup-Seller';
             axios.post(url,authData)
                 .then(response=>{
             console.log(response);
-            dispatch(authSuccess(response.data.token,response.data.id));
+            dispatch(authSuccess(response.data.data.token,response.data.data.id));
             dispatch(checkAuthTImeout(3600/*response.data.expiresIn*/));
         })
         .catch(err=>{
             console.log(err);
             dispatch(authFail(err));
         });
-        }else if(authData.Role=='Deliverer'){
+        }else if(authData.LoginVM.Role=='Deliverer'){
+            console.log("deliverer  ");
             url='https://localhost:5001/api/UserAuth/Signup-Deliverer';
             axios.post(url,authData)
                 .then(response=>{
@@ -136,7 +139,7 @@ export const authVerify=(authData)=>{
             localStorage.setItem('token',response.data.token);
             localStorage.setItem('expirationDate',expirationDate);
             localStorage.setItem('userId',response.data.localId);
-            dispatch(authSuccess(response.data.token,response.data.id));
+            dispatch(authSuccess(response.data.data.token,response.data.data.id,response.data.role));
             dispatch(checkAuthTImeout(3600/*response.data.expiresIn*/));
         })
         .catch(err=>{

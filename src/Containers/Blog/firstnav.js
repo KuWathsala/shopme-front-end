@@ -1,8 +1,9 @@
 import React from 'react';
 import {withRouter,Link} from 'react-router-dom';
+import {connect} from 'react-redux';
 import  '../../bootstrap-3.3.7-dist/css/bootstrap.min.css';
 
-export default class Firstnav extends React.Component {
+class Firstnav extends React.Component {
 
   constructor(props) {
     super(props);
@@ -21,8 +22,8 @@ export default class Firstnav extends React.Component {
   const show = (this.state.menu) ? "show" : "" ;
 
   return (
-    <nav class="navbar navbar-default">
-  <div class="container-fluid">
+    <nav class="navbar navbar-default" style={{backgroundColor:'#fff',borderColor:'#fff',}}>
+  <div class="container-fluid" style={{fontSize:15,fontWeight:'bold'}}>
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"  onClick={ this.toggleMenu } data-target="#bs-example-navbar-collapse-1">
         <span class="sr-only">Toggle navigation</span>
@@ -34,21 +35,16 @@ export default class Firstnav extends React.Component {
 
     <div className={"collapse navbar-collapse " + show}>
       
-      <ul class="nav navbar-nav">
-        <li className="active"><a><Link to='/'><span class="glyphicon glyphicon-home">Home</span></Link></a></li>
-                
-            {!this.props.isAuth ?<li><a><Link to='/seluser'>Register</Link></a></li>:null}
-
-          <li><a><Link to='/'>Help</Link></a></li>
-          <li><a><Link to='/'>Notfication</Link></a></li>
-          
-          {!this.props.isAuth ? <li><a><Link to='/Signin'>Hi, Sign In</Link></a></li>
-                          :<li><a><Link to='/logout'>Logout</Link></a></li>}
-          {this.props.userT=="Seller" && this.props.isAuth ? 
-                  <div><li><a><Link to='/'>Add Products</Link></a></li>
-                        <li><a><Link to='/'>Inventory</Link></a></li>
-                  </div>
-            :null}
+      <ul class="nav navbar-nav" style={{color:'red'}}>
+        <li className="active" style={{color:'red',}}><Link to='/'><span class="glyphicon glyphicon-home">Home</span></Link></li>
+        {!this.props.isAuth ?<li><Link to='/seluser'>Register</Link></li>:null}
+        <li><Link to='/'>Help</Link></li>
+        <li><Link to='/'>Notfication</Link></li>
+        {!this.props.isAuth ? <li><Link to='/Signin'>Hi, Sign In</Link></li>:<li><Link to='/logout'>Logout</Link></li>}
+        {this.props.userType=="Seller" && this.props.isAuth ? <li><Link to='/'>Add Products</Link></li>:null}
+        {this.props.userType=="Seller" && this.props.isAuth ? <li><Link to='/'>Inventory</Link></li>:null}
+        <li><Link to='/Profile'><span class="glyphicon glyphicon-user"></span></Link></li>
+        <li><Link to='/Cart'><span class="glyphicon glyphicon-shopping-cart"></span></Link></li>
       </ul>
     </div>
   </div>
@@ -56,7 +52,17 @@ export default class Firstnav extends React.Component {
   );
   }
 }
+const mapStateToProps=state=>{
+  return{
+    userType:state.auth.userType,
+    Address:state.location.address,
+    lng:state.location.lngValue,
+    lat:state.location.latValue,
+    isAuth:state.auth.token!==null
+  }
+}
 
+export default connect(mapStateToProps,null)(Firstnav)
 
 /**
  *import React, { Component } from "react";
@@ -82,16 +88,16 @@ export default class firstnav extends Component {
   return (
 
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <a className="navbar-brand" href="/">Navbar</a>
+      <a className="navbar-brand" href="/">Navbar
       <button className="navbar-toggler" type="button" onClick={ this.toggleMenu }>
         <span className="navbar-toggler-icon"></span>
       </button>
       <div className={"collapse navbar-collapse " + show}>
         <div className="navbar-nav">
-          <a className="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span></a>
-          <a className="nav-item nav-link" href="/">Features</a>
-          <a className="nav-item nav-link" href="/">Pricing</a>
-          <a className="nav-item nav-link" href="/">logout</a>
+          <a className="nav-item nav-link active" href="/">Home <span class="sr-only">(current)</span>
+          <a className="nav-item nav-link" href="/">Features
+          <a className="nav-item nav-link" href="/">Pricing
+          <a className="nav-item nav-link" href="/">logout
         </div>
       </div>
     </nav>
