@@ -8,8 +8,8 @@ class Product extends Component {
     render() {
         const {id,name,image,unitPrice,inCart,rating}=this.props.product;
         return (
-           <ProductWrapper className="col-9 mx-auto col-md-6 col-lg-3 my-3">
-               <div className="card">
+           <ProductWrapper className="col-9 mx-auto col-md-6 col-lg-4 my-4">
+               <div style={{paddingBottom:50}}>
                <ProductConsumer>
                    {
                        value=>(
@@ -20,7 +20,7 @@ class Product extends Component {
                         }>
                        
                        <Link to ="/details">
-                            <img src={"data:image/jpeg;base64,"+image} alt="product" className="card-img-top"  height="200px" width="200px"/>
+                            <img src={"data:image/jpeg;base64,"+image} alt="product" className="card-img-top"  height="250px" width="100%"/>
                        </Link>
          
                        <button className="cart-btn" 

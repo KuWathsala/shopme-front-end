@@ -18,7 +18,7 @@ class Pindex extends Component {
         <Route exact path="/ProductList" component={ProductList}/>
         <Route path="/details" component={Details}/>
         <Route path="/Cart" component={Cart}/>
-        <Route path="/Shops"exact component={ShopList}/>
+        <Route path="/shops"exact component={ShopList}/>
       </Switch>
   <Modal/>
      </React.Fragment>

@@ -87,11 +87,11 @@ export const auth=(authData)=>{
         let url='';
         if(authData.LoginVM.Role=='Customer'){
             console.log("customer");
-            url='https://localhost:5001/api/UserAuth/Signup-Customer';
+            url='https://backend-webapi20190825122524.azurewebsites.net/api/UserAuth/Signup-Customer';
             axios.post(url,authData)
                 .then(response=>{
             console.log(response);
-            dispatch(authSuccess(response.data.token,response.data.id));
+            dispatch(authSuccess(response.data.data.token,response.data.data.id,response.data.role));
             dispatch(checkAuthTImeout(3600/*response.data.expiresIn*/));
         })
         .catch(err=>{
@@ -100,11 +100,11 @@ export const auth=(authData)=>{
         });
         }else if(authData.LoginVM.Role=='Seller'){
             console.log("seller");
-            url='https://localhost:5001/api/UserAuth/Signup-Seller';
+            url='https://backend-webapi20190825122524.azurewebsites.net/api/UserAuth/Signup-Seller';
             axios.post(url,authData)
                 .then(response=>{
             console.log(response);
-            dispatch(authSuccess(response.data.data.token,response.data.data.id));
+            dispatch(authSuccess(response.data.data.token,response.data.data.id,response.data.role));
             dispatch(checkAuthTImeout(3600/*response.data.expiresIn*/));
         })
         .catch(err=>{
@@ -113,11 +113,11 @@ export const auth=(authData)=>{
         });
         }else if(authData.LoginVM.Role=='Deliverer'){
             console.log("deliverer  ");
-            url='https://localhost:5001/api/UserAuth/Signup-Deliverer';
+            url='https://backend-webapi20190825122524.azurewebsites.net/api/UserAuth/Signup-Deliverer';
             axios.post(url,authData)
                 .then(response=>{
             console.log(response);
-            dispatch(authSuccess(response.data.token,response.data.id));
+            dispatch(authSuccess(response.data.data.token,response.data.data.id,response.data.role));
             dispatch(checkAuthTImeout(3600/*response.data.expiresIn*/));
         })
         .catch(err=>{
@@ -131,7 +131,7 @@ export const auth=(authData)=>{
 export const authVerify=(authData)=>{
     return dispatch=>{
         dispatch(authStart());
-        let url='https://localhost:5001/api/UserAuth/signin';
+        let url='https://backend-webapi20190825122524.azurewebsites.net/api/UserAuth/signin';
         axios.post(url,authData)
         .then(response=>{
             console.log(response);

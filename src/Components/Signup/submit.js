@@ -6,7 +6,7 @@ import {store} from '../../index'
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
 const submit=(values)=> {
-  return sleep(1000).then(() => {
+  return sleep(500).then(() => {
     // simulate server latency
     // if (!['john', 'paul', 'george', 'ringo'].includes(values.username)) {
     //   throw new SubmissionError({
@@ -37,7 +37,7 @@ const submit=(values)=> {
           ShopName:values.ShopName,
           AccountNo:values.AccountNo,
           ShopLocationLatitude:latitude,
-          ShopLocationLongtitude:longitude,
+          ShopLocationLongitude:longitude,
           ShopAddress:values.Address,
           returnSecureToken: true,
             }
