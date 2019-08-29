@@ -48,7 +48,7 @@ class Blog extends Component{
             <Route path="/seluser"exact component={BsignUp}/>
             <Route path="/SignUp" component={Signup}/>            
             <Route path="/Profile" exact component={Profile}/>
-            <Route path="/Addaproduct" exact component={AddProducts}/>
+            <Route path="/AddNewProduct" exact component={AddProducts}/>
             <Route path="/map" component={Map}/>
             <Route path="/logout" component={Logout}/>
             <Route path="/LogAsSeller"exact component={OrderQueue}/>
@@ -62,7 +62,7 @@ class Blog extends Component{
                     <Route path="/"exact component={Home}/>
                     <Route path="/Signin" exact component={SignIn}/>
                     <Route path="/Profile" exact component={Profile}/>
-
+                    <Route path="/AddNewProduct" exact component={AddProducts}/>
                     <Route path="/logout" component={Logout}/>
                     <Route path="/LogAsSeller"exact component={OrderQueue}/>
                     <Redirect to="/"/>
@@ -90,7 +90,7 @@ class Blog extends Component{
                     <Route path="/Profile" exact component={Profile}/>
                     <Route path="/map" component={Map}/>
                     <Route path="/logout" component={Logout}/>
-                    <Route path="/AddProduct" exact component={AddProducts}/>
+                    <Route path="/AddNewProduct" exact component={AddProducts}/>
                     <Redirect to="/"/>
                 </Switch>
             );
@@ -106,7 +106,7 @@ class Blog extends Component{
                         <Route path="/map" component={Map}/>
                         <Route path="/logout" component={Logout}/>
                         <Route path="/LogAsSeller"exact component={OrderQueue}/>
-                        <Route path="/AddProduct" exact component={AddProducts}/>
+                        <Route path="/AddNewProduct" exact component={AddProducts}/>
                         
                 </Switch>
                 </React.Fragment>

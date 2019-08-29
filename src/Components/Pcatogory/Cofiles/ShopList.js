@@ -14,7 +14,7 @@ class ShopList extends Component {
   };
   
   componentDidMount(){
-    axios.get(`https://localhost:5001/api/Sellers/${this.props.lat},${this.props.lng}`)
+    axios.get(`https://backend-webapi20190825122524.azurewebsites.net/api/Sellers/${this.props.lat},${this.props.lng}`)
     .then(response=>{
         this.setState({shopes: response.data});
         console.log(this.state.shopes)

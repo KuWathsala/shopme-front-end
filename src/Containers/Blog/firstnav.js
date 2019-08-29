@@ -41,8 +41,8 @@ class Firstnav extends React.Component {
         <li><Link to='/'>Help</Link></li>
         <li><Link to='/'>Notfication</Link></li>
         {!this.props.isAuth ? <li><Link to='/Signin'>Hi, Sign In</Link></li>:<li><Link to='/logout'>Logout</Link></li>}
-        {this.props.userType=="Seller" && this.props.isAuth ? <li><Link to='/'>Add Products</Link></li>:null}
-        {this.props.userType=="Seller" && this.props.isAuth ? <li><Link to='/'>Inventory</Link></li>:null}
+        {this.props.userType=="Seller" && this.props.isAuth ? <li><Link to='/AddNewProduct'>Add Products</Link></li>:null}
+        {this.props.userType=="Seller" && this.props.isAuth ? <li><Link to='/Profile'>Inventory</Link></li>:null}
         <li><Link to='/Profile'><span class="glyphicon glyphicon-user"></span></Link></li>
         <li><Link to='/Cart'><span class="glyphicon glyphicon-shopping-cart"></span></Link></li>
       </ul>

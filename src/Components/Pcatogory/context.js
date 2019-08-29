@@ -26,7 +26,7 @@ class ProductProvider extends Component {
     }
 
     setShops=(lat,lng)=>{
-        axios.get(`https://localhost:5001/api/Sellers/${lat},${lng}`)
+        axios.get(`https://backend-webapi20190825122524.azurewebsites.net/api/Sellers/${lat},${lng}`)
         .then(response=>{
             this.setState({shopes: response.data});
             console.log(this.state.shopes)
@@ -41,7 +41,7 @@ class ProductProvider extends Component {
 
     handleDetails =id =>{
         console.log("handleDetails "+id)
-        axios.get(`https://localhost:5001/api/products/GetProductsByShop/${id}`)
+        axios.get(`https://backend-webapi20190825122524.azurewebsites.net/api/products/GetProductsByShop/${id}`)
         .then(response=>{
             console.log(response)
             this.setState({detailProduct: response.data});
@@ -52,7 +52,7 @@ class ProductProvider extends Component {
 
     discriptionHandle=id=>{
         console.log("productDetails")
-        axios.get(`https://localhost:5001/api/products/${id}`)
+        axios.get(`https://backend-webapi20190825122524.azurewebsites.net/api/products/${id}`)
         .then(response=>{
             console.log(response.data)
             this.setState({discription: response.data});

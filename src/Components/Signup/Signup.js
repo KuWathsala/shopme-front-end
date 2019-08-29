@@ -63,8 +63,7 @@ return(
             validate={[required]}
             click={null}
             value={null}
-
-      />
+        />
       <Field
             name="LastName"
             type="text"

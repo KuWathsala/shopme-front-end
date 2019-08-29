@@ -136,9 +136,9 @@ export const authVerify=(authData)=>{
         .then(response=>{
             console.log(response);
             const expirationDate=new Date(new Date().getTime()+response.data.expiresIn*1000);
-            localStorage.setItem('token',response.data.token);
+            localStorage.setItem('token',response.data.data.token);
             localStorage.setItem('expirationDate',expirationDate);
-            localStorage.setItem('userId',response.data.localId);
+            localStorage.setItem('userId',response.data.data.id);
             dispatch(authSuccess(response.data.data.token,response.data.data.id,response.data.role));
             dispatch(checkAuthTImeout(3600/*response.data.expiresIn*/));
         })
