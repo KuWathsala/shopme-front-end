@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Img from '../../Assets/profile.png';
+
 
 class CartColumns extends Component {
     render() {

@@ -37,12 +37,12 @@ class Firstnav extends React.Component {
       
       <ul class="nav navbar-nav" style={{color:'red'}}>
         <li className="active" style={{color:'red',}}><Link to='/'><span class="glyphicon glyphicon-home">Home</span></Link></li>
-        {!this.props.isAuth ?<li><Link to='/seluser'>Register</Link></li>:null}
+        {!this.props.isAuth ?<li><Link to='/Signuprole'>Register</Link></li>:null}
         <li><Link to='/'>Help</Link></li>
         <li><Link to='/'>Notfication</Link></li>
         {!this.props.isAuth ? <li><Link to='/Signin'>Hi, Sign In</Link></li>:<li><Link to='/logout'>Logout</Link></li>}
         {this.props.userType=="Seller" && this.props.isAuth ? <li><Link to='/AddNewProduct'>Add Products</Link></li>:null}
-        {this.props.userType=="Seller" && this.props.isAuth ? <li><Link to='/Profile'>Inventory</Link></li>:null}
+        {this.props.userType=="Seller" && this.props.isAuth ? <li><Link to='/Inventory'>Inventory</Link></li>:null}
         <li><Link to='/Profile'><span class="glyphicon glyphicon-user"></span></Link></li>
         <li><Link to='/Cart'><span class="glyphicon glyphicon-shopping-cart"></span></Link></li>
       </ul>

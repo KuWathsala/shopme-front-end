@@ -24,8 +24,6 @@ const renderField = ({ input,label,type,meta: { touched, error, warning }}) => (
          {touched && ((error && <span style={{color:'red',backgroundColor:'white',fontWeight:'bold'}}>{error}</span>) ||(warning && <span>{warning}</span>))}
   </div>
 )
-
-
 const required=value=> value ? undefined:'Required';
 
 const submit=(values)=> {
@@ -43,7 +41,7 @@ const submit=(values)=> {
 }
 
 
-class UploadForm extends Component {
+class EditProduct extends Component {
   constructor(props){
     super(props);
     this.state ={
@@ -51,12 +49,7 @@ class UploadForm extends Component {
   };
   }
        
-  uploadWidget(){
-    // cloudinary.openUploadWidget({ cloud_name: 'cloud_name', upload_preset: 'preset', tags:['xmas']},
-    //     function(error, result) {
-    //         console.log(result);
-    //     });
-}
+
  
 componentDidMount=()=>{
   axios.get('https://backend-webapi20190825122524.azurewebsites.net/api/categories')
@@ -84,7 +77,7 @@ render() {
   return (
     <div className="wrapper">
       <div className="wrapForm">
-        <h1>Add Products</h1>
+        <h1>Update Product</h1>
         <form onSubmit={handleSubmit(submit)}>
             <Field name="CategoryId" component="select" style={{alignSelf:'center',marginLeft:'relative',height:37,width:200}}>
                 <option value="">Select a Category...</option>
@@ -134,7 +127,7 @@ render() {
               <label htmlFor="img">Image</label>
               <UploadF/>
             <div>
-              <button type="submit" className="btn btn-default" disabled={submitting} style={{alignSelf:'strech'}}>SUBMIT</button>  
+              <button type="submit" className="btn btn-default" disabled={submitting} style={{alignSelf:'strech'}}>UPDATE</button>  
             </div>     
           </div>
         </form>
@@ -151,5 +144,5 @@ const mapStateToProps=state=>{
 }
 
 export default connect(mapStateToProps,null)(reduxForm({
-  form: 'addProduct',
-})(UploadForm))
+  form: 'editProduct',
+})(EditProduct))
