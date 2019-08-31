@@ -25,6 +25,7 @@ import {ProductProvider} from '../../Components/Pcatogory/context';
 import Inventory from '../../Components/ShopView/Inventory';
 import UpdateProduct from '../../Components/ShopView/EditProduct';
 import upload from '../../Components/ShopView/UploadF';
+import Spinner from '../../Containers/Spinner/Spinner_2';
 
 
 
@@ -58,6 +59,7 @@ class Blog extends Component{
             <Route path="/Inventory"exact component={Inventory}/>
             <Route path="/UpdateProduct" exact component={UpdateProduct}/>
             <Route path="/upload" exact component={upload}/>
+            <Route path="/spinner" exact component={Spinner}/>
         </Switch>
         
             
@@ -74,6 +76,7 @@ class Blog extends Component{
                     <Route path="/Inventory"exact component={Inventory}/>
                     <Route path="/UpdateProduct" exact component={UpdateProduct}/>
                     <Route path="/upload" exact component={upload}/>
+                    <Route path="/spinner" exact component={Spinner}/>
                     <Redirect to="/"/>
                 </Switch>
             );  
@@ -89,6 +92,7 @@ class Blog extends Component{
                     <Route path="/Inventory"exact component={Inventory}/>
                     <Route path="/UpdateProduct" exact component={UpdateProduct}/>
                     <Route path="/upload" exact component={upload}/>
+                    <Route path="/spinner" exact component={Spinner}/>
                     <Redirect to="/"/>
                 </Switch>
             );
@@ -106,6 +110,7 @@ class Blog extends Component{
                     <Route path="/Inventory"exact component={Inventory}/>
                     <Route path="/UpdateProduct" exact component={UpdateProduct}/>
                     <Route path="/upload" exact component={upload}/>
+                    <Route path="/spinner" exact component={Spinner}/>
                     <Redirect to="/"/>
                 </Switch>
             );
@@ -125,8 +130,8 @@ class Blog extends Component{
                         <Route path="/Inventory"exact component={Inventory}/>
                         <Route path="/UpdateProduct" exact component={UpdateProduct}/>
                         <Route path="/upload" exact component={upload}/>
-                        
-                        
+                        <Route path="/spinner" exact component={Spinner}/>
+      
                 </Switch>
                 </React.Fragment>
              );

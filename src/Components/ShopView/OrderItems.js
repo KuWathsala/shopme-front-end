@@ -10,9 +10,12 @@ import axios from 'axios';
 class OrderItems extends Component{
 
 finishOrderHandeler=()=>{
-    axios.delete('')
+    axios.update('')
     .then(response=>{
         console.log(response);
+    })
+    .catch(err=>{
+
     });
 };
 
@@ -29,11 +32,15 @@ render(){
             </div>
 
             <div className="col-10 mx auto col-lg-2">
+                {this.props.time}
+            </div>
+
+            <div className="col-10 mx auto col-lg-2">
                 {this.props.OrderDetails}
             </div>
 
             <div className="col-10 mx-auto col-lg-2">
-                {this.props.DeliverId}
+                {this.props.total}
             </div>
 
             <div className="col-10 mx-auto col-lg-2">

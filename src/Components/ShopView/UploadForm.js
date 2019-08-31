@@ -1,15 +1,10 @@
 import React, { Component } from 'react';
 import "./UForm.css";
-import UploadF from './UploadF';
 import axios from 'axios';
-import Select from 'react-select'
 import { Field, reduxForm } from 'redux-form';
 import {connect} from 'react-redux';
-import { auth } from '../../Stores/Actions/Auth';
 import {store} from '../../index';
-
-
-// let categories=[{label:'',value:null}];
+import Spinner from '../../Containers/Spinner/Spinner';
 
 const renderField = ({ input,label,type,meta: { touched, error, warning }}) => (
   <div className="title">
@@ -18,21 +13,19 @@ const renderField = ({ input,label,type,meta: { touched, error, warning }}) => (
         {...input} 
         type={type}
         placeholder={label}
-        //value={value}
-        //onChange={e=>this.setState({title:e.target.value})}
         />
          {touched && ((error && <span style={{color:'red',backgroundColor:'white',fontWeight:'bold'}}>{error}</span>) ||(warning && <span>{warning}</span>))}
   </div>
 )
 
+let Imgurl='';
 
 const required=value=> value ? undefined:'Required';
 
 const submit=(values)=> {
-  console.log(values)
   let productData={
     ...values,
-    Image:'https://res.cloudinary.com/dubnsitvx/image/upload/v1567060621/anchor_fbyjiy.jpg',
+    Image:Imgurl,
     SellerId:store.getState().auth.userId,
   }
   console.log(productData);
@@ -47,16 +40,11 @@ class UploadForm extends Component {
   constructor(props){
     super(props);
     this.state ={
+      img:'',
       categories:[],
+      isloading:false,
   };
   }
-       
-  uploadWidget(){
-    // cloudinary.openUploadWidget({ cloud_name: 'cloud_name', upload_preset: 'preset', tags:['xmas']},
-    //     function(error, result) {
-    //         console.log(result);
-    //     });
-}
  
 componentDidMount=()=>{
   axios.get('https://backend-webapi20190825122524.azurewebsites.net/api/categories')
@@ -69,24 +57,41 @@ componentDidMount=()=>{
     })
 }
 
-  fileUploadHandle=()=>{
-    console.log(this.state);
-    const data={}
-    axios.post('https://backend-webapi20190825122524.azurewebsites.net/api/',data)
-        .then(res=>{
-            console.log(res);
-        });
-  }
+fileUploadHandler =(event)=>{
+  this.setState({isloading:true})
+  console.log(this.state.selectedFile)
+  console.log('uploadingggggggg')
+  const files=event.target.files
+  const formData = new FormData();
+  // formData.append("api_key",'195645557212827');
+  formData.append("file", files[0]);
+  // formData.append("public_id", "product_image");
+  // formData.append("timestamp", timeStamp);
+  formData.append("upload_preset", 'm0uhbhzz');
+  // setLoading(true);
+  //fd.append('image', this.state.selectedFile,this.state.selectedFile.name);
+  axios.post('https://api.cloudinary.com/v1_1/dubnsitvx/image/upload',formData,{
+      onUploadProgress: ProgressEvent=>{
+          console.log('Upload Progress:'+Math.round(ProgressEvent.loaded / ProgressEvent.total*100 )+'%')
+      }
+  })
+  .then(res=>{
+      console.log(res.data.url)
+      Imgurl=res.data.url;
+      this.setState({isloading:false})})
+  .catch(err=>{
+    console.log(err)
+  });
+}
+
 render() {
-  const {handleSubmit, pristine, reset, submitting}=this.props;
-  console.log(this.state.categories);
-        
+  const {handleSubmit,submitting}=this.props;        
   return (
     <div className="wrapper">
       <div className="wrapForm">
         <h1>Add Products</h1>
         <form onSubmit={handleSubmit(submit)}>
-            <Field name="CategoryId" component="select" style={{alignSelf:'center',marginLeft:'relative',height:37,width:200}}>
+            <Field name="CategoryId" component="select" style={{alignSelf:'center',marginLeft:'relative',height:37,width:"100%"}}>
                 <option value="">Select a Category...</option>
                     {this.state.categories.map((Option,key) => (
                         <option value={Option.id} key={key}>
@@ -132,9 +137,19 @@ render() {
             />
             <div className='col'>
               <label htmlFor="img">Image</label>
-              <UploadF/>
+              {this.state.isloading ? <Spinner/> :
+              <input 
+                style={{backgroundColor:'white',marginBottom:15,width:400}}
+                name="Image"
+                type="file"
+                onChange={this.fileUploadHandler}
+                value={this.state.image}
+                // ref={fileInput=>this.fileInput=fileInput}/>
+                // <button onClick={()=>this.fileInput.click()}>Pick File</button>
+                // <button onClick={this.fileUploadHandler}>upload</button>
+                />      }
             <div>
-              <button type="submit" className="btn btn-default" disabled={submitting} style={{alignSelf:'strech'}}>SUBMIT</button>  
+              <button type="submit" className="btn btn-default" disabled={submitting} style={{alignSelf:'strech',marginLeft:'45%'}}>SUBMIT</button>  
             </div>     
           </div>
         </form>

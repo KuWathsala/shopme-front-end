@@ -21,7 +21,7 @@ class Product extends Component {
                        
                        <Link to ="/details">
                             {/* <img src={"data:image/jpeg;base64,"+image} alt="product" className="card-img-top"  height="250px" width="100%"/> */}
-                            <img src={image} alt="product" className="card-img-top"  height="250px" width="100%"/>
+                            <img src={image} alt="product" className="card-img-top"  height="250px" width="80%"/>
                        </Link>
          
                        <button className="cart-btn" 

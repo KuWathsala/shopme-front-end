@@ -15,6 +15,13 @@ class CartColumns extends Component {
 
                 <div className="col-10 mx auto col-lg-2">
                 <p className="text-uppercase">
+                    Order Date/Time
+                </p>
+                <hr/>
+                </div>
+
+                <div className="col-10 mx auto col-lg-2">
+                <p className="text-uppercase">
                     Ordered Items
                 </p>
                 <hr/>
@@ -22,7 +29,7 @@ class CartColumns extends Component {
 
                 <div className="col-10 mx auto col-lg-2">
                 <p className="text-uppercase">
-                    Deliverer details
+                    Total
                 </p>
                 <hr/>
                 </div>

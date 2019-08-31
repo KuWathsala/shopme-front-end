@@ -18,15 +18,17 @@ class UploadF extends Component {
         console.log(this.state.selectedFile)
     }
 
-    fileUploadHandler =()=>{
+    fileUploadHandler =(event)=>{
         console.log(this.state.selectedFile)
         console.log('uploadingggggggg')
+        const files=event.target.files
         const formData = new FormData();
-        formData.append("api_key",'195645557212827');
-        formData.append("file", this.state.selectedFile);
-        formData.append("public_id", "product_image");
-        formData.append("timestamp", timeStamp);
-        formData.append("upload_preset", 'ogweohqc');
+        // formData.append("api_key",'195645557212827');
+        formData.append("file", files[0]);
+        // formData.append("public_id", "product_image");
+        // formData.append("timestamp", timeStamp);
+        formData.append("upload_preset", 'm0uhbhzz');
+        // setLoading(true);
         //fd.append('image', this.state.selectedFile,this.state.selectedFile.name);
         axios.post('https://api.cloudinary.com/v1_1/dubnsitvx/image/upload',formData,{
             onUploadProgress: ProgressEvent=>{
@@ -42,12 +44,13 @@ class UploadF extends Component {
         return (
             <div>
                 <input 
-                style={{display:'none'}}
+                //style={{display:'none'}}
                 type="file" 
-                onChange={this.fileSelectedHandler}
-                ref={fileInput=>this.fileInput=fileInput}/>
-                <button onClick={()=>this.fileInput.click()}>Pick File</button>
-                <button onClick={this.fileUploadHandler}>upload</button>
+                onChange={this.fileUploadHandler}
+                // ref={fileInput=>this.fileInput=fileInput}/>
+                // <button onClick={()=>this.fileInput.click()}>Pick File</button>
+                // <button onClick={this.fileUploadHandler}>upload</button>
+                />
             </div>
         );
     }
