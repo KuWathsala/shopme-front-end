@@ -7,12 +7,14 @@ export const authStart=()=>{
     };
 };
 
-export const authSuccess=(token,userId,role)=>{
+export const authSuccess=(token,userId,role,userData)=>{
+    console.log(userData)
     return{
         type:ActionTypes.AUTH_SUCCESS,
         idToken:token,
         userType:role,
-        userId:userId
+        userId:userId,
+        user:userData
     };
 };
 
@@ -90,8 +92,8 @@ export const auth=(authData)=>{
             url='https://backend-webapi20190825122524.azurewebsites.net/api/UserAuth/Signup-Customer';
             axios.post(url,authData)
                 .then(response=>{
-            console.log(response);
-            dispatch(authSuccess(response.data.data.token,response.data.data.id,response.data.role));
+            console.log(response.data.data);
+            dispatch(authSuccess(response.data.data.token,response.data.data.id,response.data.role,response.data.data));
             dispatch(checkAuthTImeout(3600/*response.data.expiresIn*/));
         })
         .catch(err=>{
@@ -104,7 +106,7 @@ export const auth=(authData)=>{
             axios.post(url,authData)
                 .then(response=>{
             console.log(response);
-            dispatch(authSuccess(response.data.data.token,response.data.data.id,response.data.role));
+            dispatch(authSuccess(response.data.data.token,response.data.data.id,response.data.role,response.data.data));
             dispatch(checkAuthTImeout(3600/*response.data.expiresIn*/));
         })
         .catch(err=>{
@@ -134,13 +136,17 @@ export const authVerify=(authData)=>{
         let url='https://backend-webapi20190825122524.azurewebsites.net/api/UserAuth/signin';
         axios.post(url,authData)
         .then(response=>{
-            console.log(response);
-            const expirationDate=new Date(new Date().getTime()+/*response.data.expiresIn*/3600*1000);
+            console.log(response.data.data);
+            const expirationDate=new Date(new Date().getTime()+/*response.data.expiresIn*/3600*10000);
             localStorage.setItem('token',response.data.data.token);
+            localStorage.setItem('userData',response.data.data);
             localStorage.setItem('expirationDate',expirationDate);
             localStorage.setItem('userId',response.data.data.id);
             localStorage.setItem('role',response.data.role);
-            dispatch(authSuccess(response.data.data.token,response.data.data.id,response.data.role));
+            let userData
+            userData={...response.data.data}
+            console.log(userData)
+            dispatch(authSuccess(response.data.data.token,response.data.data.id,response.data.role,userData));
             dispatch(checkAuthTImeout(3600/*response.data.expiresIn*/));
         })
         .catch(err=>{
@@ -154,6 +160,7 @@ export const authCheckState=()=>{
     return dispatch=>{
         const token=localStorage.getItem('token');
         const role=localStorage.getItem('role');
+        const userData=localStorage.getItem('userData');
         if(!token){
             dispatch(logout());
         }else{
@@ -162,7 +169,7 @@ export const authCheckState=()=>{
                 dispatch(logout());
             }else{
                 const userId=localStorage.getItem('userId');
-                dispatch(authSuccess(token,userId,role));
+                dispatch(authSuccess(token,userId,role,userData));
                 dispatch(checkAuthTImeout((expirationDate.getTime()-new Date().getTime())/1000));
             }
         }
