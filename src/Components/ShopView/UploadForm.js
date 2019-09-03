@@ -147,8 +147,8 @@ render() {
                 // ref={fileInput=>this.fileInput=fileInput}/>
                 // <button onClick={()=>this.fileInput.click()}>Pick File</button>
                 // <button onClick={this.fileUploadHandler}>upload</button>
-                />      }
-            <div>
+                />  }
+            <div> 
               <button type="submit" className="btn btn-default" disabled={submitting} style={{alignSelf:'strech',marginLeft:'45%'}}>SUBMIT</button>  
             </div>     
           </div>

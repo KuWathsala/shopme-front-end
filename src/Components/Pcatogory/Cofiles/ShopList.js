@@ -42,7 +42,7 @@ class ShopList extends Component {
                     {value=>{
                       return this.state.shopes.map( shop =>{    //return value.shopes.map
                         console.log("shop->"+shop)
-                        return <Shop key={shop.id} shop ={shop}/>;
+                        return <Shop key={shop.id} shop ={shop} image={shop.image}/>;
                       })
                     }}
                   </ProductConsumer>

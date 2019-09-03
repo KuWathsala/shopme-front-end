@@ -5,10 +5,12 @@ import "./Signup.css";
 import {connect} from 'react-redux';
 import * as actions from '../../Stores/Actions/Index';
 import { Field, reduxForm } from 'redux-form';
-import submit from './submit';
 import { relative } from "path";
 import map from '../map/Map';
 import Spinner from '../../Containers/Spinner/Spinner_2';
+import Spinner2 from '../../Containers/Spinner/Spinner';
+import axios from 'axios';
+import {store} from '../../index';
 
 const renderField = ({ input,label,type,click,value,meta: { touched, error, warning }}) => (
     <div className='row' style={{marginBottom:10,display:'flex'}}>
@@ -27,13 +29,103 @@ const renderField = ({ input,label,type,click,value,meta: { touched, error, warn
   const passwordMatch=(value,allValues)=> value!==allValues.Password ? 'Passwords do not Match':undefined;
   const isMobile=(value)=> value && !/^[0-9]{10}$/i.test(value) ? "Invalid mobile number":undefined;
 
+  const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
+  let Imgurl='';
+
+  const submit=(values)=> {
+    return sleep(500).then(() => {
+        const latitude=store.getState().location.latValue;
+        const longitude=store.getState().location.lngValue;
+        const role=store.getState().auth.userType;
+        console.log(store.getState().auth.userType)
+        let authData
+        if(role=="Seller")
+          authData={
+            LoginVM:{
+              Email:values.Email,
+              Password:values.Password,
+              Role:role
+            },
+            FirstName:values.FirstName,
+            LastName:values.LastName,
+            MobileNumber:values.MobileNumber,
+            ShopName:values.ShopName,
+            AccountNo:values.AccountNo,
+            ShopLocationLatitude:latitude,
+            ShopLocationLongitude:longitude,
+            ShopAddress:values.Address,
+            returnSecureToken: true,
+            Image:Imgurl,
+              }
+        else if(role=="Deliverer")
+          authData={
+            LoginVM:{
+              Email:values.Email,
+              Password:values.Password,
+              Role:role
+            },
+            FirstName:values.FirstName,
+            LastName:values.LastName,
+            MobileNumber:values.MobileNumber,
+            VehicleNo:values.VehicleNo,
+            VehicleType:values.VehicleType,
+            returnSecureToken: true,
+            Image:Imgurl,
+          }
+        else if(role=="Customer")
+          authData={
+            LoginVM:{
+              Email:values.Email,
+              Password:values.Password,
+              Role:role
+            },
+            FirstName:values.FirstName,
+            LastName:values.LastName,
+            MobileNumber:values.MobileNumber,
+            returnSecureToken: true,
+            ProfileImage:Imgurl,
+          }
+            
+        console.log(authData)
+        store.dispatch(actions.auth(authData));
+        }) 
+  }
+
 class Signup extends Component{
     constructor(props){
-        super(props);}
+        super(props);
+        this.state={
+            isloading:false
+        }
+    }
+        
 
  setLocation=()=>{
     // this.setState({isLocationSet:true})
     this.props.history.push('/map');  
+}
+
+fileUploadHandler =(event)=>{
+    //this.setState({isloading:true})
+    console.log(this.state.selectedFile)
+    const files=event.target.files
+    const formData = new FormData();
+    formData.append("file", files[0]);
+    // formData.append("public_id", "product_image");
+    // formData.append("timestamp", timeStamp);
+    formData.append("upload_preset", 'm0uhbhzz');
+    // setLoading(true);
+    //fd.append('image', this.state.selectedFile,this.state.selectedFile.name);
+    axios.post('https://api.cloudinary.com/v1_1/dubnsitvx/image/upload',formData,{
+        onUploadProgress: ProgressEvent=>{
+            console.log('Upload Progress:'+Math.round(ProgressEvent.loaded / ProgressEvent.total*100 )+'%')
+        }
+    })
+    .then(res=>{
+        console.log(res);
+        Imgurl=res.data.url;
+    });
 }
     
 
@@ -185,6 +277,18 @@ return(
                     value={null}
                     validate={[required,passwordMatch]}
                 />
+                <label htmlFor="img">Image</label>
+              {this.state.isloading ? <Spinner2/> :
+              <input 
+                style={{backgroundColor:'white',marginBottom:15,width:400}}
+                name="Image"
+                type="file"
+                onChange={this.fileUploadHandler}
+                value={this.state.image}
+                // ref={fileInput=>this.fileInput=fileInput}/>
+                // <button onClick={()=>this.fileInput.click()}>Pick File</button>
+                // <button onClick={this.fileUploadHandler}>upload</button>
+                />  }
          <div style={{alignContent:'center',marginLeft:'30%'}}>
             <button type="submit" className="btn btn-default" disabled={submitting}>SUBMIT</button>
             <div><Link to="/Signin"><small>Already have an Account</small></Link></div>

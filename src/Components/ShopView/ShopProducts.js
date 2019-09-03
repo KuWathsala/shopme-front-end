@@ -1,6 +1,6 @@
 import React,{Component} from 'react';
 import axios from 'axios';
-import {withRouter} from'react-router-dom';
+import {withRouter,Redirect} from'react-router-dom';
 
 // state={
 //     pro:[]
@@ -16,9 +16,9 @@ editProduct=()=>{
 
 deleteProduct=()=>{
     console.log('Delete')
-    axios.delete(`https://backend-webapi20190825122524.azurewebsites.net/api/products/getproductsbyshop/${this.props.id}`)
+    axios.delete(`https://backend-webapi20190825122524.azurewebsites.net/api/products/${this.props.id}`)
     .then(response=>{
-        console.log(response);
+        console.log(response)
     });
 };
 
@@ -57,7 +57,7 @@ render(){
 
                 <div className="col-12 col-md-1 col-lg-1 col-sm-1">
                 <p className="text-uppercase">
-                    {this.props.price}
+                     {this.props.price} LKR
                 </p>
                 </div>
 
