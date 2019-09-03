@@ -10,7 +10,7 @@ import "../Signup/Signup.css";
 import { FacebookLoginButton, GoogleLoginButton } from "react-social-login-buttons";
 import FacebookSignin from "./FacebookSignin.js";
 import GoogleSignin from "./GoogleSignin.js";
-import Spinner from '../../Containers/Spinner/Spinner'
+import Spinner from '../../Containers/Spinner/Spinner_2'
 
 const renderField = ({ input,label,type,click,value,meta: { touched, error, warning }}) => (
   <div className='row' style={{marginBottom:10,display:'flex'}}>
@@ -32,7 +32,7 @@ const submit=(values)=> {
       authData={...values,returnSecureToken: true}
       console.log(authData)
      store.dispatch(actions.authVerify(authData));
-      window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`)
+      //window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`)
       }) 
 }
 
@@ -55,6 +55,7 @@ render(){
     return(
         
         <div className="wrapper">
+        {this.props.isloading ? <Spinner/>:null}
         <div style={{
                 alignSelf:'center',
                 justifyContent:'center',

@@ -4,6 +4,7 @@ import Title from "./Title";
 import {ProductConsumer,ProductProvider} from '../context';
 import {connect} from 'react-redux';
 import axios from 'axios';
+import Spinner from '../../../Containers/Spinner/Spinner_2';
 
 class ShopList extends Component {
   constructor(props){
@@ -12,14 +13,20 @@ class ShopList extends Component {
       shopes:[],
     }
   };
+
+ sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
   
+  isloading=true
   componentDidMount(){
+    this.isloading=true;
+    this.sleep(500).then(() => {
     axios.get(`https://backend-webapi20190825122524.azurewebsites.net/api/Sellers/${this.props.lat},${this.props.lng}`)
     .then(response=>{
+      this.isloading=false;
         this.setState({shopes: response.data});
         console.log(this.state.shopes)
     })
-    .catch()
+    .catch(this.isloading=false)})
   } 
   
   render() {
@@ -29,6 +36,7 @@ class ShopList extends Component {
               <div className="py-5">
                 <div className="container">
                   <Title name="our" title="Shopes"/>
+                  {this.isloading ? <Spinner/> :null}
                   <div className="row"> 
                   <ProductConsumer>
                     {value=>{

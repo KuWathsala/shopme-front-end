@@ -22,7 +22,7 @@ const authSuccess=(state,action)=>{
         userType:action.userType,
         user:action.user,
         error:null,
-        loading:false
+        loading:true
     })
 }
 

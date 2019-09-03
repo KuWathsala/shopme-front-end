@@ -1,5 +1,5 @@
 import React,{Component} from "react";
-import {Link,withRouter} from 'react-router-dom';
+import {Link,withRouter,Redirect} from 'react-router-dom';
 import Select from 'react-select';
 import "./Signup.css";
 import {connect} from 'react-redux';
@@ -7,7 +7,8 @@ import * as actions from '../../Stores/Actions/Index';
 import { Field, reduxForm } from 'redux-form';
 import submit from './submit';
 import { relative } from "path";
-import map from '../map/Map'
+import map from '../map/Map';
+import Spinner from '../../Containers/Spinner/Spinner_2';
 
 const renderField = ({ input,label,type,click,value,meta: { touched, error, warning }}) => (
     <div className='row' style={{marginBottom:10,display:'flex'}}>
@@ -37,14 +38,21 @@ class Signup extends Component{
     
 
 render() {
+    let authRedirect;
+    if(this.props.isAuthenticated){
+        authRedirect=<Redirect to="/"/>
+    }
     const vehicles = ["Motor Bicycle", "Three Wheel"];
     const {handleSubmit, pristine, reset, submitting}=this.props;
     
 return(
 <div className="wrapper">
     <div className="wrapForm">
+    {this.props.isloading ? <Spinner/> : <div>
     <h1 style={{fontWeight:'bold' ,color:'white'}}>Create Account</h1>
+    
     <div>
+    
     {
     this.props.usertype=="Seller" ? 
         <div className='col col-md-12'>
@@ -182,6 +190,7 @@ return(
             <div><Link to="/Signin"><small>Already have an Account</small></Link></div>
         </div>   
     </form>
+    </div>}
 </div>
 </div>
 );
@@ -194,7 +203,8 @@ const mapStateToProps=state=>{
       usertype:state.auth.userType,
       Address:state.location.address,
       lng:state.location.lngValue,
-      lat:state.location.latValue
+      lat:state.location.latValue,
+      isloading:state.auth.loading
     }
   }
 

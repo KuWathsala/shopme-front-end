@@ -8,6 +8,7 @@ import Autocomplete from 'react-google-autocomplete';
 import Geocode from "react-geocode";
 import {connect} from 'react-redux';
 import * as actions from '../../Stores/Actions/Index';
+import Spinner from '../../Containers/Spinner/Spinner_2';
 
 Geocode.setApiKey("AIzaSyDfp50rT_iIa365h388F4TjLEWBS39S2kM");
 Geocode.enableDebug();
@@ -22,8 +23,11 @@ state = {
 /**
   * Get the current address from the default map position and set those values in the state
   */
+isloading=false
  componentDidMount() {
+   this.isloading=true;
   Geocode.fromLatLng( this.props.center.lat , this.props.center.lng ).then(
+    this.isloading=false,
    response => {
     const address = response.results[0].formatted_address;
     this.props.onsetLocation(this.props.center.lat , this.props.center.lng,address );
@@ -32,6 +36,7 @@ state = {
     } )
    },
    error => {
+    this.isloading=false;
     console.error(error);
    }
   );
@@ -165,7 +170,8 @@ const AsyncMap = withScriptjs(
    )
   );
   return(
-  
+  <div>
+    {this.isloading ? <Spinner/> :
   <div style={{height:'500px'}}>
     
      <div>
@@ -187,6 +193,8 @@ const AsyncMap = withScriptjs(
        <div style={{ height: '100%' }} />
       }
      />
+     </div>
+  }
      </div>);
  
  };

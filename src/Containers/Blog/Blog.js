@@ -33,17 +33,7 @@ class Blog extends Component{
     constructor(props){
         super(props)
     }
-
-
-// componentDidMount=()=>{
-//     switch(user){
-//        case customer:{return}
-//        case Seller:{}
-//        case Deliverer:{}     
-//     }
-// }
-
-    
+  
     render(){
         let routes=(
         <Switch>
@@ -111,6 +101,9 @@ class Blog extends Component{
                     <Route path="/UpdateProduct" exact component={UpdateProduct}/>
                     <Route path="/upload" exact component={upload}/>
                     <Route path="/spinner" exact component={Spinner}/>
+                    <ProductProvider>
+                       <Pindex/>
+                    </ProductProvider>
                     <Redirect to="/"/>
                 </Switch>
             );
@@ -142,10 +135,10 @@ class Blog extends Component{
                <Firstnav
                     isAuth={this.props.isAuthenticated}
                     userT={this.props.user}/>
-                    <ProductProvider>
+                    {/* <ProductProvider>
                        <Pindex/>
-                    </ProductProvider>
-                    {routes}               
+                    </ProductProvider> */}
+                    {routes}         
                 <Footer/>
             </div>
             
