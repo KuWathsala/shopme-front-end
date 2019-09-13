@@ -21,7 +21,7 @@ class OrderQueue extends Component{
         this.state.connection.start()
         .then(()=> {
             console.log("connected");
-            this.state.connection.invoke("SellerOnline",4);//this.props.seller.userId
+            this.state.connection.invoke("SellerOnline",this.props.userId);//this.props.seller.userId
         })
         .catch(error => console.log(error));
 

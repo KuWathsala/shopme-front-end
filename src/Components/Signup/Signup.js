@@ -54,7 +54,8 @@ const renderField = ({ input,label,type,click,value,meta: { touched, error, warn
             ShopLocationLongitude:longitude,
             ShopAddress:values.Address,
             returnSecureToken: true,
-            Image:Imgurl,
+            profileImage:Imgurl,
+            image:Imgurl,
               }
         else if(role=="Deliverer")
           authData={
