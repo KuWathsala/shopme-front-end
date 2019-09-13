@@ -14,7 +14,8 @@ export const authSuccess=(token,userId,role,userData)=>{
         idToken:token,
         userType:role,
         userId:userId,
-        user:userData
+        user:userData,
+
     };
 };
 
@@ -92,7 +93,7 @@ export const auth=(authData)=>{
             url='https://backend-webapi20190825122524.azurewebsites.net/api/UserAuth/Signup-Customer';
             axios.post(url,authData)
                 .then(response=>{
-            console.log(response.data.data);
+            console.log(response);
             dispatch(authSuccess(response.data.data.token,response.data.data.id,response.data.role,response.data.data));
             dispatch(checkAuthTImeout(3600/*response.data.expiresIn*/));
         })

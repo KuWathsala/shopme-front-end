@@ -47,15 +47,10 @@ render(){
         authRedirect=<Redirect to="/"/>
     }
 
-    let fomm=null;
-    if(this.props.loading){
-      fomm=<Spinner/>
-    }
     const {handleSubmit, pristine, reset, submitting}=this.props;
     return(
         
         <div className="wrapper">
-        {this.props.isloading ? <Spinner/>:null}
         <div style={{
                 alignSelf:'center',
                 justifyContent:'center',
@@ -71,8 +66,8 @@ render(){
                 filter: 'alpha(opacity=60)', 
                 flexWrap:'wrap',}}>
         {authRedirect}
-        {fomm}
           <h3 style={{alignSelf:'center',fontWeight:'bold',color:'white'}}>Welcome Back, Sign in</h3><br/>
+          {this.props.isloading ? <Spinner/>:
           <form onSubmit={handleSubmit(submit)}>
                 <Field
                     name="Email"
@@ -96,6 +91,7 @@ render(){
               
             <button variant="outline-primary" type="submit" className="col-md-12 btn btn-primary btn-lg" disabled={submitting} style={{marginTop: 30}}>Sign in</button>
           </form>
+          }
           <div className="col-lg-12  row " style={{marginTop: 40}} >
             <div style={{marginLeft: 10}}><FacebookSignin /></div>
             <div style={{marginLeft: 14}}><GoogleSignin/></div>
@@ -113,7 +109,7 @@ render(){
 const mapStateToProps=state=>{
   return{
     isAuthenticated:state.auth.token!=null,
-    loading:state.auth.loading
+    isloading:state.auth.loading
   }
 }
 export default connect(mapStateToProps,null)(reduxForm({

@@ -1,12 +1,10 @@
 import React,{Component} from "react";
 import {Link,withRouter,Redirect} from 'react-router-dom';
-import Select from 'react-select';
 import "./Signup.css";
 import {connect} from 'react-redux';
 import * as actions from '../../Stores/Actions/Index';
 import { Field, reduxForm } from 'redux-form';
 import { relative } from "path";
-import map from '../map/Map';
 import Spinner from '../../Containers/Spinner/Spinner_2';
 import Spinner2 from '../../Containers/Spinner/Spinner';
 import axios from 'axios';
@@ -123,7 +121,7 @@ fileUploadHandler =(event)=>{
         }
     })
     .then(res=>{
-        console.log(res);
+        console.log(res.data.url);
         Imgurl=res.data.url;
     });
 }

@@ -3,20 +3,21 @@ import axios from 'axios';
 import ColumnTitles from './ColumnTitles'
 import OrderItems from './OrderItems';
 import * as signalR from '@aspnet/signalr';
-import Img from '../../Assets/profile.png';
+import Img from '../../Assets/logo.png';
 import {connect} from 'react-redux';
 
 class OrderQueue extends Component{
     state={
         WaitingOrders:[],
-        connection:''
+        connection:'',
+        Details:[]
     }
 
     componentDidMount(){
-        console.log("this.props.seller.user")
-        console.log(this.props.seller.user)
+        // console.log("this.props.seller.user")
+        // console.log(this.props.seller.user)
 
-        this.state.connection=new signalR.HubConnectionBuilder().withUrl("http://192.168.43.15:5001/connectionHub").build()
+        this.state.connection=new signalR.HubConnectionBuilder().withUrl("https://backend-webapi20190825122524.azurewebsites.net/connectionHub").build()
         this.state.connection.start()
         .then(()=> {
             console.log("connected");
@@ -24,11 +25,20 @@ class OrderQueue extends Component{
         })
         .catch(error => console.log(error));
 
-        axios.post(`http://192.168.43.15:5001/api/orders/getWaitingOrderDetailsBySeller/${4}`)//this.props.seller.userId
+        axios.post(`https://backend-webapi20190825122524.azurewebsites.net/api/orders/getWaitingOrderDetailsBySeller/${this.props.sellerid}`)//this.props.seller.userId
         .then(response=>{
             console.log(response.data)
             for(let i=0; i<response.data.length; i++ )
                 this.setState({WaitingOrders: [...this.state.WaitingOrders, response.data[i]]})
+        })
+        .catch(error=>{
+            console.log(error)
+        });
+
+        axios.get(`https://backend-webapi20190825122524.azurewebsites.net/api/sellers/${this.props.sellerid}`)//this.props.seller.userId
+        .then(response=>{
+            console.log(response.data)
+                this.setState({Details:response.data})
         })
         .catch(error=>{
             console.log(error)
@@ -48,6 +58,16 @@ class OrderQueue extends Component{
              });        
         return(
             <div>
+                <div className='row'  style={{flex:1,backgroundColor:'white',textAlign:'center',fontSize:'24px',marginBottom:'5px',marginLeft:10}}>
+                    {/* <img src={Img} alt="product" className="card-img-top"  height="100px" width="200px" style={{marginLeft:30}}/> */}
+                    <p style={{fontSize:60,color: '#26bf63',fontWeight:'600',}}>Shop</p>
+                    <p style={{fontSize:60,color: '#5189c9',fontWeight:'600',}}>Me</p>
+                    <p style={{alignSelf:'flex-end',color:'darkgreen',marginBottom:25}}>Seller's Portal</p>
+                </div>
+                <div className='row'  style={{backgroundColor:'green',textAlign:'center',fontSize:'24px',color:'lightgreen',marginBottom:'20px'}}>
+                    <img src={this.state.Details.image} alt="product" className="card-img-top"  height="100px" width="200px" style={{marginLeft:30}}/>
+                    <p style={{alignSelf:'center',color:'lightgreen',textAlign:'center',marginLeft:20}}>{this.state.Details.shopName}</p>
+                </div>
                 <section>
                     <Fragment>
                         <ColumnTitles/> 
@@ -62,7 +82,7 @@ class OrderQueue extends Component{
 
 const mapStateToProps=state=>{
     return{
-      seller:state.auth
+      sellerid:state.auth.userId
     }
 }
   

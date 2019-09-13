@@ -57,7 +57,7 @@ class Blog extends Component{
         if(this.props.user=='Seller' && this.props.isAuthenticated){
             routes=(
                 <Switch>
-                    <Route path="/"exact component={Home}/>
+                    {/* <Route path="/"exact component={Home}/> */}
                     <Route path="/Signin" exact component={SignIn}/>
                     <Route path="/Profile" exact component={Profile}/>
                     <Route path="/AddNewProduct" exact component={AddProducts}/>
@@ -67,7 +67,7 @@ class Blog extends Component{
                     <Route path="/UpdateProduct" exact component={UpdateProduct}/>
                     <Route path="/upload" exact component={upload}/>
                     <Route path="/spinner" exact component={Spinner}/>
-                    <Redirect to="/"/>
+                    <Redirect to="/Seller_login"/>
                 </Switch>
             );  
          }else if(this.props.user=='Deliverer' && this.props.isAuthenticated){
@@ -133,7 +133,7 @@ class Blog extends Component{
             <div>
             
                <Firstnav
-                    isAuth={this.props.isAuthenticated}
+                    isAuth={this.props.isAuthenticated && this.props.isAuthenticated}
                     userT={this.props.user}/>
                     {/* <ProductProvider>
                        <Pindex/>

@@ -75,6 +75,14 @@ render() {
   console.log(this.state.categories);
         
   return (
+    <div>
+      <div className='row'  style={{flex:1,backgroundColor:'white',textAlign:'center',fontSize:'24px',marginBottom:'5px',marginLeft:10}}>
+                        {/* <img src={Img} alt="product" className="card-img-top"  height="100px" width="200px" style={{marginLeft:30}}/> */}
+                        <p style={{fontSize:60,color: '#26bf63',fontWeight:'600',}}>Shop</p>
+                        <p style={{fontSize:60,color: '#5189c9',fontWeight:'600',}}>Me</p>
+                        <p style={{alignSelf:'flex-end',color:'darkgreen',marginBottom:25}}>Seller's Portal</p>
+                    </div>
+    
     <div className="wrapper">
       <div className="wrapForm">
         <h1>Update Product</h1>
@@ -133,6 +141,7 @@ render() {
         </form>
       </div>
   </div>
+</div>
         );
     }
 }
