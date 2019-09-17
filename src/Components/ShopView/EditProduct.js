@@ -2,64 +2,58 @@ import React, { Component } from 'react';
 import "./UForm.css";
 import UploadF from './UploadF';
 import axios from 'axios';
-import Select from 'react-select'
 import { Field, reduxForm } from 'redux-form';
 import {connect} from 'react-redux';
-import { auth } from '../../Stores/Actions/Auth';
 import {store} from '../../index';
 
 
 // let categories=[{label:'',value:null}];
 
-const renderField = ({ input,label,type,meta: { touched, error, warning }}) => (
+const renderField2 = ({ input,label,type,value1,meta: { touched, error, warning }}) => (
   <div className="title">
   <label htmlFor={label}>{label}</label>
       <input
         {...input} 
         type={type}
         placeholder={label}
-        //value={value}
-        //onChange={e=>this.setState({title:e.target.value})}
         />
          {touched && ((error && <span style={{color:'red',backgroundColor:'white',fontWeight:'bold'}}>{error}</span>) ||(warning && <span>{warning}</span>))}
   </div>
 )
 const required=value=> value ? undefined:'Required';
 
-const submit=(values)=> {
-  console.log(values)
-  let productData={
-    ...values,
-    Image:'https://res.cloudinary.com/dubnsitvx/image/upload/v1567060621/anchor_fbyjiy.jpg',
-    SellerId:store.getState().auth.userId,
-  }
-  console.log(productData);
-  axios.post('https://backend-webapi20190825122524.azurewebsites.net/api/products/create',productData)
-  .then(res=>{
-      console.log(res);
-  });
-}
-
-
 class EditProduct extends Component {
   constructor(props){
     super(props);
     this.state ={
       categories:[],
+      ProductDetails:[],
   };
   }
        
 
  
 componentDidMount=()=>{
-  axios.get('https://backend-webapi20190825122524.azurewebsites.net/api/categories')
+  console.log(this.props.location.id)
+  axios.get(`https://backend-webapi20190825122524.azurewebsites.net/api/products/${this.props.location.id}`)
     .then(response=>{
-      console.log(response)
+      console.log(response.data)
+      this.setState({ProductDetails:response.data});
+    })
+    .catch(err=>{
+      console.log(err)
+    })
+
+    axios.get(`https://backend-webapi20190825122524.azurewebsites.net/api/categories`)
+    .then(response=>{
       this.setState({categories:response.data});
     })
     .catch(err=>{
       console.log(err)
     })
+    console.log(this.state.ProductDetails.name)
+    this.props.initialize({Name:this.state.ProductDetails.name});
+
 }
 
   fileUploadHandle=()=>{
@@ -70,6 +64,21 @@ componentDidMount=()=>{
             console.log(res);
         });
   }
+
+  submit=(values)=> {
+    console.log(values)
+    let productData={
+      ...values,
+      Image:this.props.ProductDetails.image,
+      SellerId:store.getState().auth.userId,
+    }
+    console.log(productData);
+    axios.update('https://backend-webapi20190825122524.azurewebsites.net/api/products',productData)
+    .then(res=>{
+        console.log(res);
+    });
+  }
+
 render() {
   const {handleSubmit, pristine, reset, submitting}=this.props;
   console.log(this.state.categories);
@@ -86,49 +95,54 @@ render() {
     <div className="wrapper">
       <div className="wrapForm">
         <h1>Update Product</h1>
-        <form onSubmit={handleSubmit(submit)}>
+        <form onSubmit={handleSubmit(this.submit)}>
             <Field name="CategoryId" component="select" style={{alignSelf:'center',marginLeft:'relative',height:37,width:200}}>
                 <option value="">Select a Category...</option>
                     {this.state.categories.map((Option,key) => (
                         <option value={Option.id} key={key}>
                     {Option.categoryName}
                 </option>
-                        
                     ))}
             </Field>
             <Field
               name="Name"
               type="text"
-              component={renderField}
+              component={renderField2}
               label="Product Name"
+              //value1={this.state.ProductDetails.name}
+              value1='jaajja'
               validate={[required]}
             />
             <Field
               name="Description"
               type="text"
-              component={renderField}
+              component={renderField2}
               label="Description"
+              value1={this.state.ProductDetails.description}
               validate={[required]}
             />
             <Field
               name="ShortDescription"
               type="text"
-              component={renderField}
+              component={renderField2}
               label="Short Description"
+              value1={this.state.ProductDetails.shortDescription}
               validate={[required]}
             />
             <Field
               name="UnitPrice"
               type="text"
-              component={renderField}
+              component={renderField2}
               label="Unit Price"
+              value1={this.state.ProductDetails.unitPrice}
               validate={[required]}
             />
             <Field
               name="Quantity"
               type="text"
-              component={renderField}
+              component={renderField2}
               label="Quantity"
+              value1={this.state.ProductDetails.quantity}
               validate={[required]}
             />
             <div className='col'>
