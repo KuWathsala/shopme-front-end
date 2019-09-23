@@ -2,13 +2,13 @@ import React from 'react';
 
 export default function CartItem({item,value}) {
     console.log("item")
-  const {id,title,image,price,total,count, description}=item;
+  const {id,image,name, price,count,total}=item;
   const{increment,decrement,removeItem} =value;  
         return (
         <div className="row my-2 text-capitalize text-center">
         <div className="col-10 mx-auto col-lg-2">
         <img
-        src={"data:image/jpeg;base64,"+image}
+        src={image}
         style={{width:"5rem", height :"5rem"}}
         className="img-fluid"
         alt="product"
@@ -16,8 +16,9 @@ export default function CartItem({item,value}) {
         </div>
 
 <div className="col-10 mx-auto col-lg-2">
-<span className="d-lg-none">product :</span>
-{description}
+<span className="d-lg-none"></span>
+{name} 
+
 </div>
 
 <div className="col-10 mx-auto col-lg-2">
@@ -38,7 +39,9 @@ export default function CartItem({item,value}) {
 
 <div className="col-10 mx-auto col-lg-2">
 <div className="cart-icon" onClick={()=>removeItem(id)}>
-<i className="fas fa-trash"></i>
+<span class="glyphicon glyphicon-trash"></span>
+
+
 </div>
 </div>
 

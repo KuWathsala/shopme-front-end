@@ -4,10 +4,7 @@ import Title from "./Title";
 import {ProductConsumer,ProductProvider} from '../context';
 
 class ProductList extends Component {
-  constructor(props){
-    super(props);
-  };
-  
+ 
   render() {
         return (
           <React.Fragment>

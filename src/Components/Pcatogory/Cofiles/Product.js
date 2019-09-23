@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
 import styled from "styled-components";
 import {Link} from "react-router-dom";
-import {ProductConsumer,ProductProvider} from "../context";
+import {ProductConsumer} from "../context";
 import PropTypes from "prop-types";
 
 class Product extends Component {
     render() {
-        const {id,name,image,unitPrice,inCart,rating}=this.props.product;
+        const {id,name,image,unitPrice,rating,inCart}=this.props.product;
         return (
            <ProductWrapper className="col-9 mx-auto col-md-6 col-lg-4 my-4">
                <div style={{paddingBottom:50}}>
@@ -15,21 +15,22 @@ class Product extends Component {
                        value=>(
                         <div className="img-container p-5"  
                         onClick={()=>
-                            //value.handleDetail(id)
+                            
                             value.discriptionHandle(id)
+                            //product details
                         }>
                        
                        <Link to ="/details">
                             {/* <img src={"data:image/jpeg;base64,"+image} alt="product" className="card-img-top"  height="250px" width="100%"/> */}
-                            <img src={image} alt="product" className="card-img-top"  height="250px" width="80%"/>
+                            <img src={image} alt="product" className="card-img-top"  height="250px" width="100%"/>
                        </Link>
          
                        <button className="cart-btn" 
                        disabled={inCart ? true:false}
                        onClick={()=>{
                            console.log("product clicked");
-                           //value.addToCart(id,);
-                           value.openModal(id);
+                           value.addToCart(id,);
+                           //value.openModal(id);
                            }}
                            >
                        {inCart?(
@@ -42,6 +43,8 @@ class Product extends Component {
                        )}
                        
                        </button>
+
+                      
                         </div>
                        )
                    }
@@ -68,7 +71,7 @@ Product.propTypes ={
         image:PropTypes.string,
         name:PropTypes.string,
         unitPrice:PropTypes.number,
-        inCart:PropTypes.bool
+        inCart:PropTypes.bool,
     }).isRequired
 }
 

@@ -16,10 +16,11 @@ class Cart extends Component {
                         if (cart.length > 0){
                             return(
                                 <React.Fragment>
-                                    <Title name= "your" title="cart"/>
+                                    <Title name= "Your" title="Cart"/>
                                     <CartColumns/>
                                     <CartList value={value}/>
-                                    <CartTotals value={value}/*history={this.props.history}*//>
+                                    <CartTotals value={value}
+                                    history={this.props.history}/>
                                 </React.Fragment>
                             );
                             

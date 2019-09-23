@@ -1,43 +1,21 @@
 import React, { Component } from 'react';
-import{storeShopes, detailShop} from '../Pcatogory/ShopData'; 
-import axios from 'axios';
 
+import axios from 'axios';
 const ProductContext = React.createContext();
-//Provider
-//Consumer 
+
 class ProductProvider extends Component {
+  
     constructor(props){
         super(props);
         this.state={
-            shopes:[],
             products:[],
             detailProduct: [],
-            discription: [],
-            cart: [],
-            modalOpen:false,
-            modalProduct: [],
+            discription:[],
+            cart:[],
             cartSubTotal:0,
             cartTotal:0,
         };
     };
-
-    componentDidMount(){
-        console.log("start")
-    }
-
-    setShops=(lat,lng)=>{
-        axios.get(`https://backend-webapi20190825122524.azurewebsites.net/api/Sellers/${lat},${lng}`)
-        .then(response=>{
-            this.setState({shopes: response.data});
-            console.log(this.state.shopes)
-        })
-        .catch()
-    }
-
-    getItem = sid =>{
-        const shop = this.state.shopes.find(sitem => sitem.sid===sid);
-        return shop;
-    }
 
     handleDetails =id =>{
         console.log("handleDetails "+id)
@@ -62,49 +40,62 @@ class ProductProvider extends Component {
     }
 
     getItem = id =>{
-        const product = this.state.products.find(item => item.id===id);
+        const product = this.state.discription.find(item => item.id===id);
         return product;
-    }
+       }
 
-    addToCart = (id, price, image, description) =>{
+
+    
+
+    addToCart = (id, price,image,name,total) =>{
         const object={
             id: id,
             count: 0,
-            total: 0.0,
+            total: total,
             price: price,
             image: image, 
-            description: description
+            name: name,
         };
-        this.setState({
-            cart: [...this.state.cart, object]
-        })
+        let inCart=false;
+        for(let i=0; i<this.state.cart.length; i++){
+            if(this.state.cart[i].id === object.id){
+                inCart=true;
+                break;
+            }
+        }
+        if(inCart)
+            alert("already in the cart")
+        else{
+            this.setState({
+                cart: [...this.state.cart, object]
+            })
+        }
+            
         console.log(object)
         console.log(this.state.cart)
     };
 
-    openModal = id =>{
-        const product = this.getItem(id);
+    addTotals =() =>{
+        let subTotal = 0;
+        this.state.cart.map(item =>(subTotal +=item.total))
+        const total = subTotal
         this.setState(()=>{
-            return{modalProduct: product,modalOpen:true}
+            return{
+                cartSubTotal:subTotal,
+                cartTotal:total
+            }
         })
-    }
 
-    closeModal = () =>{
-        this.setState(()=>{
-            return {modalOpen: false}
-        });
-    };
+    }
 
     increment =(id) =>{
         let tempCart=[...this.state.cart];
-        const selectedProduct=tempCart.find(item=>item.id === id)
+        const selectedProduct=tempCart.find(item=>item.id===id)
 
         const index =tempCart.indexOf(selectedProduct);
         const product =tempCart[index];
 
-        //let price=unitPrice-unitPrice*disconnect/100
-
-        product.count=product.count+1; 
+       product.count=product.count+1; 
         product.total =product.count*product.price;
 
         this.setState(
@@ -122,7 +113,7 @@ class ProductProvider extends Component {
 
         product.count=product.count-1;
 
-        if(product.count===0){
+        if(product.count===0 || product.count<0){
             this.removeItem(id)
         }
         else{
@@ -136,67 +127,47 @@ class ProductProvider extends Component {
     };
 
     removeItem =id =>{
-        let tempProducts= [...this.state.products];
-        let tempCart= [...this.state.cart];
-
-        tempCart= tempCart.filter(item=>item.id !==id);
-
-        const index =tempProducts.indexOf(this.getItem(id));
-        let removedProduct=tempProducts[index];
-        removedProduct.inCart=false;
-        removedProduct.count=0;
-        removedProduct.total=0;
-
+       
+        let index=this.state.cart.findIndex(obj => obj.id === id);
+        console.log(index)
+        this.state.cart.splice(index, 1);
+        console.log(this.state.cart)
+       
+        
         this.setState(
             ()=>{
                 return{
-                    cart:[...tempCart],
-                    products: [...tempProducts]
+                      cart: this.state.cart.filter(i => i !== index)
                     };
                 },
                 ()=>{
                     this.addTotals();
             }
         );
+        
     };
 
+    
     clearCart =() =>{
         this.setState(()=> {
             return{cart:[]};
         },()=>{
-            //this.setProducts();
+           
             this.addTotals();
         });
     };
 
-    addTotals =() =>{
-        let subTotal = 0;
-        this.state.cart.map(item =>(subTotal +=item.total))
-        const total = subTotal/*+tax */
-        this.setState(()=>{
-            return{
-                cartSubTotal:subTotal,
-                cartTotal:total
-            }
-        })
-
-    }
- 
     render() {
         return (
             <ProductContext.Provider value={{
                 ...this.state,
-                setShops: this.setShops,
-                discriptionHandle: this.discriptionHandle,
                 handleDetails: this.handleDetails,
-                addToCart : this.addToCart,
-                openModal: this.openModal,
-                closeModal: this.closeModal,
+                discriptionHandle:this.discriptionHandle,
+                addToCart:this.addToCart,
+                clearCart:this.clearCart,
                 increment: this.increment,
                 decrement: this.decrement,
-                removeItem: this.removeItem,
-                clearCart: this.clearCart
-
+                removeItem: this.removeItem
             }}>
 
 
@@ -206,5 +177,6 @@ class ProductProvider extends Component {
     }
 }
 
-const ProductConsumer=ProductContext.Consumer;
-export {ProductProvider, ProductConsumer};
+
+    const ProductConsumer=ProductContext.Consumer;
+    export {ProductProvider, ProductConsumer};

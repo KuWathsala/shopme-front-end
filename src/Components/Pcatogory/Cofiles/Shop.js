@@ -13,22 +13,23 @@ class Shop extends Component {
         return (
            <ProductWrapper className="col-9 mx-auto col-md-6 col-lg-3 my-3">
                <div className="card">
-               <ProductConsumer>
+             <ProductConsumer>
                    {
                        value=>(
                         <div className="img-container p-5"  
                             onClick={()=>
                             value.handleDetails(id)
+                            //shop details
                         }>
                        
-                        <Link to ="/productList">
-                            <img src={image} alt="product" className="card-img-top"  height="200px" width="200px"/>
+                       <Link to ="/productList">
+                            <img src={"data:image/jpeg;base64,"+image} alt="product" className="card-img-top"  height="200px" width="200px"/>
                         </Link> 
                         </div>
                        )
                    }
         
-              </ProductConsumer>
+              </ProductConsumer> 
 
                {/* card footer */}
                 <div className="card-footer d-flex justify-content-between">
