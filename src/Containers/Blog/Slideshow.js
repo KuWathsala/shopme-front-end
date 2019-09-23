@@ -5,9 +5,9 @@ const img=[
     {'id':"1",'src':"/image/img1.jpg"},
     {'id':'2','src':'/image/img2.jpg'},
     {'id':'3','src':'/image/img3.jpg'},
-    {'id':'4','src':'/image/img4.png'},
+    {'id':'4','src':'/image/colombo.jpg'},
     {'id':'5','src':'/image/img5.jpg'},
-    {'id':'6','src':'/image/img6.jpg'}
+    // {'id':'6','src':'/image/img6.jpg'}
 
 
 ];

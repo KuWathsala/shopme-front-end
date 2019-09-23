@@ -11,7 +11,7 @@ import {withRouter,Redirect} from'react-router-dom';
 class ShopProducts extends Component{
 
 editProduct=()=>{
-    this.props.history.push('/updateProduct'); 
+    this.props.history.push({pathname:'/updateProduct',id:this.props.id}); 
 };
 
 deleteProduct=()=>{
@@ -82,5 +82,3 @@ render(){
     }  
 }
 export default withRouter(ShopProducts);
-
-

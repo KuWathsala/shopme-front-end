@@ -55,7 +55,7 @@ render(){
                 alignSelf:'center',
                 justifyContent:'center',
                 flex:1,
-                backgroundColor:'rgb(73, 71, 71)',
+                backgroundColor:'lightgreen',
                 margin: '10px',
                 width: '400px',
                 display: 'flex',

@@ -22,7 +22,7 @@ class Firstnav extends React.Component {
   const show = (this.state.menu) ? "show" : "" ;
 
   return (
-    <nav class="navbar navbar-default" style={{backgroundColor:'#fff',borderColor:'#fff',}}>
+    <nav class="navbar navbar-default" style={{backgroundColor:'#fff',borderColor:'#fff'}}>
   <div class="container-fluid" style={{fontSize:15,fontWeight:'bold'}}>
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"  onClick={ this.toggleMenu } data-target="#bs-example-navbar-collapse-1">

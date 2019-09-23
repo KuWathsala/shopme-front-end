@@ -131,10 +131,12 @@ class Blog extends Component{
          }
         return (
             <div>
-            
-               <Firstnav
+                <div>
+                <Firstnav
                     isAuth={this.props.isAuthenticated && this.props.isAuthenticated}
                     userT={this.props.user}/>
+                </div>
+               
                     {/* <ProductProvider>
                        <Pindex/>
                     </ProductProvider> */}

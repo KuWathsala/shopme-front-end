@@ -144,14 +144,15 @@ input.error {
     flex-direction:column;
     justify-content:safe;
     align-items:center;
-    background: url(../../Assets/img2.jpg);
+    background: url(../../Assets/cmb_vector2.jpg);
 }
 
 .wrapForm{
     align-self:flex-end;
     justify-content: center;
     flex:1;
-    background-color:#ad7b0e;
+    /* background-color:#ad7b0e; */
+    background-color: lightgreen;
     margin: 10px;
     width: 400px;
     display: flex;
