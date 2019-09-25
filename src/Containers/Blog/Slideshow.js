@@ -15,8 +15,8 @@ const img=[
 class Image extends Component{
     render(){
         return(
-            <div style={{height:'100%',width:'100%',paddingBottom:50,marginTop:'5%'}}>
-                <SwiftSlider data={img} height={460}/>
+            <div style={{height:'100%',width:'100%',marginBottom:50,marginTop:'5%'}}>
+                <SwiftSlider data={img} height={'100%'} width={'100%'}/>
             </div>
         );
     }

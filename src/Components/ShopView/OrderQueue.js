@@ -46,6 +46,7 @@ class OrderQueue extends Component{
     }
 
     render(){
+        console.log(this.state.WaitingOrders)
         const WaitingOrders=this.state.WaitingOrders.map(orders=>{
            return <OrderItems value={orders} OrderId={orders.id} time={orders.createdAt} total={orders.totalPrice} connection={this.state.connection}
            OrderDetails={orders.products.map((c,i)=>(
