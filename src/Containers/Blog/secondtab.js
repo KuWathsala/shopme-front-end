@@ -16,7 +16,6 @@ class secondtab extends Component{
      render(){
         return(
             <div style={{marginTop:'2%'}}>
-<<<<<<< HEAD
                 <div className='row '>
                     {/*<div className='col-xs-3 col-sm-3 col-lg-3' ><img src={logo} style={{height:'70px',width:'250px'}}/></div>*/}
                     <div className='col-xs-4 col-sm-3 col-lg-2'>
@@ -33,19 +32,6 @@ class secondtab extends Component{
                         </ProductProvider>
                     </div>
                 </div>
-=======
-                        <div className='row '>
-                            <div className='col col-sm-3 col-lg-3' ><img src={logo} style={{height:'70px',width:'250px'}}/></div>
-                            <div className='col col-sm-6 col-lg-6' style={{float:'right',width:'100%',marginTop:10}}>
-                                <i class="glyphicon glyphicon-map-marker form-control-feedback"></i>
-                                <input type="text" placeholder="Enter Your Address"className='form-control 'onClick={this.try1} value={this.props.Address}/>
-                                
-                            </div>
-                            <div className='col col-sm-3 col-lg-3' style={{marginTop:10}}>
-                                <ProductProvider lng={this.props.lng} lat={this.props.lat}><input type="" name="search" value="Show Products" onClick={this.try2} className="btn btn-default" style={{fontWeight:'bold',color:'green'}}/></ProductProvider>
-                            </div>
-                        </div>
->>>>>>> 356d69e3a37fe93e98a15c83326b21012ca793cd
             </div>
 
         );
