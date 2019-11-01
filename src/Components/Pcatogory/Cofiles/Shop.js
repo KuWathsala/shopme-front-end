@@ -23,7 +23,7 @@ class Shop extends Component {
                         }>
                        
                        <Link to ="/productList">
-                            <img src={"data:image/jpeg;base64,"+image} alt="product" className="card-img-top"  height="200px" width="200px"/>
+                            <img src={image} alt="product" className="card-img-top"  height="200px" width="200px"/>
                         </Link> 
                         </div>
                        )

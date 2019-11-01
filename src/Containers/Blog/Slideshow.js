@@ -7,16 +7,14 @@ const img=[
     {'id':'3','src':'/image/img3.jpg'},
     {'id':'4','src':'/image/colombo.jpg'},
     {'id':'5','src':'/image/img5.jpg'},
-    // {'id':'6','src':'/image/img6.jpg'}
-
 
 ];
 
 class Image extends Component{
     render(){
         return(
-            <div style={{height:'100%',width:'100%',paddingBottom:50,marginTop:'5%'}}>
-                <SwiftSlider data={img} height={460}/>
+            <div style={{height:'100%',width:'100%',paddingBottom:50,marginTop:'4%', opacity: 1}}>
+                <SwiftSlider data={img} height={450}/>
             </div>
         );
     }

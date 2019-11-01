@@ -5,6 +5,7 @@ import './App.css';
 import Blog from './Containers/Blog/Blog';
 import {BrowserRouter,withRouter} from 'react-router-dom';
 import * as actions from './Stores/Actions/Index';
+import Pay from './Pay';
 
 class App extends Component {
 
@@ -14,11 +15,12 @@ class App extends Component {
 
   render() {
     return (
-
+        /*<Pay/>*/
+        
         <BrowserRouter>
           <Blog/>
         </BrowserRouter>  
-
+        
     );
   }
 }

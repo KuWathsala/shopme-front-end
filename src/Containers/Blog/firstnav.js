@@ -35,8 +35,8 @@ class Firstnav extends React.Component {
 
     <div className={"collapse navbar-collapse " + show}>
       
-      <ul class="nav navbar-nav" style={{color:'red'}}>
-        <li className="active" style={{color:'red',}}><Link to='/'><span class="glyphicon glyphicon-home">Home</span></Link></li>
+      <ul class="nav navbar-nav" style={{fontFamily:'Calibri', fontWeight: 'bolder', fontSize: 20}}>
+        <li class="active" ><Link to='/'><span  style={{ fontFamily:'Calibri', fontWeight: 'bolder', fontSize: 20}}>Home</span></Link></li>{/*class="glyphicon glyphicon-home"*/}
         {!this.props.isAuth ?<li><Link to='/Signuprole'>Register</Link></li>:null}
         <li><Link to='/'>Help</Link></li>
         <li><Link to='/'>Notfication</Link></li>

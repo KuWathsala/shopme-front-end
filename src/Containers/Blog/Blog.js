@@ -18,7 +18,7 @@ import Cart from '../../Components/Pcatogory/Cofiles/Cart/Cart';
 import Logout from '../../Components/SignIn/Logout/Logout';
 import OrderQueue from '../../Components/ShopView/OrderQueue';
 import AddProducts from '../../Components/ShopView/UploadForm';
-import Modal from '../../Components/Pcatogory/Cofiles/Modal';
+//import Modal from '../../Components/Pcatogory/Cofiles/Modal';
 import Pindex from '../../Components/Pcatogory/Pindex';
 import Navbar from '../../Components/Pcatogory/Cofiles/Navbar';
 import {ProductProvider} from '../../Components/Pcatogory/context';
@@ -130,7 +130,7 @@ class Blog extends Component{
              );
          }
         return (
-            <div>
+            <div style={{backgroundColor: 'white'}}>
                 <div>
                 <Firstnav
                     isAuth={this.props.isAuthenticated && this.props.isAuthenticated}
