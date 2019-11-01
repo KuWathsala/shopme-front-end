@@ -107,10 +107,14 @@ class Signup extends Component{
 
 fileUploadHandler =(event)=>{
     //this.setState({isloading:true})
+    console.log('file uploading started')
     console.log(this.state.selectedFile)
+    console.log(event)
+    console.log(event.target.files[0])
     const files=event.target.files
     const formData = new FormData();
     formData.append("file", files[0]);
+
     // formData.append("public_id", "product_image");
     // formData.append("timestamp", timeStamp);
     formData.append("upload_preset", 'm0uhbhzz');
