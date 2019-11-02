@@ -50,6 +50,9 @@ class Blog extends Component{
             <Route path="/UpdateProduct" exact component={UpdateProduct}/>
             <Route path="/upload" exact component={upload}/>
             <Route path="/spinner" exact component={Spinner}/>
+            <ProductProvider>
+                       <Pindex/>
+                    </ProductProvider>
         </Switch>
         
             
@@ -58,7 +61,6 @@ class Blog extends Component{
             routes=(
                 <Switch>
                     {/* <Route path="/"exact component={Home}/> */}
-                    <Route path="/Signin" exact component={SignIn}/>
                     <Route path="/Profile" exact component={Profile}/>
                     <Route path="/AddNewProduct" exact component={AddProducts}/>
                     <Route path="/logout" component={Logout}/>
@@ -74,14 +76,9 @@ class Blog extends Component{
             routes=(
                 <Switch>
                     <Route path="/"exact component={Home}/>
-                    <Route path="/Signin" exact component={SignIn}/>
                     <Route path="/Profile" exact component={Profile}/>
                     <Route path="/map" component={Map}/>
                     <Route path="/logout" component={Logout}/>
-                    <Route path="/Seller_login"exact component={OrderQueue}/>
-                    <Route path="/Inventory"exact component={Inventory}/>
-                    <Route path="/UpdateProduct" exact component={UpdateProduct}/>
-                    <Route path="/upload" exact component={upload}/>
                     <Route path="/spinner" exact component={Spinner}/>
                     <Redirect to="/"/>
                 </Switch>
@@ -90,16 +87,9 @@ class Blog extends Component{
             routes=(
                 <Switch>
                     <Route path="/"exact component={Home}/>
-                    <Route path="/Signin" exact component={SignIn}/>
-                    <Route path="/Signuprole"exact component={BsignUp}/>
-                    <Route path="/SignUp" component={Signup}/>
                     <Route path="/Profile" exact component={Profile}/>
                     <Route path="/map" component={Map}/>
                     <Route path="/logout" component={Logout}/>
-                    <Route path="/AddNewProduct" exact component={AddProducts}/>
-                    <Route path="/Inventory"exact component={Inventory}/>
-                    <Route path="/UpdateProduct" exact component={UpdateProduct}/>
-                    <Route path="/upload" exact component={upload}/>
                     <Route path="/spinner" exact component={Spinner}/>
                     <ProductProvider>
                        <Pindex/>

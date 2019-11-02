@@ -29,7 +29,7 @@ const submit=(values)=> {
     SellerId:store.getState().auth.userId,
   }
   console.log(productData);
-  axios.post('https://backend-webapi20190825122524.azurewebsites.net/api/products/create',productData)
+  axios.post('https://backend-webapi20191102020215.azurewebsites.net/api/products/create',productData)
   .then(res=>{
       console.log(res);
   });
@@ -47,7 +47,7 @@ class UploadForm extends Component {
   }
  
 componentDidMount=()=>{
-  axios.get('https://backend-webapi20190825122524.azurewebsites.net/api/categories')
+  axios.get('https://backend-webapi20191102020215.azurewebsites.net/api/categories')
     .then(response=>{
       console.log(response)
       this.setState({categories:response.data});

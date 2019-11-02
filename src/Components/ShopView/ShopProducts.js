@@ -16,7 +16,7 @@ editProduct=()=>{
 
 deleteProduct=()=>{
     console.log('Delete')
-    axios.delete(`https://backend-webapi20190825122524.azurewebsites.net/api/products/${this.props.id}`)
+    axios.delete(`https://backend-webapi20191102020215.azurewebsites.net/api/products/${this.props.id}`)
     .then(response=>{
         console.log(response)
     });

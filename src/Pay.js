@@ -29,7 +29,7 @@ class App extends Component {
         address: 'galle',
         city: 'galle',
         country: 'sri lanka',
-        notify_url: `https://backend-webapi20190825122524.azurewebsites.net/api/payment/${13},${1800}`,
+        notify_url: `https://backend-webapi20191102020215.azurewebsites.net/api/payment/${13},${1800}`,
       }
 
     axios.post('https://sandbox.payhere.lk/pay/checkout',object)

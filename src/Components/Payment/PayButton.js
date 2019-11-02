@@ -31,7 +31,7 @@ click=()=> {
     console.log("order")
     console.log(order)
 
-    axios.post('https://backend-webapi20190825122524.azurewebsites.net/api/orders/createNewOrder', order) //https://backend-webapi20190825122524.azurewebsites.net/api/orders/createNewOrder${order}
+    axios.post('https://backend-webapi20191102020215.azurewebsites.net/api/orders/createNewOrder', order) //https://backend-webapi20190825122524.azurewebsites.net/api/orders/createNewOrder${order}
     .then(response=>{
         console.log("response")
         console.log(response)

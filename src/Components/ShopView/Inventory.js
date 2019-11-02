@@ -10,7 +10,7 @@ class OrderQueue extends Component{
         };
 
     componentDidMount(){
-        axios.get(`https://backend-webapi20190825122524.azurewebsites.net/api/products/getproductsbyshop/${store.getState().auth.userId}`)
+        axios.get(`https://backend-webapi20191102020215.azurewebsites.net/api/products/getproductsbyshop/${store.getState().auth.userId}`)
             .then(response=>{
                 this.setState({shopProduct:response.data})
             });

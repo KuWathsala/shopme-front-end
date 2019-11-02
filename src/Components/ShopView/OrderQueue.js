@@ -17,7 +17,7 @@ class OrderQueue extends Component{
         // console.log("this.props.seller.user")
         // console.log(this.props.seller.user)
 
-        this.state.connection=new signalR.HubConnectionBuilder().withUrl("https://backend-webapi20190825122524.azurewebsites.net/connectionHub").build()
+        this.state.connection=new signalR.HubConnectionBuilder().withUrl("https://backend-webapi20191102020215.azurewebsites.net/connectionHub").build()
         this.state.connection.start()
         .then(()=> {
             console.log("connected");
@@ -25,7 +25,7 @@ class OrderQueue extends Component{
         })
         .catch(error => console.log(error));
 
-        axios.post(`https://backend-webapi20190825122524.azurewebsites.net/api/orders/getWaitingOrderDetailsBySeller/${this.props.sellerid}`)//this.props.seller.userId
+        axios.post(`https://backend-webapi20191102020215.azurewebsites.net/api/orders/getWaitingOrderDetailsBySeller/${this.props.sellerid}`)//this.props.seller.userId
         .then(response=>{
             console.log(response.data)
             for(let i=0; i<response.data.length; i++ )
@@ -35,7 +35,7 @@ class OrderQueue extends Component{
             console.log(error)
         });
 
-        axios.get(`https://backend-webapi20190825122524.azurewebsites.net/api/sellers/${this.props.sellerid}`)//this.props.seller.userId
+        axios.get(`https://backend-webapi20191102020215.azurewebsites.net/api/sellers/${this.props.sellerid}`)//this.props.seller.userId
         .then(response=>{
             console.log(response.data)
                 this.setState({Details:response.data})

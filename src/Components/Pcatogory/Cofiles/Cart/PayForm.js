@@ -30,7 +30,7 @@ class PayForm extends Component{
     }
 
     componentDidMount=()=>{
-        axios.get(`https://backend-webapi20190825122524.azurewebsites.net/api/customers/${this.props.userid}`)
+        axios.get(`https://backend-webapi20191102020215.azurewebsites.net/api/customers/${this.props.userid}`)
         .then(response=>{
             this.setState({custDetails:response.data})
             console.log(response);
