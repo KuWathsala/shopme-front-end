@@ -5,6 +5,7 @@ import EmptyCart from "./EmptyCart";
 import {ProductConsumer,ProductProvider} from '../../context';
 import CartList from './CartList';
  import CartTotals from './CartTotals';
+ import './cart.css';
 class Cart extends Component {
     render() {
         return (
@@ -16,11 +17,15 @@ class Cart extends Component {
                         if (cart.length > 0){
                             return(
                                 <React.Fragment>
+                                    <div className="cart1">
                                     <Title name= "Your" title="Cart"/>
                                     <CartColumns/>
                                     <CartList value={value}/>
+                                    </div>
+                                    
                                     <CartTotals value={value}
                                     history={this.props.history}/>
+                                    
                                 </React.Fragment>
                             );
                             

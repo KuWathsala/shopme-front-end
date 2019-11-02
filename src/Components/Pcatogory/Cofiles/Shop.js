@@ -11,7 +11,7 @@ class Shop extends Component {
         console.log("Shop")
         console.log(id)
         return (
-           <ProductWrapper className="col-9 mx-auto col-md-6 col-lg-3 my-3">
+           <ProductWrapper className="col-9 mx-auto col-md-6 col-lg-4 my-4">
                <div className="card">
              <ProductConsumer>
                    {
@@ -23,7 +23,8 @@ class Shop extends Component {
                         }>
                        
                        <Link to ="/productList">
-                            <img src={image} alt="product" className="card-img-top"  height="200px" width="200px"/>
+                           {/*"data:image/jpeg;base64,"+ */}
+                            <img src={image} alt="product" className="card-img-top"  height="250px" width="350px"/>
                         </Link> 
                         </div>
                        )
@@ -33,7 +34,7 @@ class Shop extends Component {
 
                {/* card footer */}
                 <div className="card-footer d-flex justify-content-between">
-                    <p className="align-self-center mb-0">{shopName} {id}</p>
+                    <p className="text-blue font-italic mb-0">{shopName} {id}</p>
                     <p className="align-self-center mb-0">close to you: {distance}</p>
                 </div>
 

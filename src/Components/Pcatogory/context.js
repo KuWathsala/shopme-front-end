@@ -19,7 +19,7 @@ class ProductProvider extends Component {
 
     handleDetails =id =>{
         console.log("handleDetails "+id)
-        axios.get(`https://backend-webapi20190825122524.azurewebsites.net/api/products/GetProductsByShop/${id}`)
+        axios.get(`https://backend-webapi20191102020215.azurewebsites.net/api/products/GetProductsByShop/${id}`)
         .then(response=>{
             console.log(response)
             this.setState({detailProduct: response.data});
@@ -30,7 +30,7 @@ class ProductProvider extends Component {
 
     discriptionHandle=id=>{
         console.log("productDetails")
-        axios.get(`https://backend-webapi20190825122524.azurewebsites.net/api/products/${id}`)
+        axios.get(`https://backend-webapi20191102020215.azurewebsites.net/api/products/${id}`)
         .then(response=>{
             console.log(response.data)
             this.setState({discription: response.data});
@@ -42,7 +42,7 @@ class ProductProvider extends Component {
     getItem = id =>{
         const product = this.state.discription.find(item => item.id===id);
         return product;
-       }
+    }
 
 
     
@@ -50,12 +50,16 @@ class ProductProvider extends Component {
     addToCart = (id, price,image,name,total) =>{
         const object={
             id: id,
-            count: 0,
-            total: total,
+            count: 1,
+            total: price,
             price: price,
             image: image, 
             name: name,
         };
+
+        let tempTotal=this.state.cartTotal;
+        this.setState({cartTotal: tempTotal+ price})
+
         let inCart=false;
         for(let i=0; i<this.state.cart.length; i++){
             if(this.state.cart[i].id === object.id){
@@ -70,6 +74,9 @@ class ProductProvider extends Component {
                 cart: [...this.state.cart, object]
             })
         }
+        
+        //if(object.count===0)
+          //  this.increment(object.id);
             
         console.log(object)
         console.log(this.state.cart)
@@ -95,7 +102,7 @@ class ProductProvider extends Component {
         const index =tempCart.indexOf(selectedProduct);
         const product =tempCart[index];
 
-       product.count=product.count+1; 
+        product.count=product.count+1; 
         product.total =product.count*product.price;
 
         this.setState(
@@ -111,12 +118,13 @@ class ProductProvider extends Component {
         const index =tempCart.indexOf(selectedProduct);
         const product =tempCart[index];
 
-        product.count=product.count-1;
+        
 
-        if(product.count===0 || product.count<0){
-            this.removeItem(id)
-        }
-        else{
+        //if(product.count===0 || product.count<0){
+          //  this.removeItem(id)
+        //}
+        if(product.count!=1){
+            product.count=product.count-1;
             product.total=product.count*product.price;
 
             this.setState(

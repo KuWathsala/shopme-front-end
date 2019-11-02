@@ -46,7 +46,7 @@ export default function CartItem({item,value}) {
 </div>
 
 <div className="col-10 mx-auto col-lg-2">
-<strong>item total : LKR {total}</strong>
+item total : LKR {total}
 </div>
 
         </div>

@@ -90,7 +90,7 @@ export const auth=(authData)=>{
         let url='';
         if(authData.LoginVM.Role=='Customer'){
             console.log("customer");
-            url='https://backend-webapi20190825122524.azurewebsites.net/api/UserAuth/Signup-Customer';
+            url='https://backend-webapi20191102020215.azurewebsites.net/api/UserAuth/Signup-Customer';
             axios.post(url,authData)
                 .then(response=>{
             console.log(response);
@@ -103,7 +103,7 @@ export const auth=(authData)=>{
         });
         }else if(authData.LoginVM.Role=='Seller'){
             console.log("seller");
-            url='https://backend-webapi20190825122524.azurewebsites.net/api/UserAuth/Signup-Seller';
+            url='https://backend-webapi20191102020215.azurewebsites.net/api/UserAuth/Signup-Seller';
             axios.post(url,authData)
                 .then(response=>{
             console.log(response);
@@ -116,7 +116,7 @@ export const auth=(authData)=>{
         });
         }else if(authData.LoginVM.Role=='Deliverer'){
             console.log("deliverer  ");
-            url='https://backend-webapi20190825122524.azurewebsites.net/api/UserAuth/Signup-Deliverer';
+            url='https://backend-webapi20191102020215.azurewebsites.net/api/UserAuth/Signup-Deliverer';
             axios.post(url,authData)
                 .then(response=>{
             console.log(response);
@@ -134,7 +134,7 @@ export const auth=(authData)=>{
 export const authVerify=(authData)=>{
     return dispatch=>{
         dispatch(authStart());
-        let url='https://backend-webapi20190825122524.azurewebsites.net/api/UserAuth/signin';
+        let url='https://backend-webapi20191102020215.azurewebsites.net/api/UserAuth/signin';
         axios.post(url,authData)
         .then(response=>{
             console.log(response.data.data);

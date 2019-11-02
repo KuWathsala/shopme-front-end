@@ -7,33 +7,33 @@ class CartColumns extends Component {
                 <div className="row">
                 <div className="col-10 mx auto col-lg-2">
                 <p className="text-uppercase">
-                    products
+                 <strong>   products</strong>
                 </p> 
                 </div>
 
                 <div className="col-10 mx auto col-lg-2">
                 <p className="text-uppercase">
-                    name of product
+                   <strong> name of product</strong>
                 </p> </div>
 
                 <div className="col-10 mx auto col-lg-2">
                 <p className="text-uppercase">
-                    price
+                    <strong>price</strong>
                 </p> </div>
 
                 <div className="col-10 mx auto col-lg-2">
                 <p className="text-uppercase">
-                    quantaty
+                    <strong>quantaty</strong>
                 </p> </div>
 
                 <div className="col-10 mx auto col-lg-2">
                 <p className="text-uppercase">
-                    remove
+                    <strong>remove</strong>
                 </p> </div>
 
                 <div className="col-10 mx auto col-lg-2">
                 <p className="text-uppercase">
-                    total 
+                    <strong>total</strong> 
                 </p> </div>
                 
                 </div>

@@ -7,8 +7,9 @@ import ProductList from './Cofiles/ProductList';
 import Details from './Cofiles/Details';
 import Cart from './Cofiles/Cart/Cart';
 import ShopList from '../Pcatogory/Cofiles/ShopList';
+//import '../Pcatogory/Cofiles/pApp.css';
 import '../Pcatogory/Cofiles/pApp.css';
-import PayForm from '../Pcatogory/Cofiles/Cart/PayForm';
+import PayForm from '../Payment/PayForm';
 class Pindex extends Component {
   render(){
     return (

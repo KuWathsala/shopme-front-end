@@ -22,7 +22,7 @@ class Product extends Component {
                        
                        <Link to ="/details">
                             {/* <img src={"data:image/jpeg;base64,"+image} alt="product" className="card-img-top"  height="250px" width="100%"/> */}
-                            <img src={image} alt="product" className="card-img-top"  height="250px" width="100%"/>
+                            <img src={image} alt="product" className="card-img-top"  height="250px" width="350px"/>
                        </Link>
          
                        <button className="cart-btn" 
@@ -121,13 +121,15 @@ Product.propTypes ={
     transform: translate(100%, 100%);
     transition: all 1s linear;
 }
-.img-container:hover .cart-btn{
-    transform: translate(0, 0);
-}
-.cart-btn:hover{
-    color:var(--mainBlue);
-    cursor: pointer;
-}
 
 `
 export default Product;
+/*
+.img-container:hover .cart-btn{
+    transform: translate(0, 0);
+}
+
+.cart-btn:hover{
+    color:var(--mainBlue);
+    cursor: pointer;
+}*/
