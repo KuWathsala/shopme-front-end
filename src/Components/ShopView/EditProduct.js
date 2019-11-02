@@ -35,7 +35,7 @@ class EditProduct extends Component {
  
 componentDidMount=()=>{
   console.log(this.props.location.id)
-  axios.get(`https://backend-webapi20190825122524.azurewebsites.net/api/products/${this.props.location.id}`)
+  axios.get(`https://backend-webapi20191102020215.azurewebsites.net/api/products/${this.props.location.id}`)
     .then(response=>{
       console.log(response.data)
       this.setState({ProductDetails:response.data});
@@ -44,7 +44,7 @@ componentDidMount=()=>{
       console.log(err)
     })
 
-    axios.get(`https://backend-webapi20190825122524.azurewebsites.net/api/categories`)
+    axios.get(`https://backend-webapi20191102020215.azurewebsites.net/api/categories`)
     .then(response=>{
       this.setState({categories:response.data});
     })
@@ -59,7 +59,7 @@ componentDidMount=()=>{
   fileUploadHandle=()=>{
     console.log(this.state);
     const data={}
-    axios.post('https://backend-webapi20190825122524.azurewebsites.net/api/',data)
+    axios.post('https://backend-webapi20191102020215.azurewebsites.net/api/',data)
         .then(res=>{
             console.log(res);
         });
@@ -73,7 +73,7 @@ componentDidMount=()=>{
       SellerId:store.getState().auth.userId,
     }
     console.log(productData);
-    axios.update('https://backend-webapi20190825122524.azurewebsites.net/api/products',productData)
+    axios.update('https://backend-webapi20191102020215.azurewebsites.net/api/products',productData)
     .then(res=>{
         console.log(res);
     });

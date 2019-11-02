@@ -1,7 +1,5 @@
 import React from 'react';
 import {Redirect,Link,withRouter} from 'react-router-dom';
-//import browserHistory from 'react-router-dom';
-//import { RedirectWithoutLastLocation } from 'react-router-last-location';
 import axios from 'axios';
 import { withGoogleMap, GoogleMap, withScriptjs, InfoWindow, Marker } from "react-google-maps";
 import Autocomplete from 'react-google-autocomplete';
