@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import {connect} from 'react-redux';
-import {Link,withRouter,Redirect} from 'react-router-dom';
 import context from '../Pcatogory/context';
-import {total} from '../Pcatogory/Cofiles/Cart/CartTotals';
+
 class PayForm extends Component {
 
     constructor(props){
@@ -26,7 +25,7 @@ class PayForm extends Component {
     }
 
     componentDidMount=()=>{
-        axios.post(`https://backend-webapi20191102020215.azurewebsites.net/api/customers/${this.props.userid}`)
+        axios.post(`https://backend-webapi20190825122524.azurewebsites.net/api/customers/${this.props.userid}`)
         .then(response=>{
             this.setState({custDetails:response.data})
             console.log(response);
@@ -77,23 +76,23 @@ class PayForm extends Component {
     <input type="hidden" name="cancel_url" value="http://sample.com/cancel"/>
     <input type="hidden" name="notify_url" value="http://sample.com/notify"/>
     <div className = "itemDetails">
-    <strong>Item Details</strong><br/>
-    <input type="text" name="order_id" value="ItemNo12"/>
-    <input type="text" name="items" value="Door"/><br/><br/>
-    <input type="text" name="currency" value="Total Amount"/>
-    <input type="text" name="amount" value={this.props.total}/>  
+    Item Details<br/>
+    <input type="text" name="order_id" value="ID_"/>
+    <input type="text" name="items" value="3"/><br/>
+    <input type="text" name="currency" value="LKR"/>
+    <input type="text" name="amount" value="450"/>  
  
     </div> 
-   <br/>
+   
        <div className = "cuDetails">
-       <strong> Customer Details</strong><br/>
+        Customer Details<br/>
         
     <input type="text" name="first_name" placeholder="first Name" value={this.props.isauth ? this.state.custDetails.firstName : this.state.first_name} onChange = {e => this.change(e)} />
     <input type="text" name="last_name" placeholder="last Name" value={this.props.isauth ? this.state.custDetails.lastName : this.state.last_name} onChange = {e => this.change(e)}/><br/><br/>
-    <input type="text" name="email" placeholder="email" value={this.state.custDetails.email} onChange = {e => this.change(e)}/>
+    <input type="hidden" name="email" placeholder="email" value={this.props.isauth ?this.state.custDetails.Email:this.state.Email} onChange = {e => this.change(e)}/>
     <input type="text" name="phone" placeholder="contact number"  value={this.props.isauth ? this.state.custDetails.mobileNumber : this.state.phone} onChange = {e => this.change(e)} /><br/><br/>
-    <input type="text" name="address" placeholder="address" value={this.state.address} onChange = {e => this.change(e)} />
-    <input type="text" name="city" placeholder="city" value={this.props.isauth ? this.state.custDetails.city : this.state.city} onChange = {e => this.change(e)}/>
+    <input type="hidden" name="address" placeholder="address" value={this.state.address} onChange = {e => this.change(e)} />
+    <input type="hidden" name="city" placeholder="city" value={this.props.isauth ? this.state.custDetails.city : this.state.city} onChange = {e => this.change(e)}/>
     <input type="hidden" name="country" placeholder="country" value={this.state.country} onChange = {e => this.change(e)}/><br/><br/>
     <input type="submit" value="Buy Now" 
      style = {{
@@ -104,16 +103,12 @@ class PayForm extends Component {
         borderRadius: "4px",
         cursor: "pointer",
         float: "right",
-    }} />  
-    <br/><br/><br/>
-    <div style={{alignContent:'center',marginLeft:'30%'}}>
-            <div><Link to="/Signup"><strong> SignUp to buy product</strong></Link></div>
-    </div></div>
+    }} />   
+    </div>
 </form> 
 </div>
 <div className ="col-0">
-
-{/* <img src="https://image.shutterstock.com/image-vector/landing-page-template-online-shopping-600w-1396237571.jpg"  height="500px" width="800px"></img>*/}
+<img src="https://image.shutterstock.com/image-vector/landing-page-template-online-shopping-600w-1396237571.jpg" alt="Flowers in Chania"></img>
 </div>
 </div>
 

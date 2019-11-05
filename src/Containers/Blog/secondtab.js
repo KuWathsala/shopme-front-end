@@ -24,7 +24,7 @@ class secondtab extends Component{
                     </div>
                     <div className='col-xs-6 col-sm-6 col-lg-6' style={{float:'right',width:'100%',marginTop:10}}>
                         <input type="text" placeholder="Enter Your Address"className='form-control 'onClick={this.try1} value={this.props.Address}/>
-                        <li class="glyphicon glyphicon-map-marker form-control-feedback"></li>
+                        <li className="glyphicon glyphicon-map-marker form-control-feedback"></li>
                     </div>
                     <div className='col-xs-3 col-sm-3 col-lg-3' style={{marginTop:10}}>
                         <ProductProvider lng={this.props.lng} lat={this.props.lat}>

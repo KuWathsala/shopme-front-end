@@ -12,9 +12,11 @@ import {store} from '../../index';
 
 const renderField = ({ input,label,type,click,value,meta: { touched, error, warning }}) => (
     <div className='row' style={{marginBottom:10,display:'flex'}}>
-        <div className='col' style={{}}><label style={{color:'#ffff',fontWeight:'bold',columnWidth:120,paddingLeft:30}}>{label}</label></div>
+        <div className='col' style={{}}>
+        <label style={{color:'black',fontWeight:'bold',columnWidth:125,paddingLeft:30,alignContent:'center'}}>{label}</label>
+        </div>
         <div className='col col-xs-7 col-sm-7 col-lg-7' >
-            <input {...input} placeholder={label} type={type} value={value} onclick={click} style={{alignSelf:'center',marginLeft:relative,width:200}}/>
+            <input {...input} placeholder={label} type={type} value={value} onclick={click} style={{alignSelf:'center',marginLeft:relative,width:220,borderRadius:'25px',height:'30px'}}/>{/**,color:"green" */}
           {touched && ((error && <span style={{color:'red',backgroundColor:'white',fontWeight:'bold'}}>{error}</span>) ||(warning && <span>{warning}</span>))}
         </div>
     </div>
@@ -107,14 +109,10 @@ class Signup extends Component{
 
 fileUploadHandler =(event)=>{
     //this.setState({isloading:true})
-    console.log('file uploading started')
     console.log(this.state.selectedFile)
-    console.log(event)
-    console.log(event.target.files[0])
     const files=event.target.files
     const formData = new FormData();
     formData.append("file", files[0]);
-
     // formData.append("public_id", "product_image");
     // formData.append("timestamp", timeStamp);
     formData.append("upload_preset", 'm0uhbhzz');
@@ -144,21 +142,23 @@ return(
 <div className="wrapper">
     <div className="wrapForm">
     {this.props.isloading ? <Spinner/> : <div>
-    <h1 style={{fontWeight:'bold' ,color:'white'}}>Create Account</h1>
+    <h1 style={{fontWeight:'bold' ,color:'black'}}>Create Account</h1>
     
     <div>
     
     {
     this.props.usertype=="Seller" ? 
         <div className='col col-md-12'>
-            <input type="text" placeholder="Click to setup shop location" className='form-control 'onClick={this.setLocation} value={this.props.Address}/>
-            <i class="glyphicon glyphicon-map-marker form-control-feedback"></i>
+            <input type="text" placeholder="Click to setup shop location" className='form-control1 'onClick={this.setLocation} value={this.props.Address}
+            style={{width:350, height:6,borderRadius:'25px',alignContent:'left',backgroundColor:'darkseagreen',color:'black',padding:'6px'}}
+            />
+            <i class="glyphicon glyphicon-map-marker form-control-feedback" style={{color:'red'}}></i>
         </div>
      :null
 }
     </div>
     <form onSubmit={handleSubmit(submit)}>
-        <Field
+        <Field 
             name="FirstName"
             type="text"
             component={renderField}
@@ -206,14 +206,10 @@ return(
                     value={null}
                     validate={[required]}
                 />
-                {/* <Field name = "eventLocation"
-                    values="gghhgghh"
-                    component = {renderLatLng}
-                     /> */}
-
-                {/* <p>{this.props.Address}</p> */}
+               
             </div>
                 :null}
+
 
         {this.props.usertype=="Deliverer" ?
             <div>
@@ -227,9 +223,9 @@ return(
                     validate={[required]}
                 />
                 <div className='row' style={{marginBottom:10,display:'flex'}}>
-                <label style={{color:'#ffff',fontWeight:'bold',columnWidth:140,paddingLeft:30}}>Vehicle Type</label>
+                <label style={{color:'black',fontWeight:'bold',columnWidth:140,paddingLeft:30}}>Vehicle Type</label>
                 <div>
-                <Field name="VehicleType" component="select" style={{alignSelf:'center',marginLeft:relative,height:37,width:200}}>
+                <Field name="VehicleType" component="select" style={{alignSelf:'center',marginLeft:relative,height:37,width:200, borderRadius:'25px'}}>
                 <option value="">Select a vehicle...</option>
                     {vehicles.map(Option => (
                         <option value={Option} key={Option}>
@@ -280,10 +276,12 @@ return(
                     value={null}
                     validate={[required,passwordMatch]}
                 />
-                <label htmlFor="img">Image</label>
-              {this.state.isloading ? <Spinner2/> :
+
+                <div style={{textAlign:"left",color:'black'}}>
+                <label htmlFor="img"><b>Image</b></label>
+                        {this.state.isloading ? <Spinner2/> :
               <input 
-                style={{backgroundColor:'white',marginBottom:15,width:400}}
+                style={{backgroundColor:'white',marginBottom:15,width:350,alignContent:'center'}}
                 name="Image"
                 type="file"
                 onChange={this.fileUploadHandler}
@@ -291,10 +289,11 @@ return(
                 // ref={fileInput=>this.fileInput=fileInput}/>
                 // <button onClick={()=>this.fileInput.click()}>Pick File</button>
                 // <button onClick={this.fileUploadHandler}>upload</button>
-                />  }
+                /> 
+                 }</div>
          <div style={{alignContent:'center',marginLeft:'30%'}}>
-            <button type="submit" className="btn btn-default" disabled={submitting}>SUBMIT</button>
-            <div><Link to="/Signin"><small>Already have an Account</small></Link></div>
+            <button type="submit" className="btn-btn-default1" disabled={submitting}>SUBMIT</button>
+            <div><Link to="/Signin"><small style={{color:'black'}}><b>Already have an Account</b></small></Link></div>
         </div>   
     </form>
     </div>}

@@ -3,6 +3,7 @@ import axios from 'axios';
 import InventoryColumnTitles from './IncentoryColumn'
 import ShopProducts from './ShopProducts';
 import {store} from '../../index';
+import '../Signup/Signup.css';
 
 class OrderQueue extends Component{
     state={

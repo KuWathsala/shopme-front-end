@@ -1,5 +1,6 @@
 import React,{Component} from 'react';
 import Img from '../../Assets/profile.png';
+import {connect} from 'react-redux';
 import './prof.css';
 import axios from 'axios';
 
@@ -11,52 +12,70 @@ class Profile extends Component{
     };
 
     componentDidMount(){
-        axios.get('')
-        .then(response=>{
-            this.setState({userdata:response.data});
-        });
-        axios.get('')
-        .then(response=>{
-            this.setState({userdata:response.data});
-        });
+        if(this.props.userType=="Seller"){
+            axios.get(`https://backend-webapi20191102020215.azurewebsites.net/api/sellers/${this.props.userId}`)
+            .then(response=>{
+                console.log(response);
+                this.setState({userdata:response.data});
+            });
+        }else if(this.props.userType=='Customer'){
+            axios.post(`https://backend-webapi20191102020215.azurewebsites.net/api/customers/${this.props.userId}`)
+            .then(response=>{
+                console.log(response);
+                this.setState({userdata:response.data});
+            });
+        }else if(this.props.userType=="Deliverer"){
+            axios.get(`https://backend-webapi20191102020215.azurewebsites.net/api/deliverers/${this.props.userId}`)
+            .then(response=>{
+                console.log(response);
+                this.setState({userdata:response.data});
+            });
+        }
     }
 
     render(){
         return(
-            <div style={{height:'500px'}}>
-                <div className='col-4 col-md-4'  style= {{borderRight:'3px solid grey', height:'400px',}} >
-                <img style={{width:'60%',height:'60%',borderRadius:'80%',position:'relative',paddingLeft:'10%'}} src={Img} />
+            <div style={{height:'100%'}}>
+                <div>
+                <img style={{flex:1,height:300,width:300,borderRadius:150,marginLeft:'70%'}} src={this.state.userdata.image} />
                 </div>
-                <div className='col-8 col-md-8'>
-                    <div className="personalInfo">
-                        <tr>
-                            <div className='col-8 col-md-8'>Name : </div>
-                            <div className='col-4 col-md-4'>{this.state.userdata.name}</div>
-                        </tr> 
-                        <tr>
-                            <div className='col-8 col-md-8'>Adress : </div>
-                            <div className='col-4 col-md-4'>{this.state.userdata.addres}</div>
-                        </tr>
-                        <tr>
-                            <div className='col-8 col-md-8'>Contact NO: </div>
-                            <div className='col-4 col-md-4'>{this.state.userdata.contactNo}</div>
-                        </tr>
+                <div style={{fontSize:20}}>
+                        <div className="row">
+                            <div className='col-2 col-md-2'>Name</div>
+                            <div className='col-4 col-md-4' style={{color:'grey'}}>{this.state.userdata.firstName+" "+this.state.userdata.lastName}</div>
+                            <br/><br/>
+                        </div>
+                        <div className="row">
+                            <div className='col-2 col-md-2'>Contact NO</div>
+                            <div className='col-4 col-md-4'style={{color:'grey'}}>{this.state.userdata.mobileNumber}</div>
+                            <br/><br/>
+                        </div>
+
+                        <div className="row">
+                            <div className='col-2 col-md-2'>Shop Name</div>
+                            <div className='col-4 col-md-4'style={{color:'grey'}}>{this.state.userdata.shopName}</div>
+                            <br/><br/>
+                        </div>
+                        <div className="row">
+                            <div className='col-2 col-md-2'>Shop Address</div>
+                            <div className='col-4 col-md-4'style={{color:'grey'}}>{this.state.userdata.shopAddress}</div>
+                            <br/><br/>
+                        </div>
                             <a href='/'>Edit Profile</a>
                     </div>
-                        <div className="container" style={{width:"80%",paddingTop:"10%"}}>
-                            <h5><b>Previous orders</b></h5>
-                            <div className="table-stripped">
-                                <div className="row" style={{background:'#4CAF50'}}>
-                                    <div className="col-md-4"><th>Date</th></div>
-                                    <div className="col-md-2" style={{textAlign:"center"}}><th >Order No</th></div>
-                                    <div className="col-md-2" ><th style={{textAlign:"center"}}>Items</th></div>
-                                    <div className="col-md-2" ><th style={{textAlign:"center"}}>Price</th></div>
-                                </div>
-                            </div>
-                        </div>
                     </div>
-                </div>
         );
     }
 }
-export default Profile;
+
+const mapStateToProps=state=>{
+    return{
+      userType:state.auth.userType,
+      userId:state.auth.userId
+    //   Address:state.location.address,
+    //   lng:state.location.lngValue,
+    //   lat:state.location.latValue,
+    //   isAuth:state.auth.token!==null
+    }
+  }
+export default connect(mapStateToProps,null)(Profile);

@@ -38,7 +38,7 @@ class Firstnav extends React.Component {
       <ul class="nav navbar-nav" style={{fontFamily:'Calibri', fontWeight: 'bolder', fontSize: 20}}>
         <li class="active" ><Link to='/'><span  style={{ fontFamily:'Calibri', fontWeight: 'bolder', fontSize: 20}}>Home</span></Link></li>{/*class="glyphicon glyphicon-home"*/}
         {!this.props.isAuth ?<li><Link to='/Signuprole'>Register</Link></li>:null}
-        <li><Link to='/'>Help</Link></li>
+        <li><Link to='/Help'>Help</Link></li>
         <li><Link to='/'>Notfication</Link></li>
         {!this.props.isAuth ? <li><Link to='/Signin'>Hi, Sign In</Link></li>:<li><Link to='/logout'>Logout</Link></li>}
         {this.props.userType=="Seller" && this.props.isAuth ? <li><Link to='/AddNewProduct'>Add Products</Link></li>:null}

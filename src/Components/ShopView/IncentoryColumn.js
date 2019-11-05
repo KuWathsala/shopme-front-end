@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 class InventoryColumn extends Component {
     render() {
         return (
-            <div className="container-fluid text-center d-none d-lg-block">
+            <div className="container-fluid text-center d-none d-lg-block" >
                 <div className="row">
                 
                 <div className="col-12 col-md-2 col-lg-2 col-sm-2">

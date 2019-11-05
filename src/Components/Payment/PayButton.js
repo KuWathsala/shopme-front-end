@@ -7,10 +7,10 @@ class PhButton extends Component {
 click=()=> {
         
     console.log("this.props")
-    //create order
-    let itemList= []; //items is an array of  {productId, Quantity}
+    
+    let itemList= []; 
 
-    //loop to take every productId and Quantity of cart array and put into itemList made by prabashi... ask her 
+     
     for(let i = 0; i < this.props.cart.arr.length; i++){
         let item= {
             productId: this.props.cart.arr[i].id, 
@@ -20,24 +20,22 @@ click=()=> {
     }
 
     const order= {
-        customerId: parseInt(this.props.customer.userId), //customerId
-        customerLatitude: this.props.location.source.latitude, //this must prepared
+        customerId: parseInt(this.props.customer.userId), 
+        customerLatitude: this.props.location.source.latitude,
         customerLongitude: this.props.location.source.longitude,
         sellerId: this.props.productsList.sellerId,
-        status: "to be confirmed", //keep same as
-        items: itemList //array
+        status: "to be confirmed", 
+        items: itemList 
     }
 
     console.log("order")
     console.log(order)
 
-    axios.post('https://backend-webapi20191102020215.azurewebsites.net/api/orders/createNewOrder', order) //https://backend-webapi20190825122524.azurewebsites.net/api/orders/createNewOrder${order}
+    axios.post('https://backend-webapi20190825122524.azurewebsites.net/api/orders/createNewOrder', order) //https://backend-webapi20190825122524.azurewebsites.net/api/orders/createNewOrder${order}
     .then(response=>{
         console.log("response")
         console.log(response)
-        //this.props.navigation.navigate(Payment, response.data)
-    //after response success, response.daata.id is the id of the order
-    /*here to code redirect to payhere......*/
+        
     }) 
     .catch (error=>{
         console.log("error")

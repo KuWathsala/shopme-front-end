@@ -30,11 +30,7 @@ export default function CartTotals({value,history }){
                             </span>
                             <strong>LKR{cartTotal}</strong>
                         </h5>
-                    <br/> <br/>
-                
-                        <PayForm total={cartTotal}
-                         clearCart={clearCart}
-                        history={history}/>
+                        <PayButton/>
 
             
                     </div>

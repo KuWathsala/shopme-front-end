@@ -11,21 +11,16 @@ import Home from './Home';
 import Profile from '../../Components/Profile/Profile';
 import '../../bootstrap-3.3.7-dist/css/bootstrap.min.css';
 import Map from '../../Components/map/Map_home';
-import ProductList from '../../Components/Pcatogory/Cofiles/ProductList';
-import ShopList from '../../Components/Pcatogory/Cofiles/ShopList';
-import Details from '../../Components/Pcatogory/Cofiles/Details';
-import Cart from '../../Components/Pcatogory/Cofiles/Cart/Cart';
 import Logout from '../../Components/SignIn/Logout/Logout';
 import OrderQueue from '../../Components/ShopView/OrderQueue';
 import AddProducts from '../../Components/ShopView/UploadForm';
-//import Modal from '../../Components/Pcatogory/Cofiles/Modal';
 import Pindex from '../../Components/Pcatogory/Pindex';
-import Navbar from '../../Components/Pcatogory/Cofiles/Navbar';
 import {ProductProvider} from '../../Components/Pcatogory/context';
 import Inventory from '../../Components/ShopView/Inventory';
 import UpdateProduct from '../../Components/ShopView/EditProduct';
 import upload from '../../Components/ShopView/UploadF';
 import Spinner from '../../Containers/Spinner/Spinner_2';
+import Help from '../../Containers/Blog/Help';
 
 
 
@@ -69,6 +64,7 @@ class Blog extends Component{
                     <Route path="/UpdateProduct" exact component={UpdateProduct}/>
                     <Route path="/upload" exact component={upload}/>
                     <Route path="/spinner" exact component={Spinner}/>
+                    <Route path="/Help" exact component={Help}/>
                     <Redirect to="/Seller_login"/>
                 </Switch>
             );  
@@ -114,7 +110,7 @@ class Blog extends Component{
                         <Route path="/UpdateProduct" exact component={UpdateProduct}/>
                         <Route path="/upload" exact component={upload}/>
                         <Route path="/spinner" exact component={Spinner}/>
-      
+                        <Route path="/Help" exact component={Help}/>
                 </Switch>
                 </React.Fragment>
              );

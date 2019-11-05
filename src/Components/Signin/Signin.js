@@ -1,22 +1,23 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import * as actions from '../../Stores/Actions/Index';
-import {Redirect} from 'react-router-dom';
+import {Link,Redirect} from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import axios from 'axios';
-import {store} from '../../index'
-
+import {store} from '../../index';
 import "../Signup/Signup.css";
-import { FacebookLoginButton, GoogleLoginButton } from "react-social-login-buttons";
-import FacebookSignin from "./FacebookSignin.js";
-import GoogleSignin from "./GoogleSignin.js";
-import Spinner from '../../Containers/Spinner/Spinner_2'
+import "../SignIn/signin.css";
+import Spinner from '../../Containers/Spinner/Spinner_2';
+
 
 const renderField = ({ input,label,type,click,value,meta: { touched, error, warning }}) => (
   <div className='row' style={{marginBottom:10,display:'flex'}}>
-      <div className='col' style={{}}><label style={{color:'#ffff',fontWeight:'bold',columnWidth:120,paddingLeft:30}}>{label}</label></div>
+        <div className='col' style={{}}>
+        <label style={{color:'white',fontWeight:'bold',columnWidth:80,paddingLeft:30}}>{label}</label>
+      </div>
+
       <div className='col col-xs-7 col-sm-7 col-lg-7' >
-          <input {...input} placeholder={label} type={type} value={value} onclick={click} style={{alignSelf:'center',width:200}}/>
+          <input {...input} placeholder={label} type={type} value={value} onclick={click} style={{alignSelf:'center',width:230, borderRadius:'25px' }}/>
         {touched && ((error && <span style={{color:'red',backgroundColor:'white',fontWeight:'bold'}}>{error}</span>) ||(warning && <span>{warning}</span>))}
       </div>
   </div>
@@ -32,7 +33,7 @@ const submit=(values)=> {
       authData={...values,returnSecureToken: true}
       console.log(authData)
      store.dispatch(actions.authVerify(authData));
-      //window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`)
+    //window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2)}`)
       }) 
 }
 
@@ -43,9 +44,15 @@ class SignIn extends Component{
 render(){
 
     let authRedirect=null;
-    if(this.props.isAuthenticated){
+    
+   if(this.props.isAuthenticated){
         authRedirect=<Redirect to="/"/>
+        
     }
+   
+    
+    
+    
 
     const {handleSubmit, pristine, reset, submitting}=this.props;
     return(
@@ -55,7 +62,8 @@ render(){
                 alignSelf:'center',
                 justifyContent:'center',
                 flex:1,
-                backgroundColor:'lightgreen',
+                backgroundColor:'black',
+                opacity:'0.3',
                 margin: '10px',
                 width: '400px',
                 display: 'flex',
@@ -64,7 +72,9 @@ render(){
                 boxShadow: '0px 10px 50px #555',
                 opacity: 0.6,
                 filter: 'alpha(opacity=60)', 
+                borderRadius:'25px',                 
                 flexWrap:'wrap',}}>
+                
         {authRedirect}
           <h3 style={{alignSelf:'center',fontWeight:'bold',color:'white'}}>Welcome Back, Sign in</h3><br/>
           {this.props.isloading ? <Spinner/>:
@@ -89,17 +99,20 @@ render(){
                     validate={[required]}
                 />             
               
-            <button variant="outline-primary" type="submit" className="col-md-12 btn btn-primary btn-lg" disabled={submitting} style={{marginTop: 30}}>Sign in</button>
+            <button  type="submit" className="col-md-12 btn btn-primary btn-lg" disabled={submitting} style={{borderRadius:"20px"}}>Sign in</button>
           </form>
           }
-          <div className="col-lg-12  row " style={{marginTop: 40}} >
-            <div style={{marginLeft: 10}}><FacebookSignin /></div>
-            <div style={{marginLeft: 14}}><GoogleSignin/></div>
-          </div>
+         
 
           <div class="text-center createAccount">
-              <label className="col-form-label" style={{alignSelf:'center',fontWeight:'bold',color:'white'}}>New to <b>shopMe?</b></label><a href="/BsignUp"> Create an account</a>
+              <label className="col-form-label" style={{alignSelf:'center',fontWeight:'bold',color:'white', height:'2'}}>New to <b>shopMe?</b></label>
+              
+              <Link to="/Signuprole">Create an Account</Link>
           </div>
+                {/**SignUprole==BsignUp */}
+          
+                   
+        
             </div>
           </div>
       );
@@ -110,6 +123,8 @@ const mapStateToProps=state=>{
   return{
     isAuthenticated:state.auth.token!=null,
     isloading:state.auth.loading
+
+   
   }
 }
 export default connect(mapStateToProps,null)(reduxForm({
