@@ -8,23 +8,18 @@ class PhButton extends Component {
     }
     try2=()=>{
         this.props.history.push('/PayForm');
-        }
+    }
 
     render() {
         return (
-<div>
-    
-<form >
-<input name="submit" type="image" src="https://www.payhere.lk/downloads/images/pay_with_payhere.png"
- style={{width:"150px"}} value="Buy Now"  onClick={this.try2}/>
-</form>
-
-</div>
-
-
-
-);
-}
+        <div>
+            <form >
+                <input name="submit" type="image" src="https://www.payhere.lk/downloads/images/pay_with_payhere.png"
+                style={{width:"150px"}} value="Buy Now"  onClick={this.try2}/>
+            </form>
+        </div>
+        );
+    }
 }
 export default withRouter(PhButton);
 

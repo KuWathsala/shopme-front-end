@@ -30,7 +30,6 @@ class ShopList extends Component {
             
               <div className="py-5">
                 <div className="container" style={{height:'100%',width:'100%'}} >
-                  
                   {/* <Title title="Shops"/>*/}
                   <div class="jumbotron jumbotron-fluid">
                    <div className="tit">
@@ -42,9 +41,9 @@ class ShopList extends Component {
                   <div className='col md-4'>
                   <ProductConsumer>
                     {value=>{
-                      return this.state.shopes.map( shop =>{    //return value.shopes.map
+                      return this.state.shopes.map( shop =>{    
                         console.log("shop->"+shop.id)
-                        return <Shop key={shop.id} shop ={shop}/>;
+                        return <Shop key={shop.id} shop={shop}/>;
                       })
                     }}
                   </ProductConsumer>

@@ -69,8 +69,8 @@ class PayForm extends Component {
 
   <div className ="row">
   <div className ="col-0">
-    <form method="post" action="https://sandbox.payhere.lk/pay/checkout">     
-
+    <form method="post" action="https://sandbox.payhere.lk/pay/checkout?merchant_id=1213071&return_url=https://google.com&cancel_url=https://google.com&order_id=145&items=xxxx&currency=LKR&amount=114&first_name=wathsala&last_name=danthasinghe&email=wathdanthasinghe@gmail.com&phone=0716325124&address=Galle&city=Galle&country=SriLanka&notify_url=https://backend-webapi20191102020215.azurewebsites.net/api/orders/update-payment">     
+    {/*
     <input type="hidden" name="merchant_id" value="1212843"/>   
     <input type="hidden" name="return_url" value="http://sample.com/return"/>
     <input type="hidden" name="cancel_url" value="http://sample.com/cancel"/>
@@ -94,6 +94,8 @@ class PayForm extends Component {
     <input type="hidden" name="address" placeholder="address" value={this.state.address} onChange = {e => this.change(e)} />
     <input type="hidden" name="city" placeholder="city" value={this.props.isauth ? this.state.custDetails.city : this.state.city} onChange = {e => this.change(e)}/>
     <input type="hidden" name="country" placeholder="country" value={this.state.country} onChange = {e => this.change(e)}/><br/><br/>
+    
+    */}
     <input type="submit" value="Buy Now" 
      style = {{
         backgroundColor:" cornflowerblue",
@@ -103,8 +105,8 @@ class PayForm extends Component {
         borderRadius: "4px",
         cursor: "pointer",
         float: "right",
-    }} />   
-    </div>
+    }} />  
+    
 </form> 
 </div>
 <div className ="col-0">

@@ -8,6 +8,7 @@ import CartList from './CartList';
  import './cart.css';
 class Cart extends Component {
     render() {
+        let x;
         return (
             <section>
                 
@@ -22,10 +23,24 @@ class Cart extends Component {
                                     <CartColumns/>
                                     <CartList value={value}/>
                                     </div>
+
+                                    <h5>
+                                        <span className="text-title">
+                                            total:
+                                        </span>
+                                        <strong>LKR{value.cartTotal}</strong>
+                                    </h5>
                                     
-                                    <CartTotals value={value}
-                                    history={this.props.history}/>
-                                    
+                                    {/*<CartTotals value={value} history={this.props.history}/>*/}
+
+                                    <div onClick={()=>value.createOrder()} >
+                                        {console.log("x===> "+value.x)}
+                                        <text>Buy now</text>
+                                    </div>
+                                    <div>
+                                        {value.payhereButton}
+                                    </div>
+
                                 </React.Fragment>
                             );
                             
@@ -42,3 +57,4 @@ class Cart extends Component {
 }
 
 export default Cart;
+
