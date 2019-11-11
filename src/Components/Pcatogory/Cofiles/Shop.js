@@ -22,7 +22,7 @@ class Shop extends Component {
                             //shop details
                         }>
                        
-                       <Link to ="/productList">
+                       <Link to={{ pathname: `productList`, state: {shop: this.props.shop } }}>
                            {/*"data:image/jpeg;base64,"+ */}
                             <img src={image} alt="product" className="card-img-top"  height="250px" width="350px"/>
                         </Link> 
@@ -36,8 +36,8 @@ class Shop extends Component {
                
                <div className="card-footer d-flex justify-content-between">
                     <p className="align-self-center mb-0" ><strong>{shopName}</strong></p>
-                    <p className="align-self-center mb-0">close to you : {distance} </p>
-                    <div className="glyphicon glyphicon-star" style={{color:'gold'}}> </div>{rating}
+                    <p className="align-self-center mb-0">close to you : {distance.toFixed(1)} km </p>
+                    <div className="glyphicon glyphicon-star" style={{color:'gold'}}> </div>{rating.toFixed(1)}
                     <br/>
                 </div>
                </div>

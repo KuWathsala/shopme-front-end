@@ -157,7 +157,7 @@ render() {
                   value={this.state.image}
                   />  }
               <div> 
-              <button type="submit" className="btn btn-success btn-lg-4 btn-block center-block" disabled={submitting} style={{color: 'white', borderRadius: 0, backgroundColor: 'green'}}>SUBMIT</button>  
+              <button type="submit" className="btn btn-success btn-lg-4 btn-block center-block" disabled={submitting} style={{color: 'white', borderRadius: 0, backgroundColor: 'green', borderBottomWidth: 2}}>SUBMIT</button>  
             </div>
             </div>     
           </div>

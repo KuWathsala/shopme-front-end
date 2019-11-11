@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 class CartColumns extends Component {
     render() {
         return (
-            <div style={{alignContent: 'center'}}>
+            <div style={{alignContent: 'center',}}>
             <table class="table table-bordered " style={{fontFamily: 'Calibri Light', fontSize: 17,fontWeight: 'normal', backgroundColor: 'green', color: 'white', }} >
                 <thead>
                     <tr>

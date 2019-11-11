@@ -103,7 +103,7 @@ render() {
             <Field name="CategoryId" component="select" style={{alignSelf:'center',borderBottomWidth: 2, borderColor: 'white', borderBottomColor:'green', marginLeft:'relative',height:37,width:"100%"}} label="category" 
                 validate={[required]}value1={this.state.categoryName}
               >
-                  <option value=''>Select a Category...</option>
+                    <option value=''>{this.state.categoryName}</option>
                       {this.state.categories.map((Option,key) => (
                           <option value={Option.id} key={key}>
                       {Option.categoryName} 

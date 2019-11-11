@@ -43,7 +43,7 @@ class UploadF extends Component {
     render() {
         return (
             <div>
-                <input  type="file"      onChange={this.fileUploadHandler} />
+                <input  type="file" onChange={this.fileUploadHandler} style={{backgroundColor:'white',marginBottom:15,width:400, borderColor:'white', borderBottomColor: 'green' ,borderBottomWidth: 2}} />
             </div>
         );
     }
