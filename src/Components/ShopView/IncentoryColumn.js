@@ -4,58 +4,20 @@ import React, { Component } from 'react';
 class InventoryColumn extends Component {
     render() {
         return (
-            <div className="container-fluid text-center d-none d-lg-block" >
-                <div className="row">
-                
-                <div className="col-12 col-md-2 col-lg-2 col-sm-2">
-                <p className="text-uppercase" style={{backgroundColor:'gold'}}>
-                    Image
-                </p> 
-                <hr/>
-                </div>
-
-                <div className="col-12 col-md-1 col-lg-1 col-sm-1" >
-                <p className="text-uppercase" style={{backgroundColor:'gold'}}>
-                    Product Id
-                </p> 
-                <hr/>
-                </div>
-
-                <div className="col-12 col-md-2 col-lg-2 col-sm-2">
-                <p className="text-uppercase" style={{backgroundColor:'gold'}}>
-                    Product Name
-                </p>
-                <hr/>
-                </div>
-
-                <div className="col-12 col-md-3 col-lg-3 col-sm-3">
-                <p className="text-uppercase" style={{backgroundColor:'gold'}}>
-                    Description
-                </p>
-                <hr/>
-                </div>
-
-                <div className="col-12 col-md-1 col-lg-1 col-sm-1">
-                <p className="text-uppercase" style={{backgroundColor:'gold'}}>
-                    Unit Price
-                </p>
-                <hr/>
-                </div>
-
-                <div className="col-12 col-md-1 col-lg-1 col-sm-1">
-                <p className="text-uppercase" style={{backgroundColor:'gold'}}>
-                    Quantity
-                </p>
-                <hr/>
-                </div>
-
-                <div className="col-12 col-md-2 col-lg-2 col-sm-2">
-                <p className="text-uppercase" style={{backgroundColor:'gold'}}>
-                    Actions
-                </p>
-                <hr/>
-                </div>
-            </div>
+            <div style={{alignContent: 'center'}}>
+                <table class="table table-bordered " style={{fontFamily: 'Calibri Light', fontSize: 17,fontWeight: 'normal', backgroundColor: 'green', color: 'white', }} >
+                    <thead>
+                        <tr>
+                        <th class="col-xs-2 col-lg-2 center-block">image</th>
+                        <th class="col-xs-1 col-lg-1 center-block">product id</th>
+                        <th class="col-xs-2 col-lg-2 center-block">Product name</th>
+                        <th class="col-xs-2 col-lg-2 center-block">description</th>
+                        <th scope="col-xs-1 col-lg-1 center-block">unit price LKR</th>
+                        <th class="col-xs-1 col-lg-1 center-block">quantity</th>
+                        <th class="col-xs-2 col-lg-2 center-block">actions</th>
+                        </tr>
+                    </thead>
+                </table>
             </div>
         );
     }

@@ -33,7 +33,7 @@ class ShopList extends Component {
                   {/* <Title title="Shops"/>*/}
                   <div class="jumbotron jumbotron-fluid">
                    <div className="tit">
-                      <strong><h1><br/>SHOPS<br/></h1></strong>
+                   <strong style={{textAlign:'center'}}><h2><br/>SHOPS<br/></h2></strong>  
                   <pre style={{textAlign:'center',fontStyle:'italic',fontSize:25}}>Stay home and shop online. You are too pretty to have to look for a parking spot.<br/><br/></pre>
                     </div>
                   </div>

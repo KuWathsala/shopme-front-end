@@ -26,7 +26,7 @@ class ProductList extends Component {
                     
                   
                  </div>
-                   
+                   <br/>
                   </div>
                     <div className='row'> 
                       <div className='col md-4'>

@@ -43,14 +43,7 @@ class UploadF extends Component {
     render() {
         return (
             <div>
-                <input 
-                //style={{display:'none'}}
-                type="file" 
-                onChange={this.fileUploadHandler}
-                // ref={fileInput=>this.fileInput=fileInput}/>
-                // <button onClick={()=>this.fileInput.click()}>Pick File</button>
-                // <button onClick={this.fileUploadHandler}>upload</button>
-                />
+                <input  type="file"      onChange={this.fileUploadHandler} />
             </div>
         );
     }

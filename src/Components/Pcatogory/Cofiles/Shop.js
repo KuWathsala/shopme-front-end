@@ -7,12 +7,12 @@ import PropTypes from "prop-types";
 class Shop extends Component {
     
     render() {
-        const {id,shopName,image,distance}=this.props.shop;
+        const {id,shopName,image,distance,rating}=this.props.shop;
         console.log("Shop")
         console.log(id)
         return (
            <ProductWrapper className="col-9 mx-auto col-md-6 col-lg-4 my-4">
-               <div className="card">
+              <div style={{paddingBottom:50}}>
              <ProductConsumer>
                    {
                        value=>(
@@ -33,11 +33,13 @@ class Shop extends Component {
               </ProductConsumer> 
 
                {/* card footer */}
-                <div className="card-footer d-flex justify-content-between">
-                    <p className="text-blue font-italic mb-0">{shopName} {id}</p>
-                    <p className="align-self-center mb-0">close to you: {distance}</p>
+               
+               <div className="card-footer d-flex justify-content-between">
+                    <p className="align-self-center mb-0" ><strong>{shopName}</strong></p>
+                    <p className="align-self-center mb-0">close to you : {distance} </p>
+                    <div className="glyphicon glyphicon-star" style={{color:'gold'}}> </div>{rating}
+                    <br/>
                 </div>
-
                </div>
            </ProductWrapper>
         );
