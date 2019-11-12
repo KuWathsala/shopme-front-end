@@ -7,12 +7,12 @@ import PropTypes from "prop-types";
 class Shop extends Component {
     
     render() {
-        const {id,shopName,image,distance,rating}=this.props.shop;
+        const {id,shopName,image,distance,rating, shopAddress}=this.props.shop;
         console.log("Shop")
         console.log(id)
         return (
            <ProductWrapper className="col-9 mx-auto col-md-6 col-lg-4 my-4">
-              <div style={{paddingBottom:50}}>
+              <div style={{paddingBottom:50, marginTop: 50, marginLeft: 50}}>
              <ProductConsumer>
                    {
                        value=>(
@@ -24,7 +24,7 @@ class Shop extends Component {
                        
                        <Link to={{ pathname: `productList`, state: {shop: this.props.shop } }}>
                            {/*"data:image/jpeg;base64,"+ */}
-                            <img src={image} alt="product" className="card-img-top"  height="250px" width="350px"/>
+                            <img src={image} alt="product" className="card-img-top"  height="200px" width="300px"/>
                         </Link> 
                         </div>
                        )
@@ -34,10 +34,12 @@ class Shop extends Component {
 
                {/* card footer */}
                
-               <div className="card-footer d-flex justify-content-between">
-                    <p className="align-self-center mb-0" ><strong>{shopName}</strong></p>
-                    <p className="align-self-center mb-0">close to you : {distance.toFixed(1)} km </p>
-                    <div className="glyphicon glyphicon-star" style={{color:'gold'}}> </div>{rating.toFixed(1)}
+               <div className="card-footer d-flex justify-content-between" style={{fontFamily: 'Calibri Light', fontSize: 18, fontWeight:'bold'}}>
+                    <p className="align-self-center mb-0" ><strong style={{fontSize: 22,fontWeight:'bolder' }}>{shopName}</strong></p>
+                    <p className="align-self-center mb-0" style={{}}>close to you : {distance.toFixed(1)} km </p>
+                    <img src={require('../../../Assets/pin.png')} style={{width: 20, height: 20}} /> <text style={{color:'green', fontSize: 18}}>{shopAddress}</text> <br/>
+                    <div className="glyphicon glyphicon-star" style={{color:'gold', marginTop: 5}}> </div>  {rating.toFixed(1)} 
+                        <text style={{fontWeight:'lighter'}}> / 5.0</text>
                     <br/>
                 </div>
                </div>

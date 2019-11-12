@@ -30,7 +30,7 @@ class OrderQueue extends Component{
                 <ShopViewHeader header={"my inventory"} />
                 <section>
                     <Fragment>
-                        <InventoryColumnTitles/> 
+                        <InventoryColumnTitles /> 
                         {myProducts}                     
                     </Fragment>
                 </section>

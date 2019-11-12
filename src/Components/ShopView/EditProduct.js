@@ -48,15 +48,6 @@ class EditProduct extends Component {
     axios.get(`https://backend-webapi20191102020215.azurewebsites.net/api/categories`)
     .then(response=>{
       this.setState({categories:response.data});
-
-      for(let i=0; i = response.data.length; i++){
-        console.log(this.state.ProductDetails)
-        if(response.data.categories[i].id === this.state.ProductDetails.categoryId){
-          this.setState({categoryName: this.state.response.data.categoryName })
-          break;
-        }
-      }
-
     })
     .catch(err=>{
       console.log(err)
@@ -91,8 +82,6 @@ class EditProduct extends Component {
 
 render() {
   const {handleSubmit, pristine, reset, submitting}=this.props;
-  console.log(this.state.categories);
-      
   return (
     <div>
       <ShopViewHeader header={'edit product'} />
@@ -103,7 +92,7 @@ render() {
             <Field name="CategoryId" component="select" style={{alignSelf:'center',borderBottomWidth: 2, borderColor: 'white', borderBottomColor:'green', marginLeft:'relative',height:37,width:"100%"}} label="category" 
                 validate={[required]}value1={this.state.categoryName}
               >
-                    <option value=''>{this.state.categoryName}</option>
+                    <option value=''>{}</option>
                       {this.state.categories.map((Option,key) => (
                           <option value={Option.id} key={key}>
                       {Option.categoryName} 
