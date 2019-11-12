@@ -5,22 +5,25 @@ import { Field, reduxForm } from 'redux-form';
 import {connect} from 'react-redux';
 import {store} from '../../index';
 import Spinner from '../../Containers/Spinner/Spinner';
+import ShopViewHeader from './ShopViewHeader';
 
 const renderField = ({ input,label,type,meta: { touched, error, warning }}) => (
-  <div className="title">
-  <label htmlFor={label}>{label}</label>
-      <input
-        {...input} 
-        type={type}
-        placeholder={label}
-        />
-         {touched && ((error && <span style={{color:'red',backgroundColor:'white',fontWeight:'bold'}}>{error}</span>) ||(warning && <span>{warning}</span>))}
+  <div class="row-xs-4 ">
+    <label htmlFor={label} class="inputsm" style={{fontFamily: 'Calibri Light', fontSize: 18, fontWeight: 'bold', marginTop: 15}} >{label}</label>
+    <input class="form-control"  {...input}   type={type}  placeholder={label}
+      style={{borderBottomWidth: 2, borderColor: 'white', height: 40, borderBottomColor: 'green', borderRadius: 0 }}
+    />
+    {touched && ((error && <span style={{color:'red',backgroundColor:'white',fontWeight:'bold'}}>{error}</span>) ||(warning && <span>{warning}</span>))}
   </div>
 )
 
 let Imgurl='';
 
-const required=value=> value ? undefined:'Required';
+const required=value=> value ? undefined:'required';
+const isValidPrice=value=> value && !/^[1-9]+(\.[0-9]{1,2})?$/.test(value)  ? 'invalid price':undefined;
+const isInteger=value=> value && !/^[1-9]*$/.test(value)   ? 'invalid quantity':undefined;
+const isDigit=value=> value && !/^[0-9]$/.test(value)   ? 'invalid':undefined;
+
 
 const submit=(values)=> {
   let productData={
@@ -42,8 +45,8 @@ class UploadForm extends Component {
     this.state ={
       img:'',
       categories:[],
-      isloading:false,
-  };
+      isloading: false,
+    };
   }
  
 componentDidMount=()=>{
@@ -63,14 +66,8 @@ fileUploadHandler =(event)=>{
   console.log('uploadingggggggg')
   const files=event.target.files
   const formData = new FormData();
-  // formData.append("api_key",'195645557212827');
   formData.append("file", files[0]);
-  // formData.append("public_id", "product_image");
-  // formData.append("timestamp", timeStamp);
-  formData.append("upload_preset", 'm0uhbhzz');
-  // setLoading(true);
-  //fd.append('image', this.state.selectedFile,this.state.selectedFile.name);
-  axios.post('https://api.cloudinary.com/v1_1/dubnsitvx/image/upload',formData,{
+  formData.append("upload_preset", 'm0uhbhzz');axios.post('https://api.cloudinary.com/v1_1/dubnsitvx/image/upload',formData,{
       onUploadProgress: ProgressEvent=>{
           console.log('Upload Progress:'+Math.round(ProgressEvent.loaded / ProgressEvent.total*100 )+'%')
       }
@@ -88,82 +85,85 @@ render() {
   const {handleSubmit,submitting}=this.props;        
   return (
     <div>
-      <div className='row'  style={{flex:1,backgroundColor:'white',textAlign:'center',fontSize:'24px',marginBottom:'5px',marginLeft:10}}>
-        {/* <img src={Img} alt="product" className="card-img-top"  height="100px" width="200px" style={{marginLeft:30}}/> */}
-        <p style={{fontSize:60,color: '#26bf63',fontWeight:'600',}}>Shop</p>
-        <p style={{fontSize:60,color: '#5189c9',fontWeight:'600',}}>Me</p>
-        <p style={{alignSelf:'flex-end',color:'darkgreen',marginBottom:25}}>Seller's Portal</p>
-      </div>
-    
-    <div className="wrapper">
-      <div className="wrapForm">
-        <h1>Add Products</h1>
-        <form onSubmit={handleSubmit(submit)}>
-            <Field name="CategoryId" component="select" style={{alignSelf:'center',marginLeft:'relative',height:37,width:"100%"}}>
-                <option value="">Select a Category...</option>
-                    {this.state.categories.map((Option,key) => (
-                        <option value={Option.id} key={key}>
-                    {Option.categoryName}
-                </option>
-                        
-                    ))}
-            </Field>
-            <Field
-              name="Name"
-              type="text"
-              component={renderField}
-              label="Product Name"
-              validate={[required]}
-            />
-            <Field
-              name="Description"
-              type="text"
-              component={renderField}
-              label="Description"
-              validate={[required]}
-            />
-            <Field
-              name="ShortDescription"
-              type="text"
-              component={renderField}
-              label="Short Description"
-              validate={[required]}
-            />
-            <Field
-              name="UnitPrice"
-              type="text"
-              component={renderField}
-              label="Unit Price"
-              validate={[required]}
-            />
-            <Field
-              name="Quantity"
-              type="text"
-              component={renderField}
-              label="Quantity"
-              validate={[required]}
-            />
-            <div className='col'>
-              <label htmlFor="img">Image</label>
-              {this.state.isloading ? <Spinner/> :
-              <input 
-                style={{backgroundColor:'white',marginBottom:15,width:400}}
-                name="Image"
-                type="file"
-                onChange={this.fileUploadHandler}
-                value={this.state.image}
-                // ref={fileInput=>this.fileInput=fileInput}/>
-                // <button onClick={()=>this.fileInput.click()}>Pick File</button>
-                // <button onClick={this.fileUploadHandler}>upload</button>
-                />  }
-            <div> 
-              <button type="submit" className="btn btn-default" disabled={submitting} style={{alignSelf:'strech',marginLeft:'45%'}}>SUBMIT</button>  
+      <ShopViewHeader header={'add new product'} />
+        <div className=" form-group">
+          {/*<img source={require('../../Assets/online_store.jpg')} />*/}
+          <form onSubmit={handleSubmit(submit)}>
+            <div class="form-row" style={{marginTop: 20, marginLeft: 20}} >
+              
+              <Field name="CategoryId" component="select" style={{alignSelf:'center',borderBottomWidth: 2, borderColor: 'white', borderBottomColor:'green', marginLeft:'relative',height:37,width:"100%"}} label="category" 
+                validate={[required]}
+                name="Category"
+              >
+                  <option value=""></option>
+                      {this.state.categories.map((Option,key) => (
+                          <option value={Option.id} key={key}>
+                      {Option.categoryName}
+                  </option>
+                  ))}
+                  
+              </Field>
+
+              <Field
+                name="Name"
+                type="text"
+                component={renderField}
+                label="Product Name"
+                validate={[required]}
+              />
+              <Field
+                name="Description"
+                type="text"
+                component={renderField}
+                label="Description"
+                validate={[required]}
+              />
+              <Field
+                name="ShortDescription"
+                type="text"
+                component={renderField}
+                label="Short Description"
+                validate={[required]}
+              />
+              <Field
+                name="UnitPrice"
+                type="text"
+                component={renderField}
+                label="Unit Price"
+                validate={[required, isValidPrice]}
+              />
+              <Field
+                name="Quantity"
+                type="text"
+                component={renderField}
+                label="Quantity"
+                validate={[required, isInteger]}
+              />
+              <Field
+                name="Discount"
+                type="text"
+                component={renderField}
+                label="Discount"
+                validate={[required, isDigit]}
+              />
+              <div className='col'>
+                <label htmlFor="img">Image</label>
+                {this.state.isloading ? <Spinner/> :
+                <input 
+                  style={{backgroundColor:'white',marginBottom:15,width:400, borderColor:'white', borderBottomColor: 'green'}}
+                  name="Image"
+                  type="file"
+                  onChange={this.fileUploadHandler}
+                  value={this.state.image}
+                  />  }
+              <div> 
+              <button type="submit" className="btn btn-success btn-lg-4 btn-block center-block" disabled={submitting} style={{color: 'white', borderRadius: 0, backgroundColor: 'green', borderBottomWidth: 2}}>SUBMIT</button>  
+            </div>
             </div>     
           </div>
         </form>
       </div>
-  </div>
-  </div>
+    </div>
         );
     }
 }

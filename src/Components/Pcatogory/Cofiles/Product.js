@@ -6,10 +6,10 @@ import PropTypes from "prop-types";
 
 class Product extends Component {
     render() {
-        const {id,name,image,unitPrice,rating,inCart}=this.props.product;
+        const {id,name,image,unitPrice,rating,inCart,discount}=this.props.product;
         return (
            <ProductWrapper className="col-9 mx-auto col-md-6 col-lg-4 my-4">
-               <div style={{paddingBottom:50}}>
+               <div style={{paddingBottom:50, marginTop: 50, marginLeft: 50}}>
                <ProductConsumer>
                    {
                        value=>(
@@ -17,12 +17,12 @@ class Product extends Component {
                         onClick={()=>
                             
                             value.discriptionHandle(id)
-                            //product details
+                            //product details  ,
                         }>
                        
                        <Link to ="/details">
                             {/* <img src={"data:image/jpeg;base64,"+image} alt="product" className="card-img-top"  height="250px" width="100%"/> */}
-                            <img src={image} alt="product" className="card-img-top"  height="250px" width="350px"/>
+                            <img src={image} alt="product" className="card-img-top"  height="200px" width="300px"/>
                        </Link>
          
                        <button className="cart-btn" 
@@ -50,14 +50,30 @@ class Product extends Component {
                    }
               </ProductConsumer>
 
-               {/* card footer */}
+               {/* card footer 
                <div className="card-footer d-flex justify-content-between">
                 <p className="align-self-center mb-0">{name}</p>
-                <h5 className="text-blue font-italic mb-0">
+                <h5 className="align-self-center mb-0">
                     <span className="mr-1">LKR</span>
                     {unitPrice}
                 </h5>
-               </div>
+               </div>*/}
+
+               <div className="card-footer d-flex justify-content-between" style={{fontFamily: 'Calibri Light', fontSize: 18, fontWeight:'bold'}}>
+                    <p><strong style={{fontSize: 22,fontWeight:'-moz-initial' }}>{name}</strong></p>
+                    <p className="align-self-center mb-0">
+                        <text style={{fontWeight: 'normal'}}>unit price</text> {unitPrice*(1-discount/100)}  LKR 
+                        {
+                            (unitPrice*(1-discount/100)!=unitPrice) ? <text style={{textDecorationLine: 'line-through', color: 'red', marginLeft:10}}>{unitPrice} LKR</text>: null
+                        }
+                    </p>
+                    
+                    {
+                            (unitPrice*(1-discount/100)!=unitPrice) ? <p className="align-self-center mb-0" >off  <text style={{color: 'brown'}}>{discount*unitPrice/100}%</text> </p> : null
+                    }
+                    
+                    <br/>
+                </div>
 
                </div>
            </ProductWrapper>

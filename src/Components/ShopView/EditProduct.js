@@ -5,22 +5,22 @@ import axios from 'axios';
 import { Field, reduxForm } from 'redux-form';
 import {connect} from 'react-redux';
 import {store} from '../../index';
+import ShopViewHeader from './ShopViewHeader';
 
-
-// let categories=[{label:'',value:null}];
-
-const renderField2 = ({ input,label,type,value1,meta: { touched, error, warning }}) => (
-  <div className="title">
-  <label htmlFor={label}>{label}</label>
-      <input
-        {...input} 
-        type={type}
-        placeholder={label}
-        />
-         {touched && ((error && <span style={{color:'red',backgroundColor:'white',fontWeight:'bold'}}>{error}</span>) ||(warning && <span>{warning}</span>))}
+const renderField2 = ({ input,label,type,value1, meta: { touched, error, warning }}) => (
+  <div class="row-xs-4 ">
+    <label htmlFor={label} class="inputsm" style={{fontFamily: 'Calibri Light', fontSize: 18, fontWeight: 'bold', marginTop: 15}} >{label}</label>
+    <input class="form-control"  {...input}   type={type}  placeholder={label} value={value1}
+      style={{borderBottomWidth: 2, borderColor: 'white', height: 40, borderBottomColor: 'green', borderRadius: 0 }}
+    />
+    {touched && ((error && <span style={{color:'red',backgroundColor:'white',fontWeight:'bold'}}>{error}</span>) ||(warning && <span>{warning}</span>))}
   </div>
 )
-const required=value=> value ? undefined:'Required';
+
+const required=value=> value ? undefined:'required';
+const isValidPrice=value=> value && !/^[1-9]+(\.[0-9]{1,2})?$/.test(value)  ? 'invalid price':undefined;
+const isInteger=value=> value && !/^[1-9]*$/.test(value)   ? 'invalid quantity':undefined;
+const isDigit=value=> value && !/^[0-9]$/.test(value)   ? 'invalid':undefined;
 
 class EditProduct extends Component {
   constructor(props){
@@ -28,16 +28,17 @@ class EditProduct extends Component {
     this.state ={
       categories:[],
       ProductDetails:[],
-  };
+      categoryName:''
+    };
   }
        
 
  
-componentDidMount=()=>{
-  console.log(this.props.location.id)
-  axios.get(`https://backend-webapi20191102020215.azurewebsites.net/api/products/${this.props.location.id}`)
+  componentDidMount=()=>{
+    console.log(this.props)
+    axios.get(`https://backend-webapi20191102020215.azurewebsites.net/api/products/${this.props.location.id}`)
     .then(response=>{
-      console.log(response.data)
+      console.log("response.data")
       this.setState({ProductDetails:response.data});
     })
     .catch(err=>{
@@ -54,7 +55,7 @@ componentDidMount=()=>{
     console.log(this.state.ProductDetails.name)
     this.props.initialize({Name:this.state.ProductDetails.name});
 
-}
+  }
 
   fileUploadHandle=()=>{
     console.log(this.state);
@@ -81,82 +82,85 @@ componentDidMount=()=>{
 
 render() {
   const {handleSubmit, pristine, reset, submitting}=this.props;
-  console.log(this.state.categories);
-        
   return (
     <div>
-      <div className='row'  style={{flex:1,backgroundColor:'white',textAlign:'center',fontSize:'24px',marginBottom:'5px',marginLeft:10}}>
-                        {/* <img src={Img} alt="product" className="card-img-top"  height="100px" width="200px" style={{marginLeft:30}}/> */}
-                        <p style={{fontSize:60,color: '#26bf63',fontWeight:'600',}}>Shop</p>
-                        <p style={{fontSize:60,color: '#5189c9',fontWeight:'600',}}>Me</p>
-                        <p style={{alignSelf:'flex-end',color:'darkgreen',marginBottom:25}}>Seller's Portal</p>
-                    </div>
-    
-    <div className="wrapper">
-      <div className="wrapForm">
-        <h1>Update Product</h1>
-        <form onSubmit={handleSubmit(this.submit)}>
-            <Field name="CategoryId" component="select" style={{alignSelf:'center',marginLeft:'relative',height:37,width:200}}>
-                <option value="">Select a Category...</option>
-                    {this.state.categories.map((Option,key) => (
-                        <option value={Option.id} key={key}>
-                    {Option.categoryName}
-                </option>
-                    ))}
-            </Field>
-            <Field
-              name="Name"
-              type="text"
-              component={renderField2}
-              label="Product Name"
-              //value1={this.state.ProductDetails.name}
-              value1='jaajja'
-              validate={[required]}
-            />
-            <Field
-              name="Description"
-              type="text"
-              component={renderField2}
-              label="Description"
-              value1={this.state.ProductDetails.description}
-              validate={[required]}
-            />
-            <Field
-              name="ShortDescription"
-              type="text"
-              component={renderField2}
-              label="Short Description"
-              value1={this.state.ProductDetails.shortDescription}
-              validate={[required]}
-            />
-            <Field
-              name="UnitPrice"
-              type="text"
-              component={renderField2}
-              label="Unit Price"
-              value1={this.state.ProductDetails.unitPrice}
-              validate={[required]}
-            />
-            <Field
-              name="Quantity"
-              type="text"
-              component={renderField2}
-              label="Quantity"
-              value1={this.state.ProductDetails.quantity}
-              validate={[required]}
-            />
-            <div className='col'>
-              <label htmlFor="img">Image</label>
-              <UploadF/>
-            <div>
-              <button type="submit" className="btn btn-default" disabled={submitting} style={{alignSelf:'strech'}}>UPDATE</button>  
-            </div>     
+      <ShopViewHeader header={'edit product'} />
+        <div className=" form-group">
+          {/*<img source={require('../../Assets/online_store.jpg')} />*/}
+          <form onSubmit={handleSubmit(this.submit)}>
+            <div class="form-row" style={{marginTop: 20, marginLeft: 20}} >
+            <Field name="CategoryId" component="select" style={{alignSelf:'center',borderBottomWidth: 2, borderColor: 'white', borderBottomColor:'green', marginLeft:'relative',height:37,width:"100%"}} label="category" 
+                validate={[required]}value1={this.state.categoryName}
+              >
+                    <option value=''>{}</option>
+                      {this.state.categories.map((Option,key) => (
+                          <option value={Option.id} key={key}>
+                      {Option.categoryName} 
+                  </option>
+                      ))}
+              </Field>
+
+              <Field
+                name="Name"
+                type="text"
+                component={renderField2}
+                label="Product Name"
+                //value1={this.state.ProductDetails.name}
+                value1={this.state.ProductDetails.name}
+                validate={[required]}
+              />
+              <Field
+                name="Description"
+                type="text"
+                component={renderField2}
+                label="Description"
+                value1={this.state.ProductDetails.description}
+                validate={[required]}
+              />
+              <Field
+                name="ShortDescription"
+                type="text"
+                component={renderField2}
+                label="Short Description"
+                value1={this.state.ProductDetails.shortDescription}
+                validate={[required]}
+              />
+              <Field
+                name="UnitPrice"
+                type="text"
+                component={renderField2}
+                label="Unit Price"
+                value1={this.state.ProductDetails.unitPrice}
+                validate={[required, isValidPrice]}
+              />
+              <Field
+                name="Discount"
+                type="text"
+                component={renderField2}
+                label="Discount"
+                value1={this.state.ProductDetails.discount}
+                validate={[required, isDigit]}
+              />
+              <Field
+                name="Quantity"
+                type="text"
+                component={renderField2}
+                label="Quantity"
+                value1={this.state.ProductDetails.quantity}
+                validate={[required, isInteger]}
+              />
+              <div className='col'>
+                <label htmlFor="img">Image</label>
+                <UploadF />
+              <div>
+              <button type="submit" className="btn btn-success btn-lg-4 btn-block center-block" disabled={submitting} style={{color: 'white', borderRadius: 0, backgroundColor: 'green', marginTop: 10}}>SAVE CHANGES</button>  
+            </div>  
           </div>
-        </form>
-      </div>
-  </div>
-</div>
-        );
+        </div>
+      </form>
+    </div>
+    </div>
+      );
     }
 }
 

@@ -11,7 +11,7 @@ import {withRouter,Redirect} from'react-router-dom';
 class ShopProducts extends Component{
 
 editProduct=()=>{
-    this.props.history.push({pathname:'/updateProduct',id:this.props.id}); 
+    this.props.history.push({pathname:'/updateProduct',id: this.props.id}); 
 };
 
 deleteProduct=()=>{
@@ -23,61 +23,44 @@ deleteProduct=()=>{
 };
 
 render(){
-    // const OrderI=this.props.Items.map(item=>{
-    //     return <Product product={item.product} quantity={item.quantity}/>
-    // });
         console.log(this.props.img);
         return (
-        <div className="container-fluid text-center d-none d-lg-block">
-            <div className="row">
-            <div className="col-12 col-md-2 col-lg-2 col-sm-2">
-                <p className="text-uppercase">
-                <img src={this.props.img} alt="product" className="card-img-top"  height="60px" width="80px"/>
-                
-                </p> 
-                </div>
+            <div style={{alignContent: 'center'}}>
+                <table class="table table-bordered " style={{fontFamily: 'Calibri Light', fontSize: 16, fontWeight: 'normal'}} >
+                    <thead>
+                        <tr>
+                            <th class="col-xs-2 col-lg-2 center-block">
+                                <img src={this.props.img} alt="product" style={{height: "80px", width: "160px"}} />
+                            </th>
+                            <th class="col-xs-1 col-lg-1 center-block">
+                                <text className="center-block" >{this.props.id}</text>
+                            </th>
+                            <th class="col-xs-2 col-lg-2 center-block">
+                                {this.props.name}
+                            </th>
+                            <th class="col-xs-2 col-lg-2 center-block">
+                                {this.props.description}
+                            </th>
+                            <th scope="col-xs-1 col-lg-1 center-block">
+                                {this.props.price}
+                            </th>
+                            <th class="col-xs-1 col-lg-1 center-block">
+                                <text class="pull-right" >{this.props.quantity}</text>
+                            </th>
 
-                <div className="col-12 col-md-1 col-lg-1 col-sm-1">
-                <p className="text-uppercase">
-                    {this.props.id}
-                </p> 
-                </div>
+                            <th class="col-xs-2 col-lg-2 ">
+                                <button type="button" className="btn btn-success center-block" style={{color: 'white',width: 80, borderRadius: 0, backgroundColor: 'green'}} onClick={this.editProduct} >
+                                    edit
+                                </button>
+                                <text style={{color:'red', marginTop: -5}} onClick={this.deleteProduct}>
+                                    <span class="glyphicon glyphicon-trash pull-right " />
+                                </text>
+                            </th>
 
-                <div className="col-12 col-md-2 col-lg-2 col-sm-2">
-                <p className="text-uppercase">
-                    {this.props.name}
-                </p>
-                </div>
-
-                <div className="col-12 col-md-3 col-lg-3 col-sm-3">
-                <p className="text-uppercase">
-                    {this.props.description}
-                </p>
-                </div>
-
-                <div className="col-12 col-md-1 col-lg-1 col-sm-1">
-                <p className="text-uppercase">
-                     {this.props.price} LKR
-                </p>
-                </div>
-
-                <div className="col-12 col-md-1 col-lg-1 col-sm-1">
-                <p className="text-uppercase">
-                    {this.props.quantity}
-                </p>
-                </div>
-
-            <div className="col-12 col-md-2 col-lg-2 col-sm-2">
-                <div className="d-flex justify-content-center" style={{alignSelf:'center',paddingLeft:'35%'}}> 
-                    <div className='row'>
-                        <button type="button" className="btn btn-success" onClick={this.editProduct} >Edit</button>
-                        <p style={{marginLeft:15,marginTop:5, color:'red'}} onClick={this.deleteProduct}><span class="glyphicon glyphicon-trash"></span></p>
-                    </div>
-                </div>
+                        </tr>
+                    </thead>
+                </table>
             </div>
-            </div>
-            <hr/>
-        </div>
         );    
     }  
 }

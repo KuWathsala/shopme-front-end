@@ -9,10 +9,10 @@ export default function CartItem({item,value}) {
         <div className="col-10 mx-auto col-lg-2">
         <img
         src={image}
-        style={{width:"5rem", height :"5rem"}}
+        style={{width:"6rem", height :"6rem"}}
         className="img-fluid"
         alt="product"
-        />
+        /><br/><br/>
         </div>
 
 <div className="col-10 mx-auto col-lg-2">
@@ -22,7 +22,7 @@ export default function CartItem({item,value}) {
 </div>
 
 <div className="col-10 mx-auto col-lg-2">
-<span className="d-lg-none">price :</span>
+<span className="d-lg-none">price : </span>
 {price}
 </div>
 
@@ -39,7 +39,7 @@ export default function CartItem({item,value}) {
 
 <div className="col-10 mx-auto col-lg-2">
 <div className="cart-icon" onClick={()=>removeItem(id)}>
-<span class="glyphicon glyphicon-trash"></span>
+<span class="glyphicon glyphicon-trash" color="gold"></span>
 
 
 </div>

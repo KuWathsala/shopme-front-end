@@ -5,7 +5,7 @@ import EmptyCart from "./EmptyCart";
 import {ProductConsumer,ProductProvider} from '../../context';
 import CartList from './CartList';
  import CartTotals from './CartTotals';
- import './cart.css';
+ //import './cart.css';
 class Cart extends Component {
     render() {
         let x;
@@ -19,29 +19,31 @@ class Cart extends Component {
                             return(
                                 <React.Fragment>
                                     <div className="cart1">
-                                    <Title name= "Your" title="Cart"/>
+                                    <h1><strong>SHOPPING CART</strong></h1><br/>
                                     <CartColumns/>
                                     <CartList value={value}/>
                                     </div>
-
-                                    <h5>
+                            <div class="pull-right">
+                                    <h5 >
                                         <span className="text-title">
                                             total:
                                         </span>
                                         <strong>LKR{value.cartTotal}</strong>
                                     </h5>
+
                                     
                                     {/*<CartTotals value={value} history={this.props.history}/>*/}
 
-                                    <div onClick={()=>value.createOrder()} >
+                                    <button onClick={()=>value.createOrder()} >
                                         {console.log("x===> "+value.x)}
                                         <text>Buy now</text>
-                                    </div>
+                                    </button>
                                     <div>
                                         {value.payhereButton}
                                     </div>
-
-                                </React.Fragment>
+                                    </div>
+                               <br/><br/><br/>
+                                </React.Fragment >
                             );
                             
                         }

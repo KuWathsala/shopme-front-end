@@ -20,6 +20,8 @@ class OrderItems extends Component{
     componentDidMount(){
         console.log("this.props.connection")
         console.log(this.props.connection)
+        console.log("this.props.OrderDetails")
+        console.log(this.props.OrderDetails)
     }
 
 
@@ -47,34 +49,31 @@ class OrderItems extends Component{
     }
 
     render(){
-
         return (
-        <div className="container-fluid text-center d-none d-lg-block">
-            <div className="row">
-            <div className="col-10 mx-auto col-lg-2" >
-                {this.props.OrderId}
-            </div>
+        <table  class="table table-bordered"  style={{fontFamily: 'Calibri Light', fontSize: 16, fontWeight:'normal', }} >
+            
+            <thead>
+                <tr class="d-flex">
+                    <th class="col-xs-1">{this.props.OrderId}</th>
+                    <th class="col-xs-1" >
+                        <div class="row-xs-1">
+                                <text>{this.props.time.substring(0, 10)}</text>
+                        </div>
+                        <div class="row-xs-1">
+                            <text>{this.props.time.substring(12, 19)}</text>
+                        </div>
+                    </th>
 
-            <div className="col-10 mx auto col-lg-2">
-                {this.props.time}
-            </div>
-
-            <div className="col-10 mx auto col-lg-2">
-                {this.props.OrderDetails}
-            </div>
-
-            <div className="col-10 mx-auto col-lg-2">
-                {this.props.total}
-            </div>
-
-            <div className="col-10 mx-auto col-lg-2">
-                <div className="d-flex justify-content-center"> 
-                <button type="button" className="btn btn-success" disabled={this.state.loading} loading={this.state.loading} onClick={this.confirmOrderHandeler}>{this.button}{this.state.buttonConfirm}</button>
-            </div>
-            </div>
-            </div>
-            <hr/>
-        </div>
+                    {this.props.OrderDetails}
+                    <th class="col-xs-1 "><text class="pull-right" >{this.props.total}</text></th>
+                    <th class="col-xs-2"style={{justifyContent: 'center'}} >
+                        <button type="button" className="btn btn-success center-block" style={{color: 'white', borderRadius: 0, backgroundColor: 'green'}} disabled={this.state.loading} loading={this.state.loading} onClick={this.confirmOrderHandeler}>{this.button}{this.state.buttonConfirm}
+                            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                        </button>
+                    </th>
+                </tr>
+            </thead>
+        </table>
         );    
     }  
 }
