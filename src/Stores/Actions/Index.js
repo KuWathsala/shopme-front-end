@@ -4,6 +4,7 @@ export {
     authVerify,
     authCheckState,
     setUserType,
+    authSuccess,
 }from './Auth'
 
 export {

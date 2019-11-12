@@ -1,6 +1,7 @@
 import { SubmissionError } from 'redux-form';
 import * as actions from '../../Stores/Actions/Index';
 import {store} from '../../index'
+import {Link,withRouter,Redirect} from 'react-router-dom';
 
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
@@ -57,10 +58,10 @@ const submit=(values)=> {
         }
           
       console.log(authData)
-      store.dispatch(actions.auth(authData));
+      store.dispatch(actions.auth(authData),this.props.history.push('/verify'));
       //actions.auth(authData);
       //window.alert(`You submitted:\n\n${JSON.stringify(values, null, 2,latitude,longitude)}`)
       }) 
 }
 
-export default submit;
+export default withRouter(submit);

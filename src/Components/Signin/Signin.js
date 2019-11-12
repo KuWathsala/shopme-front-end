@@ -39,24 +39,24 @@ const submit=(values)=> {
 
 class SignIn extends Component{
   constructor(props){
-    super(props);}
+    super(props);
+  this.state={
+    authRedirect:this.props.isAuthenticated,
+  }}
 
 render(){
 
     let authRedirect=null;
     
-   if(this.props.isAuthenticated){
-        authRedirect=<Redirect to="/"/>
+  //  if(this.props.isAuthenticated){
+  //       authRedirect=<Redirect to="/"/>
         
-    }
-   
-    
-    
-    
-
-    const {handleSubmit, pristine, reset, submitting}=this.props;
-    return(
-        
+  //   }
+  const {handleSubmit, pristine, reset, submitting}=this.props;
+  if(this.state.authRedirect)  
+    return (<Redirect to="/"/>);
+  else return(
+      
         <div className="wrapper">
         <div style={{
                 alignSelf:'center',
@@ -74,8 +74,6 @@ render(){
                 filter: 'alpha(opacity=60)', 
                 borderRadius:'25px',                 
                 flexWrap:'wrap',}}>
-                
-        {authRedirect}
           <h3 style={{alignSelf:'center',fontWeight:'bold',color:'white'}}>Welcome Back, Sign in</h3><br/>
           {this.props.isloading ? <Spinner/>:
           <form onSubmit={handleSubmit(submit)}>

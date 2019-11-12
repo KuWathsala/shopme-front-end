@@ -8,6 +8,7 @@ const initialState={
     loading:false,
     userType:null,
     user:[],
+    verifyState:null,
 }
 
 const authstart =(state,action)=>{
@@ -15,14 +16,15 @@ const authstart =(state,action)=>{
 }
 
 const authSuccess=(state,action)=>{
-    console.log(action.user);
+    console.log("auth successss");
     return updateObject(state,{error:null,
         token:action.idToken,
         userId:action.userId,
         userType:action.userType,
         user:action.user,
         error:null,
-        loading:false
+        loading:false,
+        verifyState:false,
     })
 }
 

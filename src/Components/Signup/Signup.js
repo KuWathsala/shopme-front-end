@@ -97,7 +97,8 @@ class Signup extends Component{
     constructor(props){
         super(props);
         this.state={
-            isloading:false
+            isloading:false,
+            //authRedirect:this.props.isAuthenticated,
         }
     }
         
@@ -108,16 +109,11 @@ class Signup extends Component{
 }
 
 fileUploadHandler =(event)=>{
-    //this.setState({isloading:true})
     console.log(this.state.selectedFile)
     const files=event.target.files
     const formData = new FormData();
     formData.append("file", files[0]);
-    // formData.append("public_id", "product_image");
-    // formData.append("timestamp", timeStamp);
     formData.append("upload_preset", 'm0uhbhzz');
-    // setLoading(true);
-    //fd.append('image', this.state.selectedFile,this.state.selectedFile.name);
     axios.post('https://api.cloudinary.com/v1_1/dubnsitvx/image/upload',formData,{
         onUploadProgress: ProgressEvent=>{
             console.log('Upload Progress:'+Math.round(ProgressEvent.loaded / ProgressEvent.total*100 )+'%')
@@ -138,8 +134,11 @@ render() {
     const vehicles = ["Motor Bicycle", "Three Wheel"];
     const {handleSubmit, pristine, reset, submitting}=this.props;
     
-return(
-<div className="wrapper">
+    if(this.props.isverify==false)
+        return <Redirect to="/verify"/>
+    else return(
+    <div className="wrapper">
+    {authRedirect}
     <div className="wrapForm">
     {this.props.isloading ? <Spinner/> : <div>
     <h1 style={{fontWeight:'bold' ,color:'black'}}>Create Account</h1>
@@ -206,7 +205,6 @@ return(
                     value={null}
                     validate={[required]}
                 />
-               
             </div>
                 :null}
 
@@ -286,9 +284,6 @@ return(
                 type="file"
                 onChange={this.fileUploadHandler}
                 value={this.state.image}
-                // ref={fileInput=>this.fileInput=fileInput}/>
-                // <button onClick={()=>this.fileInput.click()}>Pick File</button>
-                // <button onClick={this.fileUploadHandler}>upload</button>
                 /> 
                  }</div>
          <div style={{alignContent:'center',marginLeft:'30%'}}>
@@ -306,11 +301,13 @@ return(
 
 const mapStateToProps=state=>{
     return{
+      isAuthenticated:state.auth.token!=null,
       usertype:state.auth.userType,
       Address:state.location.address,
       lng:state.location.lngValue,
       lat:state.location.latValue,
-      isloading:state.auth.loading
+      isloading:state.auth.loading,
+      isverify:state.auth.verifyState
     }
   }
 

@@ -1,5 +1,6 @@
 import * as ActionTypes from './ActionType';
 import axios from 'axios';
+import { Redirect,withRouter} from 'react-router-dom';
 
 export const authStart=()=>{
     return{
@@ -9,7 +10,10 @@ export const authStart=()=>{
 
 export const authSuccess=(token,userId,role,userData)=>{
     console.log(userData)
+    
+    // this.props.history.
     return{
+        
         type:ActionTypes.AUTH_SUCCESS,
         idToken:token,
         userType:role,
@@ -46,46 +50,6 @@ export const auth=(authData)=>{
     console.log(authData)
     return dispatch=>{
         dispatch(authStart());
-        // const authCust={
-        //     LoginVM:{
-        //         Email:email,
-        //         Password:password,
-        //         Role:userType
-        //     },
-        //     FirstName:firstName,
-        //     LastName:lastName,
-        //     MobileNumber:mobileno,
-        //     returnSecureToken: true
-        // };
-
-        // const authSeller={
-        //     LoginVM:{
-        //         Email:email,
-        //         Password:password,
-        //         Role:userType
-        //     },
-        //     FirstName:firstName,
-        //     LastName:lastName,
-        //     MobileNumber:mobileno,
-        //     ShopName:shopname,
-        //     AccountNo:accno,
-        //     ShopLocationLatitude:lat,
-        //     ShopLocationLongitude:lng,
-        //     returnSecureToken: true
-        // }
-
-        // const authDeliver={
-        //     LoginVM:{
-        //         Email:email,
-        //         Password:password,
-        //         Role:userType
-        //     },
-        //     FirstName:firstName,
-        //     LastName:lastName,
-        //     MobileNumber:mobileno,
-        //     VehicleNo:vhno,
-        //     VehicleType:vehicle,
-        // }
         console.log("auth : ",authData);
         let url='';
         if(authData.LoginVM.Role=='Customer'){
@@ -94,7 +58,7 @@ export const auth=(authData)=>{
             axios.post(url,authData)
                 .then(response=>{
             console.log(response);
-            dispatch(authSuccess(response.data.data.token,response.data.data.id,response.data.role,response.data.data));
+            dispatch(authSuccess(response.data.token,response.data.id,response.data.role,response.data.data));
             dispatch(checkAuthTImeout(3600/*response.data.expiresIn*/));
         })
         .catch(err=>{
@@ -137,7 +101,7 @@ export const authVerify=(authData)=>{
         let url='https://backend-webapi20191102020215.azurewebsites.net/api/UserAuth/signin';
         axios.post(url,authData)
         .then(response=>{
-            console.log(response.data.data);
+            console.log(response);
             const expirationDate=new Date(new Date().getTime()+/*response.data.expiresIn*/3600*10000);
             localStorage.setItem('token',response.data.data.token);
             localStorage.setItem('userData',response.data.data);
@@ -148,7 +112,9 @@ export const authVerify=(authData)=>{
             userData={...response.data.data}
             console.log(userData)
             dispatch(authSuccess(response.data.data.token,response.data.data.id,response.data.role,userData));
+            ;
             dispatch(checkAuthTImeout(3600/*response.data.expiresIn*/));
+            
         })
         .catch(err=>{
             console.log(err);

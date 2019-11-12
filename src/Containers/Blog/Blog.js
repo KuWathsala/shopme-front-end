@@ -21,6 +21,9 @@ import UpdateProduct from '../../Components/ShopView/EditProduct';
 import upload from '../../Components/ShopView/UploadF';
 import Spinner from '../../Containers/Spinner/Spinner_2';
 import Help from '../../Containers/Blog/Help';
+import Verification from '../../Components/Signup/Verification';
+import ForgetPassword from '../../Components/SignIn/ForgetPassword';
+import SetPassword from '../../Components/SignIn/SetPassword';
 
 
 
@@ -45,6 +48,9 @@ class Blog extends Component{
             <Route path="/UpdateProduct" exact component={UpdateProduct}/>
             <Route path="/upload" exact component={upload}/>
             <Route path="/spinner" exact component={Spinner}/>
+            <Route path="/verify"exact component={Verification}/>
+            <Route path="/forgetPassword"exact component={ForgetPassword}/>
+            <Route path="/setPassword"exact component={SetPassword}/>
             <ProductProvider>
                        <Pindex/>
                     </ProductProvider>
@@ -65,6 +71,7 @@ class Blog extends Component{
                     <Route path="/upload" exact component={upload}/>
                     <Route path="/spinner" exact component={Spinner}/>
                     <Route path="/Help" exact component={Help}/>
+                    <Route path="/Signin" exact component={SignIn}/>
                     <Redirect to="/Seller_login"/>
                 </Switch>
             );  
@@ -76,6 +83,7 @@ class Blog extends Component{
                     <Route path="/map" component={Map}/>
                     <Route path="/logout" component={Logout}/>
                     <Route path="/spinner" exact component={Spinner}/>
+                    <Route path="/Signin" exact component={SignIn}/>
                     <Redirect to="/"/>
                 </Switch>
             );
@@ -87,6 +95,7 @@ class Blog extends Component{
                     <Route path="/map" component={Map}/>
                     <Route path="/logout" component={Logout}/>
                     <Route path="/spinner" exact component={Spinner}/>
+                    <Route path="/Signin" exact component={SignIn}/>
                     <ProductProvider>
                        <Pindex/>
                     </ProductProvider>
@@ -111,6 +120,9 @@ class Blog extends Component{
                         <Route path="/upload" exact component={upload}/>
                         <Route path="/spinner" exact component={Spinner}/>
                         <Route path="/Help" exact component={Help}/>
+                        <Route path="/verify"exact component={Verification}/>
+                        <Route path="/forgetPassword"exact component={ForgetPassword}/>
+                        <Route path="/setPassword"exact component={SetPassword}/>
                 </Switch>
                 </React.Fragment>
              );
