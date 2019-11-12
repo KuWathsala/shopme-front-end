@@ -1,7 +1,7 @@
 import React,{Component} from "react";
 import {connect} from 'react-redux';
 import axios from 'axios';
-import { Redirect} from 'react-router-dom';
+// import { Redirect} from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import {store} from '../../index';
 import * as actions from '../../Stores/Actions/Index';
@@ -106,7 +106,7 @@ class ForgetPassword extends Component{
         console.log("resend");
     }
     render(){
-        const {handleSubmit, pristine, reset, submitting}=this.props;
+        const {handleSubmit}=this.props;
         if(this.state.isTrue){
             return(
                 <form onSubmit={handleSubmit(this.submit)}>
@@ -193,4 +193,3 @@ const mapStateToProps=state=>{
 export default reduxForm({
     form:'ForgetPassword'
 })(connect(mapStateToProps,null)(ForgetPassword))
-
