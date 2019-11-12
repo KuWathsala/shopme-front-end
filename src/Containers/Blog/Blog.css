@@ -1,0 +1,127 @@
+.Blog{
+    position:sticky;
+    margin:0;
+    padding: 0;
+    border: 2px solid #Feee;
+    box-shadow: 1px,2px,1px #ccc;
+    box-sizing: border-box ;
+    overflow: auto;
+    background: #eee;
+    color: white;
+}
+
+.Blog a{
+    display:inline-block;
+    text-decoration: none;
+    color: rgb(77, 76, 76);
+    font-size: 16px;
+    border: thin;  
+    border-block-end-width: 1px;    
+    padding-inline-end: 22px;
+    font-weight: bold; 
+    padding-top: 20px;
+}
+
+.Blog :hover,
+.Blog   :active{
+    color:darkorange;
+    border-block-end-color: red;
+
+}
+.b div img{
+    width:100x;
+    height:50px;
+    
+}
+.b{
+    display:inline-block;  
+    background: red; 
+    padding-top: 5px; 
+    margin-bottom: 10px; 
+    position: relative; 
+
+  }
+
+  .a{
+      width: 25px;
+  }
+
+.categories{
+    border: 2px solid black;
+    width:25%;
+    height:100%;
+    float: left;
+    border-collapse: collapse;
+    margin-top:25px;
+    margin-left: 25px;
+    margin-right: 25px;
+
+    
+}
+.popular{
+    border: 2px solid white;
+    width:65%;
+    height:75%;
+    padding-right: 5px;
+    float: left;
+    border-collapse: collapse;
+    margin-top:25px;
+    margin-left: 25px;
+    margin-right: 25px;
+    border-radius:18px;
+    top: 250px;  
+}
+.popular image{
+    width: 90%;
+}
+
+.popular img{
+    width:90%;
+    height:350px;
+    border-radius: 50%
+    
+}
+
+
+
+.footer{
+    background-color: rgba(22, 22, 22, 0.933);
+    color: #ccc;
+    margin-top: 0px;
+  
+}
+
+
+
+.footer div{
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 10pt;
+    margin-top: 0px;
+}
+
+/*.footer{
+    position:fixed;
+    background-color:black;
+    width:80%;
+    bottom: 0;
+    height: 10%;
+    border: #eee solid;
+    color: white;
+}
+*/
+
+.slide{
+width: 100%; 
+height:700px;
+padding-top: 5px;
+padding-bottom:50px;
+}
+
+.login{
+    float:right;
+    margin-right:0;
+}
+
+.b { display: block; height: 100px; background: white; padding-top: 5px; margin-bottom: 5px; position: relative;  }
+.b ul { font-family: Candara, Calibri, "Segoe UI", Segoe, Arial, sans-serif; }
+/*.b ul li {  background: #eee; display: block; font-size: 1.2em; position: relative; float: left;padding-inline-end: 5px;}*/

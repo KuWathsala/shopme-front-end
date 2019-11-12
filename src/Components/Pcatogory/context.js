@@ -204,13 +204,13 @@ class ProductProvider extends Component {
             .then(response=>{
                 console.log("merchantId  "+response.data.accountNo)
                 this.setState({
-                    payhereButton: <form method="post" action="https://sandbox.payhere.lk/pay/checkout?return_url=https://localhost:3000&cancel_url=https://localhost:3000&items=xxxx&currency=LKR&&first_name=xxxx&last_name=xxxx&email=xxxx&phone=xxxx&address=xxxx&city=xxxx&country=SriLanka&notify_url=https://backend-webapi20191102020215.azurewebsites.net/api/orders/update-payment"> 
+                    payhereButton: <form method="post" action="https://sandbox.payhere.lk/pay/checkout?merchant_id=1213071&return_url=https://localhost:3000&cancel_url=https://localhost:3000&items=&currency=LKR&amount=114&first_name=wathsala&last_name=danthasinghe&email=wathdanthasinghe@gmail.com&phone=0716325124&address=Galle&city=Galle&country=SriLanka&notify_url=https://backend-webapi20191102020215.azurewebsites.net/api/orders/update-payment"> 
                             <input name="submit" type="image" src="https://www.payhere.lk/downloads/images/pay_with_payhere.png"
                                 style={{width:"150px"}} value="Buy Now" // onClick={this.try2}
                             />
-                            <input type="hidden" name="merchant_id" value={response.data.accountNo}/>
-                            <input type="text" name="order_id" value={orderId}  />
-                            <input type="text" name="amount" value={this.state.cartTotal}/>
+                            {/* <input type="hidden" name="merchant_id" value={response.data.accountNo}/> */}
+                            <input type="text" name="order_id" value={orderId}/>
+                            {/*<input type="text" name="amount" value={this.state.cartTotal}/> */}
                         </form>
                 });
             }) 
