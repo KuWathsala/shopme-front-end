@@ -138,6 +138,7 @@ render() {
                 type="text"
                 component={renderField2}
                 label="Discount"
+                update
                 value1={this.state.ProductDetails.discount}
                 validate={[required, isDigit]}
               />
@@ -172,4 +173,5 @@ const mapStateToProps=state=>{
 
 export default connect(mapStateToProps,null)(reduxForm({
   form: 'editProduct',
+  enableReinitialize : true
 })(EditProduct))

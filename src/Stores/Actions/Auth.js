@@ -46,6 +46,12 @@ export const checkAuthTImeout=(expirationTime)=>{
 };
 };
 
+export const notVerified=()=>{
+    return{
+        type:ActionTypes.NOT_VERIFIED,
+    };
+};
+
 export const auth=(authData)=>{
     console.log(authData)
     return dispatch=>{
@@ -111,10 +117,12 @@ export const authVerify=(authData)=>{
             let userData
             userData={...response.data.data}
             console.log(userData)
-            dispatch(authSuccess(response.data.data.token,response.data.data.id,response.data.role,userData));
-            ;
-            dispatch(checkAuthTImeout(3600/*response.data.expiresIn*/));
-            
+            if(response.data===false)
+            dispatch((notVerified()));
+            else{
+                dispatch(authSuccess(response.data.data.token,response.data.data.id,response.data.role,userData));
+                dispatch(checkAuthTImeout(3600/*response.data.expiresIn*/));
+            }
         })
         .catch(err=>{
             console.log(err);

@@ -36,6 +36,10 @@ const authLogout=(state,action)=>{
     return updateObject(state,{token:null,userId:null});
 }
 
+const notVerified=(state,action)=>{
+    return updateObject(state,{verifyState:false})
+}
+
 const reducer =( state=initialState,action)=>{
     switch(action.type){
         case actionTypes.AUTH_START:return authstart(state,action)
@@ -43,6 +47,7 @@ const reducer =( state=initialState,action)=>{
         case actionTypes.AUTH_FAIL:return authfail(state,action)
         case actionTypes.AUTH_LOGOUT:return authLogout(state,action)
         case actionTypes.USER_TYPE:return usertype(state,action)
+        case actionTypes.NOT_VERIFIED:return notVerified(state,action)
         default:
             return state;
     }

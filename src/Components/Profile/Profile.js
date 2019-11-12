@@ -3,12 +3,13 @@ import Img from '../../Assets/profile.png';
 import {connect} from 'react-redux';
 import './prof.css';
 import axios from 'axios';
+import Orders from './Orders';
 
 class Profile extends Component{
 
     state={
         userdata:[],
-        oders:[]
+        orders:[]
     };
 
     componentDidMount(){
@@ -16,13 +17,19 @@ class Profile extends Component{
             axios.get(`https://backend-webapi20191102020215.azurewebsites.net/api/sellers/${this.props.userId}`)
             .then(response=>{
                 console.log(response);
-                this.setState({userdata:response.data});
+                this.setState({userdata:response.data.data});
             });
         }else if(this.props.userType=='Customer'){
             axios.post(`https://backend-webapi20191102020215.azurewebsites.net/api/customers/${this.props.userId}`)
             .then(response=>{
                 console.log(response);
                 this.setState({userdata:response.data});
+            });
+            axios.post(`https://backend-webapi20191102020215.azurewebsites.net/api/orders/getAllOrderDetailsByCustomer/${this.props.userId}`)
+            .then(response=>{
+                console.log(response);
+                for(let i=0; i<response.data.length; i++ )
+                this.setState({orders: [...this.state.orders, response.data[i]]})
             });
         }else if(this.props.userType=="Deliverer"){
             axios.get(`https://backend-webapi20191102020215.azurewebsites.net/api/deliverers/${this.props.userId}`)
@@ -34,13 +41,25 @@ class Profile extends Component{
     }
 
     render(){
+        const purschasedOrders=this.state.orders.map(order=>{
+            return <Orders value={order} OrderId={order.id} time={order.createdAt} total={order.totalPrice} shop={order.shopName} status={order.orderStatus}
+                         OrderDetails={order.products.map((c,i)=>(
+                             <td  class="row-xs-1" >
+                                 <div class="row-xs-1">
+                                     <text style={{fontWeight:'lighter', fontFamily:'Calibri Light' }} >{c.name}:  <text style={{fontWeight:'bold'}}>{c.quantity}</text></text>
+                                 </div>
+                             </td>
+                         ))}
+                     />
+              });     
         return(
             <div style={{height:'100%'}}>
-                <div style={{backgroundColor:'black',marginBottom:25}}>
+                <div style={{backgroundColor:'black',marginBottom:40}}>
                     <img style={{flex:1,height:300,width:300,borderRadius:150,marginLeft:'70%',marginTop:25,marginBottom:25}} src={this.state.userdata.image} />
-                    <div style={{color:'white',flex:1,borderRadius:150,marginLeft:'72%'}}>
-                        <text style={{fontSize:25,}}>{this.state.userdata.firstName+" "+this.state.userdata.lastName}<br/></text>
-                        <span class="glyphicon glyphicon-star-empty" style={{fontSize:25,color:'yellow  '}}></span>
+                    <div style={{color:'white',flex:1,borderRadius:150,marginLeft:'72%',marginBottom:100}}>
+                        <text style={{fontSize:30,}}>{this.state.userdata.firstName+" "+this.state.userdata.lastName}<br/><br/></text>
+                        <span class="glyphicon glyphicon-star" style={{fontSize:25}}></span>
+                        <text style={{fontSize:25}}>{Math.round(this.state.userdata.rating*100)/100+" "}Rating<br/><br/></text>
                     </div>
                 </div>
                 <div style={{fontSize:20}}>
@@ -50,11 +69,12 @@ class Profile extends Component{
                             <br/><br/>
                         </div>
                         <div className="row">
-                            <div className='col-2 col-md-2'>Contact NO</div>
+                            <div className='col-2 col-md-2'>Contact No</div>
                             <div className='col-4 col-md-4'style={{color:'grey'}}>{this.state.userdata.mobileNumber}</div>
                             <br/><br/>
                         </div>
-
+                        {this.props.userType=="Seller" ? 
+                        <div>
                         <div className="row">
                             <div className='col-2 col-md-2'>Shop Name</div>
                             <div className='col-4 col-md-4'style={{color:'grey'}}>{this.state.userdata.shopName}</div>
@@ -65,8 +85,23 @@ class Profile extends Component{
                             <div className='col-4 col-md-4'style={{color:'grey'}}>{this.state.userdata.shopAddress}</div>
                             <br/><br/>
                         </div>
+                        </div>:null}
                             <a href='/'>Edit Profile</a>
                     </div>
+                    <table class="table table-bordered " style={{fontFamily: 'Calibri Light', fontSize: 17,fontWeight: 'normal', backgroundColor: 'green', color: 'white',marginTop:50}} >
+                        <thead>
+                            <tr>
+                            <th class="col-xs-1 center-block">Order id</th>
+                            <th class="col-xs-1 center-block">Date/time</th>
+                            <th scope="col-xs-3 center-block">Ordered items</th>
+                            <th class="col-xs-1 center-block">Price LKR</th>
+                            <th class="col-xs-1 center-block">Shop</th>
+                            <th class="col-xs-1 center-block">Order Status</th>
+                            </tr>
+                        </thead>
+                   
+                    </table>
+                    {purschasedOrders}
                     </div>
         );
     }

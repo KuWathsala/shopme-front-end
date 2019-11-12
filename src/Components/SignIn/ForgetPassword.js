@@ -8,7 +8,7 @@ import * as actions from '../../Stores/Actions/Index';
 import Spinner from '../../Containers/Spinner/Spinner_2';
 
 const renderField = ({ input,label,type,click,value,meta: { touched, error, warning }}) => (
-    <div className='row' style={{display:'flex'}}>
+    <div className='row' style={{display:'flex',transform: 'translate(-75%, -25%)'}}>
         <div style={{flex:1,height:600,width:'100%'}} >
             <input {...input} placeholder={label} type={type} value={value} onclick={click} style={{position: 'absolute', left: '50%',transform: 'translate(-50%, -50%)',marginTop:80,width:'40%',textAlign:'center',fontSize:24,borderColor:'white',borderBottomColor:'green',borderBottomWidth:5}}/>{/**,color:"green" */}
           {touched && ((error && <span style={{color:'red',backgroundColor:'white',fontWeight:'bold',position: 'absolute', left: '80%',transform: 'translate(-50%, -50%)',marginTop:80,width:'40%',textAlign:'center'}}>{error}</span>) ||(warning && <span>{warning}</span>))}
