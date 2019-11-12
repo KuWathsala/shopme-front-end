@@ -38,7 +38,7 @@ class Profile extends Component{
             <div style={{height:'100%'}}>
                 <div style={{backgroundColor:'black',marginBottom:25}}>
                     <img style={{flex:1,height:300,width:300,borderRadius:150,marginLeft:'70%',marginTop:25,marginBottom:25}} src={this.state.userdata.image} />
-                    <div style={{color:'white',flex:1,borderRadius:150,marginLeft:'70%'}}>
+                    <div style={{color:'white',flex:1,borderRadius:150,marginLeft:'72%'}}>
                         <text style={{fontSize:25,}}>{this.state.userdata.firstName+" "+this.state.userdata.lastName}<br/></text>
                         <span class="glyphicon glyphicon-star-empty" style={{fontSize:25,color:'yellow  '}}></span>
                     </div>
