@@ -5,6 +5,7 @@ export {
     authCheckState,
     setUserType,
     authSuccess,
+    Verified
 }from './Auth'
 
 export {

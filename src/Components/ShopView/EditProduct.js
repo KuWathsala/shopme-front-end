@@ -84,10 +84,11 @@ render() {
   const {handleSubmit, pristine, reset, submitting}=this.props;
   return (
     <div>
-      <ShopViewHeader header={'edit product'} />
+      <ShopViewHeader header={'edit product'}/>
         <div className=" form-group">
           {/*<img source={require('../../Assets/online_store.jpg')} />*/}
-          <form onSubmit={handleSubmit(this.submit)}>
+          <form onSubmit={handleSubmit(this.submit)}
+                initialValues={{Name:"Jayashan"}}>
             <div class="form-row" style={{marginTop: 20, marginLeft: 20}} >
             <Field name="CategoryId" component="select" style={{alignSelf:'center',borderBottomWidth: 2, borderColor: 'white', borderBottomColor:'green', marginLeft:'relative',height:37,width:"100%"}} label="category" 
                 validate={[required]}value1={this.state.categoryName}
@@ -106,7 +107,7 @@ render() {
                 component={renderField2}
                 label="Product Name"
                 //value1={this.state.ProductDetails.name}
-                value1={this.state.ProductDetails.name}
+                value1={this.props.initialValues.Name}
                 validate={[required]}
               />
               <Field
@@ -165,9 +166,12 @@ render() {
     }
 }
 
-const mapStateToProps=state=>{
+const mapStateToProps=(state)=>{
   return{
     userId:state.auth.userId,
+    initialValues:{
+      Name:"Jayashan"
+    }
   }
 }
 

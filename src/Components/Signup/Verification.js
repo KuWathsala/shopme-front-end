@@ -1,8 +1,10 @@
 import React,{Component} from "react";
+import {connect} from 'react-redux';
 import axios from 'axios';
+import {Link,Redirect} from 'react-router-dom';
+import * as actions from '../../Stores/Actions/Index';
 
-
-export default class Verification extends Component{
+class Verification extends Component{
     constructor(props){
         super(props);
     this.state={
@@ -38,6 +40,11 @@ export default class Verification extends Component{
         console.log("resend");
     }
     render(){
+        if(this.state.isTrue){
+            this.props.verify();
+            return (<Redirect to="/Signin" />);
+        }
+        else
         return(
             <form onSubmit={this.handleSubmit}>
             <div style={{flex:1,height:600,width:'100%',}}> 
@@ -60,3 +67,9 @@ export default class Verification extends Component{
         )
     }
 }
+const mapDispatchToProps=dispatch=>{
+    return{
+        verify:()=>dispatch(actions.Verified()),
+    };
+  }
+export default connect(null,mapDispatchToProps)(Verification)

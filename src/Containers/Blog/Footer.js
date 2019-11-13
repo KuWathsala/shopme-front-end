@@ -49,7 +49,7 @@ const footer =() =>{
   
 <div className="col-xs-12 col-sm-6 col-md-3">
 <div className="widget subscribe no-box">
-<h5 className="widget-title" style={{fontSize:'30px'}}>ShopMe<span></span></h5>
+<h5 className="widget-title" style={{fontSize:'30px'}}>ShopMe<sup>©</sup><span></span></h5>
 <p>'ShopMe' the next generation of shopping..Do join with us and get deliver anything you wish to your doorstep..HAPPY SHOPPING...</p>
 </div>
 </div>

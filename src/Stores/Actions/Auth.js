@@ -52,10 +52,17 @@ export const notVerified=()=>{
     };
 };
 
+export const Verified=()=>{
+    return{
+        type:ActionTypes.VERIFIED,
+    };
+};
+
 export const auth=(authData)=>{
     console.log(authData)
     return dispatch=>{
         dispatch(authStart());
+        dispatch(notVerified());
         console.log("auth : ",authData);
         let url='';
         if(authData.LoginVM.Role=='Customer'){
@@ -98,6 +105,14 @@ export const auth=(authData)=>{
             dispatch(authFail(err));
         });
         }
+        url=`https://backend-webapi20191102020215.azurewebsites.net/api/UserAuth/forgetPassword/${authData.email}`;
+        axios.post(url,)
+        .then(response=>{
+            console.log(response);  
+        })
+        .catch(err=>{
+            console.log(err);    
+        });
     }
 };
 
@@ -107,6 +122,9 @@ export const authVerify=(authData)=>{
         let url='https://backend-webapi20191102020215.azurewebsites.net/api/UserAuth/signin';
         axios.post(url,authData)
         .then(response=>{
+            if(response.data=='not verified'){
+                dispatch(notVerified());
+            }else{
             console.log(response);
             const expirationDate=new Date(new Date().getTime()+/*response.data.expiresIn*/3600*10000);
             localStorage.setItem('token',response.data.data.token);
@@ -117,16 +135,35 @@ export const authVerify=(authData)=>{
             let userData
             userData={...response.data.data}
             console.log(userData)
-            if(response.data===false)
-            dispatch((notVerified()));
-            else{
+            
+            
                 dispatch(authSuccess(response.data.data.token,response.data.data.id,response.data.role,userData));
                 dispatch(checkAuthTImeout(3600/*response.data.expiresIn*/));
             }
+            console.log(response.data)
+            console.log(typeof response.data)
+            if(typeof response.data === 'string')
+                dispatch(authFail(response.data));
+            else{
+                console.log(response);
+                const expirationDate=new Date(new Date().getTime()+/*response.data.expiresIn*/3600*10000);
+                localStorage.setItem('token',response.data.data.token);
+                localStorage.setItem('userData',response.data.data);
+                localStorage.setItem('expirationDate',expirationDate);
+                localStorage.setItem('userId',response.data.data.id);
+                localStorage.setItem('role',response.data.role);
+                let userData
+                userData={...response.data.data}
+                console.log(userData)
+                dispatch(authSuccess(response.data.data.token,response.data.data.id,response.data.role,userData));
+                ;
+                dispatch(checkAuthTImeout(3600/*response.data.expiresIn*/));
+            }
+            
         })
         .catch(err=>{
             console.log(err);
-            dispatch(authFail(err));
+            dispatch(authFail(err.message));
         });
     };
 };

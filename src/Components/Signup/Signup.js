@@ -12,11 +12,8 @@ import {store} from '../../index';
 
 const renderField = ({ input,label,type,click,value,meta: { touched, error, warning }}) => (
     <div className='row' style={{marginBottom:10,display:'flex'}}>
-        <div className='col' style={{}}>
-        <label style={{color:'black',fontWeight:'bold',columnWidth:125,paddingLeft:30,alignContent:'center'}}>{label}</label>
-        </div>
-        <div className='col col-xs-7 col-sm-7 col-lg-7' >
-            <input {...input} placeholder={label} type={type} value={value} onclick={click} style={{alignSelf:'center',marginLeft:relative,width:220,borderRadius:'25px',height:'30px'}}/>{/**,color:"green" */}
+        <div className='col col-xs-7 col-sm-7 col-lg-7 pull-right' >
+            <input {...input} placeholder={label} type={type} value={value} onclick={click} style={{alignSelf:'center',marginLeft:relative, width:350,height:40, borderBottomWidth:2, borderBottomColor:'green'}}/>{/**,color:"green" */}
           {touched && ((error && <span style={{color:'red',backgroundColor:'white',fontWeight:'bold'}}>{error}</span>) ||(warning && <span>{warning}</span>))}
         </div>
     </div>
@@ -141,15 +138,17 @@ render() {
     {authRedirect}
     <div className="wrapForm">
     {this.props.isloading ? <Spinner/> : <div>
-    <h1 style={{fontWeight:'bold' ,color:'black'}}>Create Account</h1>
+    <text style={{marginTop:50,fontSize: 50, fontFamily: 'Calibri Light', fontWeight:'bolder', marginLeft: 20}} >
+        Create Account
+    </text>
     
     <div>
     
     {
     this.props.usertype=="Seller" ? 
-        <div className='col col-md-12'>
+        <div className='col col-md-7'>
             <input type="text" placeholder="Click to setup shop location" className='form-control1 'onClick={this.setLocation} value={this.props.Address}
-            style={{width:350, height:6,borderRadius:'25px',alignContent:'left',backgroundColor:'darkseagreen',color:'black',padding:'6px'}}
+           style={{alignSelf:'center',marginBottom: 10,marginLeft: -15, width:350,height:40, borderBottomWidth:2, borderBottomColor:'green'}}
             />
             <i class="glyphicon glyphicon-map-marker form-control-feedback" style={{color:'red'}}></i>
         </div>
@@ -220,10 +219,10 @@ render() {
                     value={null}
                     validate={[required]}
                 />
-                <div className='row' style={{marginBottom:10,display:'flex'}}>
-                <label style={{color:'black',fontWeight:'bold',columnWidth:140,paddingLeft:30}}>Vehicle Type</label>
-                <div>
-                <Field name="VehicleType" component="select" style={{alignSelf:'center',marginLeft:relative,height:37,width:200, borderRadius:'25px'}}>
+                <div className='row' style={{marginBottom:10,display:'flex'}}><div>
+                <Field name="VehicleType" component="select" 
+                    style={{alignSelf:'center',marginLeft: 15, width:350,height:40, borderBottomWidth:2, borderBottomColor:'green'}}
+                >
                 <option value="">Select a vehicle...</option>
                     {vehicles.map(Option => (
                         <option value={Option} key={Option}>
@@ -276,19 +275,25 @@ render() {
                 />
 
                 <div style={{textAlign:"left",color:'black'}}>
-                <label htmlFor="img"><b>Image</b></label>
                         {this.state.isloading ? <Spinner2/> :
               <input 
-                style={{backgroundColor:'white',marginBottom:15,width:350,alignContent:'center'}}
+                style={{backgroundColor:'white',marginBottom:15,width:350,alignContent:'center', borderBottomWidth: 2, borderRadius: 0, borderBottomColor: 'green'}}
                 name="Image"
                 type="file"
                 onChange={this.fileUploadHandler}
                 value={this.state.image}
                 /> 
                  }</div>
-         <div style={{alignContent:'center',marginLeft:'30%'}}>
-            <button type="submit" className="btn-btn-default1" disabled={submitting}>SUBMIT</button>
-            <div><Link to="/Signin"><small style={{color:'black'}}><b>Already have an Account</b></small></Link></div>
+         <div style={{alignContent:'center'}}>
+            <button type="submit" className="btn btn-success" disabled={submitting}
+                style={{backgroundColor: 'green', borderRadius: 0, width: 350, fontFamily:'calibri', fontSize: 20}}
+            >
+                SUBMIT
+            </button>
+            <div style={{alignSelf:'center'}}>
+                <Link to="/Signin">
+                    <text style={{alignSelf:'center', color: 'black', marginLeft: 100}} >Already have an Account</text></Link>
+            </div>
         </div>   
     </form>
     </div>}

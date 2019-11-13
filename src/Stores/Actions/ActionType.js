@@ -6,3 +6,4 @@ export const USER_TYPE='USER_TYPE';
 export const MARKER_LOCATION='MARKER_LOCATION';
 export const SUBMISSION='SUBMISSION';
 export const NOT_VERIFIED='NOT_VERIFIED';
+export const VERIFIED='VERIFIED';

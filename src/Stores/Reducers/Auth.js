@@ -24,7 +24,6 @@ const authSuccess=(state,action)=>{
         user:action.user,
         error:null,
         loading:false,
-        verifyState:false,
     })
 }
 
@@ -40,6 +39,10 @@ const notVerified=(state,action)=>{
     return updateObject(state,{verifyState:false})
 }
 
+const Verified=(state,action)=>{
+    return updateObject(state,{verifyState:null,error:null})
+}
+
 const reducer =( state=initialState,action)=>{
     switch(action.type){
         case actionTypes.AUTH_START:return authstart(state,action)
@@ -48,6 +51,7 @@ const reducer =( state=initialState,action)=>{
         case actionTypes.AUTH_LOGOUT:return authLogout(state,action)
         case actionTypes.USER_TYPE:return usertype(state,action)
         case actionTypes.NOT_VERIFIED:return notVerified(state,action)
+        case actionTypes.VERIFIED:return Verified(state,action)
         default:
             return state;
     }

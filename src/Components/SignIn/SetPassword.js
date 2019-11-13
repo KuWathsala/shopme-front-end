@@ -74,7 +74,6 @@ class SetPassword extends Component{
         console.log("resend");
     }
     render(){
-        console.log(this.props.location.state.email);
         const {handleSubmit, pristine, reset, submitting}=this.props;
         return(
             <form onSubmit={handleSubmit(submit)}>

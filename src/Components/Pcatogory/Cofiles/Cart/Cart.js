@@ -18,12 +18,12 @@ class Cart extends Component {
                         if (cart.length > 0){
                             return(
                                 <React.Fragment>
-                                    <div className="cart1">
+                                    <div className="cart1" >
                                     <h1><strong>SHOPPING CART</strong></h1><br/>
                                     <CartColumns/>
                                     <CartList value={value}/>
                                     </div>
-                            <div class="pull-right">
+                            <div class="pull-right" style={{marginRight:'5%'}}>
                                     <h5 >
                                         <span className="text-title">
                                             total:
@@ -34,14 +34,16 @@ class Cart extends Component {
                                     
                                     {/*<CartTotals value={value} history={this.props.history}/>*/}
 
-                                    <button onClick={()=>value.createOrder()} >
+                                    <button className="btn btn-success" onClick={()=>value.createOrder()} >
                                         {console.log("x===> "+value.x)}
-                                        <text>Buy now</text>
+                                        <text>Check out</text>
                                     </button>
                                     <div>
                                         {value.payhereButton}
                                     </div>
+                                    
                                     </div>
+                                    <div style={{marginBottom:200}}></div>
                                <br/><br/><br/>
                                 </React.Fragment >
                             );

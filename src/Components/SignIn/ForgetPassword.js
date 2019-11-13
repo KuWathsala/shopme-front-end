@@ -8,16 +8,16 @@ import * as actions from '../../Stores/Actions/Index';
 import Spinner from '../../Containers/Spinner/Spinner_2';
 
 const renderField = ({ input,label,type,click,value,meta: { touched, error, warning }}) => (
-    <div className='row' style={{display:'flex',transform: 'translate(-75%, -25%)'}}>
-        <div style={{flex:1,height:600,width:'100%'}} >
-            <input {...input} placeholder={label} type={type} value={value} onclick={click} style={{position: 'absolute', left: '50%',transform: 'translate(-50%, -50%)',marginTop:80,width:'40%',textAlign:'center',fontSize:24,borderColor:'white',borderBottomColor:'green',borderBottomWidth:5}}/>{/**,color:"green" */}
+    <div className='row' style={{display:'flex'}}>
+        <div style={{height:600,width:'100%'}} >
+            <input {...input} placeholder={label} type={type} value={value} onclick={click} style={{position:'absolute', left: '50%',transform: 'translate(-50%, -50%)',marginTop:80,width:'40%',textAlign:'center',fontSize:24,borderColor:'white',borderBottomColor:'green',borderBottomWidth:5}}/>{/**,color:"green" */}
           {touched && ((error && <span style={{color:'red',backgroundColor:'white',fontWeight:'bold',position: 'absolute', left: '80%',transform: 'translate(-50%, -50%)',marginTop:80,width:'40%',textAlign:'center'}}>{error}</span>) ||(warning && <span>{warning}</span>))}
         </div>
     </div>
   )
   const renderField2 = ({ input,label,type,click,value,meta: { touched, error, warning }}) => (
     <div className='row' style={{marginBottom:10,display:'flex'}}>
-        <div style={{flex:1,height:600,width:'100%',}} >
+        <div style={{height:600,width:'100%',}} >
             <input {...input} placeholder={label} type={type} value={value} onclick={click} style={{position: 'absolute', left: '50%',transform: 'translate(-50%, -50%)',marginTop:-380,width:'40%',textAlign:'center',fontSize:24,borderColor:'white',borderBottomColor:'green',borderBottomWidth:5}}/>{/**,color:"green" */}
           {touched && ((error && <span style={{color:'red',backgroundColor:'white',fontWeight:'bold',position: 'absolute', left: '80%',transform: 'translate(-50%, -50%)',marginTop:-380,width:'40%',textAlign:'center'}}>{error}</span>) ||(warning && <span>{warning}</span>))}
         </div>
@@ -25,13 +25,15 @@ const renderField = ({ input,label,type,click,value,meta: { touched, error, warn
   )
 
 const required=value=> value ? undefined:'Required';
+const isValidPassword=value=> value && !/^(?=.{10,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*$/i.test(value) ? 'Required UPPERCASE, lowercase, digit, symbol and minimum 10 characters ':undefined;
+const passwordMatch=(value,allValues)=> value!==allValues.Password ? 'Passwords do not Match':undefined;
 
 class ForgetPassword extends Component{
     constructor(props){
         super(props);
     this.state={
         code:null,
-        isTrue:null,
+        isTrue:true,
         email:null,
         emailadd:false,
         sentEmail:null,
@@ -114,19 +116,19 @@ class ForgetPassword extends Component{
                     <h1 style={{marginTop:100}}>Reset your password</h1>
                      <Field 
                         name="password"
-                        type="text"
+                        type="password"
                         component={renderField}
                         label="Password"
-                        validate={[required]}
+                        validate={[required,isValidPassword]}
                         click={null}
                         value={null}
                     />
                     <Field 
                         name="ConfirmPassword"
-                        type="text"
+                        type="password"
                         component={renderField2}
                         label="Confirm Password"
-                        validate={[required]}
+                        validate={[required,isValidPassword,passwordMatch]}
                         click={null}
                         value={null}
                     />

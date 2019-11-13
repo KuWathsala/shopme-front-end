@@ -7,7 +7,7 @@
     flex-direction:column;
     justify-content:safe;
     align-items:center;
-    background: url(../../Assets/background1.jpg);
+    /*background: url(../../Assets/background1.jpg);*/
     /* ?background-image: url("https://www.washingtonpost.com/resizer/WWLs91LUlbMpRXQMbDcLPXlFUhg=/1484x0/arc-anglerfish-washpost-prod-washpost.s3.amazonaws.com/public/AA43TKRJCY7PJGI3Y6PWFEF44I.jpg"); */
     background-position:inherit;
    /** background-image: url("https://www.internet-idee.net/admin/advanced/backend/web/uploads/categoria/d/8/2/cropBanner/GDO.jpg");
@@ -19,7 +19,7 @@
 }
 
 .wrapForm{
-    background-color:gray;
+    background-color:#fffff;
     flex: 1;
     border-radius: 25px;
     align-self:center;
@@ -37,14 +37,13 @@
     padding-right: 1%;
 }
 .btn-btn-default1{
-    color:white;
-    background-color: rgb(0, 174, 255);
-    border-radius: 5px;
+    color:'green';
+    background-color: 'green';
     padding: 10px 10px;
     position: center;
     align-content: center;
-    border: darkblue;
-
+    border: 'green';
+    width: 350;
     }
 
 input{
