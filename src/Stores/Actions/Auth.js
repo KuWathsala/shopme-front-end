@@ -123,10 +123,30 @@ export const authVerify=(authData)=>{
                 dispatch(authSuccess(response.data.data.token,response.data.data.id,response.data.role,userData));
                 dispatch(checkAuthTImeout(3600/*response.data.expiresIn*/));
             }
+            console.log(response.data)
+            console.log(typeof response.data)
+            if(typeof response.data === 'string')
+                dispatch(authFail(response.data));
+            else{
+                console.log(response);
+                const expirationDate=new Date(new Date().getTime()+/*response.data.expiresIn*/3600*10000);
+                localStorage.setItem('token',response.data.data.token);
+                localStorage.setItem('userData',response.data.data);
+                localStorage.setItem('expirationDate',expirationDate);
+                localStorage.setItem('userId',response.data.data.id);
+                localStorage.setItem('role',response.data.role);
+                let userData
+                userData={...response.data.data}
+                console.log(userData)
+                dispatch(authSuccess(response.data.data.token,response.data.data.id,response.data.role,userData));
+                ;
+                dispatch(checkAuthTImeout(3600/*response.data.expiresIn*/));
+            }
+            
         })
         .catch(err=>{
             console.log(err);
-            dispatch(authFail(err));
+            dispatch(authFail(err.message));
         });
     };
 };
