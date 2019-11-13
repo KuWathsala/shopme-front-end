@@ -5,22 +5,15 @@ import {Link,Redirect} from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import axios from 'axios';
 import {store} from '../../index';
-import "../Signup/Signup.css";
-import "../SignIn/signin.css";
 import Spinner from '../../Containers/Spinner/Spinner_2';
 
 
 const renderField = ({ input,label,type,click,value,meta: { touched, error, warning }}) => (
-  <div className='row' style={{marginBottom:10,display:'flex'}}>
-        <div className='col' style={{}}>
-        <label style={{color:'white',fontWeight:'bold',columnWidth:80,paddingLeft:30}}>{label}</label>
+  
+      <div className="center-block" >
+          <input  {...input} placeholder={label} type={type} value={value} onclick={click} style={{position: 'absolute', left: '50%',transform: 'translate(-50%, -50%)',marginTop:80,width:'40%',textAlign:'center',fontSize:24,borderColor:'white',borderBottomColor:'green',borderBottomWidth:3}}/><br/>
+          {touched && ((error && <span style={{color:'red',backgroundColor:'white',fontWeight:'bold',position: 'absolute', left: '50%',transform: 'translate(-50%, -50%)',marginTop:100,width:'40%',textAlign:'center' , marginBottom: 80}}>{error}</span>) ||(warning && <span>{warning}</span>))}
       </div>
-
-      <div className='col col-xs-7 col-sm-7 col-lg-7' >
-          <input {...input} placeholder={label} type={type} value={value} onclick={click} style={{alignSelf:'center',width:230, borderRadius:'25px' }}/>
-        {touched && ((error && <span style={{color:'red',backgroundColor:'white',fontWeight:'bold'}}>{error}</span>) ||(warning && <span>{warning}</span>))}
-      </div>
-  </div>
 )
 const required=value=> value ? undefined:'Required';
 const isValidEmail=value=> value && !/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/i.test(value) ? 'Invalid email address':undefined;
@@ -40,44 +33,20 @@ const submit=(values)=> {
 class SignIn extends Component{
   constructor(props){
     super(props);
-  this.state={
-    authRedirect:this.props.isAuthenticated,
-  }}
+    this.state={
+      authRedirect:this.props.isAuthenticated,
+    }
+  }
 
 render(){
-
-    let authRedirect=null;
-    
-  //  if(this.props.isAuthenticated){
-  //       authRedirect=<Redirect to="/"/>
-        
-  //   }
   const {handleSubmit, pristine, reset, submitting}=this.props;
   if(this.state.authRedirect)  
     return (<Redirect to="/"/>);
   else return(
-      
-        <div className="wrapper">
-        <div style={{
-                alignSelf:'center',
-                justifyContent:'center',
-                flex:1,
-                backgroundColor:'black',
-                opacity:'0.3',
-                margin: '10px',
-                width: '400px',
-                display: 'flex',
-                flexDirection: 'column',
-                /* border-radius: 10px; */
-                boxShadow: '0px 10px 50px #555',
-                opacity: 0.6,
-                filter: 'alpha(opacity=60)', 
-                borderRadius:'25px',                 
-                flexWrap:'wrap',}}>
-          <h3 style={{alignSelf:'center',fontWeight:'bold',color:'white'}}>Welcome Back, Sign in</h3><br/>
-          {this.props.isloading ? <Spinner/>:
-          <form onSubmit={handleSubmit(submit)}>
-                <Field
+               <form onSubmit={handleSubmit(submit)}>
+                <div style={{flex:1,height:600,width:'100%',}}> 
+                    <h1 style={{marginTop:100,fontSize: 50, fontFamily: 'Calibri Light', fontWeight:'bolder'}}>Sign in</h1>
+                    <Field
                     name="Email"
                     type="text"
                     component={renderField}
@@ -86,7 +55,7 @@ render(){
                     value={null}
                     validate={[required,isValidEmail]}
                 />
-                
+                <div style={{marginTop: 80}}></div>
                 <Field
                     name="Password"
                     type="password"
@@ -95,24 +64,16 @@ render(){
                     click={null}
                     value={null}
                     validate={[required]}
-                />             
-              
-            <button  type="submit" className="col-md-12 btn btn-primary btn-lg" disabled={submitting} style={{borderRadius:"20px"}}>Sign in</button>
-          </form>
-          }
-         
-
-          <div class="text-center createAccount">
-              <label className="col-form-label" style={{alignSelf:'center',fontWeight:'bold',color:'white', height:'2'}}>New to <b>shopMe?</b></label>
-              
-              <Link to="/Signuprole">Create an Account</Link>
-          </div>
-                {/**SignUprole==BsignUp */}
-          
-                   
-        
-            </div>
-          </div>
+                />   
+                    <button className="btn btn-success" disabled={this.state.loading} style={{marginTop: 170, position: 'absolute',left:'50%',transform: 'translate(-50%, -50%)',width:'40%',height:50,fontSize:25,backgroundColor:'green', borderRadius: 0}}>Next →
+                    </button>
+                    {this.props.isloading ? <div style={{position:'relative', marginTop: 220, }}><Spinner/></div>:null}
+                </div>
+                <text style={{position: 'absolute',color:'red', left: '50%',transform: 'translate(-50%, -50%)',marginTop:80,width:'40%',textAlign:'center',fontSize:24,borderColor:'white',borderBottomColor:'green',borderBottomWidth:3}}>
+                  {this.props.errorr}
+                </text>
+                  
+                </form>
       );
   }
 }
@@ -120,8 +81,8 @@ render(){
 const mapStateToProps=state=>{
   return{
     isAuthenticated:state.auth.token!=null,
-    isloading:state.auth.loading
-
+    isloading:state.auth.loading,
+    errorr: state.auth.error
    
   }
 }
