@@ -203,7 +203,7 @@ class ProductProvider extends Component {
             axios.get(`https://backend-webapi20191102020215.azurewebsites.net/api/sellers/${response.data.sellerId}`) //https://backend-webapi20190825122524.azurewebsites.net/api/orders/createNewOrder${order}
             .then(response=>{
                 console.log("merchantId  "+response.data.accountNo)
-                let url=`https://sandbox.payhere.lk/pay/checkout?merchant_id=${response.data.accountNo}&return_url=https://localhost:3000&cancel_url=https://localhost:3000&items=xxx&currency=LKR&amount=${this.state.cartTotal}&first_name=xxxx&merchant_secret=4eY9dRMBwda4vX96naMCRw4JFnwWJkLwL4DxJ4kS1nPP&last_name=xxxx&email=xxxx&phone=0711234567&address=xxxx&city=xxxx&country=SriLanka&order_id=${orderId}&notify_url=https://backend-webapi20191102020215.azurewebsites.net/api/orders/update-payment?order_id=${orderId}&status_codes=${2}` 
+                let url=`https://sandbox.payhere.lk/pay/checkout?merchant_id=${response.data.accountNo}&return_url=https://shopme-13454.web.app/Payment_sucess&cancel_url=https://shopme-13454.web.app/Payment_unsucess&items=xxx&currency=LKR&amount=${this.state.cartTotal}&first_name=xxxx&merchant_secret=4eY9dRMBwda4vX96naMCRw4JFnwWJkLwL4DxJ4kS1nPP&last_name=xxxx&email=xxxx&phone=0711234567&address=xxxx&city=xxxx&country=SriLanka&order_id=${orderId}&notify_url=https://backend-webapi20191102020215.azurewebsites.net/api/orders/update-payment?order_id=${orderId}&status_codes=${2}` 
                 this.setState({
                     payhereButton: <form method="post" action={url}> 
                             <input name="submit" type="image" src="https://www.payhere.lk/downloads/images/pay_with_payhere.png"
