@@ -10,18 +10,9 @@ class ProductList extends Component {
     console.log(this.props.location.state.shop.image)
     return (
       <React.Fragment>
-        
-          <div className="py-5" style={{marginLeft:'20px'}}>
+        <div className="py-5" style={{marginLeft:'20px'}}>
             <div>
             <div>
-            {/*  <div className="tit1">
-                <strong><h1><br/>PRODUCTS<br/><br/><br/></h1></strong>
-                <div class="jumbotron jumbotron-fluid">
-                </div>*/}
-                
-                
-                {/*<div className="tit1">
-                <h1>PRODUCTS</h1></div>*/}
                 <div>
 
                   <div class="card bg-dark text-white" style={{backgroundImage: "url(" + this.props.location.state.shop.image + ")",top: 0, height: 390, width: '100%'}}>  
@@ -42,7 +33,6 @@ class ProductList extends Component {
                         </div>
                     </div>
                 </div>
-
               </div>
               <br/>
             </div>

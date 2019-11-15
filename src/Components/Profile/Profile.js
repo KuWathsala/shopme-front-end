@@ -17,7 +17,7 @@ class Profile extends Component{
             axios.get(`https://backend-webapi20191102020215.azurewebsites.net/api/sellers/${this.props.userId}`)
             .then(response=>{
                 console.log(response);
-                this.setState({userdata:response.data.data});
+                this.setState({userdata:response.data});
             });
         }else if(this.props.userType=='Customer'){
             axios.post(`https://backend-webapi20191102020215.azurewebsites.net/api/customers/${this.props.userId}`)
@@ -55,14 +55,22 @@ class Profile extends Component{
         return(
             <div style={{height:'100%'}}>
                 <div style={{backgroundColor:'black',marginBottom:40}}>
+                    {this.props.userType == "Seller" ? 
                     <img style={{flex:1,height:300,width:300,borderRadius:150,marginLeft:'70%',marginTop:25,marginBottom:25}} src={this.state.userdata.image} />
+                    :
+                    <img style={{flex:1,height:300,width:300,borderRadius:150,marginLeft:'70%',marginTop:25,marginBottom:25}} src={this.state.userdata.profileImage} />
+                    }
                     <div style={{color:'white',flex:1,borderRadius:150,marginLeft:'72%',marginBottom:100}}>
                         <text style={{fontSize:30,}}>{this.state.userdata.firstName+" "+this.state.userdata.lastName}<br/><br/></text>
-                        <span class="glyphicon glyphicon-star" style={{fontSize:25}}></span>
-                        <text style={{fontSize:25}}>{Math.round(this.state.userdata.rating*100)/100+" "}Rating<br/><br/></text>
-                    </div>
+                        {this.props.userType!=="Customer"?
+                        <div>
+                            <span class="glyphicon glyphicon-star" style={{fontSize:25}}></span>
+                            <text style={{fontSize:25}}>{Math.round(this.state.userdata.rating*100)/100+" "}Rating<br/><br/></text>
+                        </div>
+                        :null}
+                        </div>
                 </div>
-                <div style={{fontSize:20}}>
+                <div style={{fontSize:20,marginLeft:25}}>
                         <div className="row">
                             <div className='col-2 col-md-2'>Name</div>
                             <div className='col-4 col-md-4' style={{color:'grey'}}>{this.state.userdata.firstName+" "+this.state.userdata.lastName}</div>
@@ -88,6 +96,8 @@ class Profile extends Component{
                         </div>:null}
                             <a href='/'>Edit Profile</a>
                     </div>
+                    {this.props.userType=="Customer" ?
+                    <div>
                     <table class="table table-bordered " style={{fontFamily: 'Calibri Light', fontSize: 17,fontWeight: 'normal', backgroundColor: 'green', color: 'white',marginTop:50}} >
                         <thead>
                             <tr>
@@ -102,6 +112,8 @@ class Profile extends Component{
                    
                     </table>
                     {purschasedOrders}
+                    </div>
+                    :null}
                     </div>
         );
     }

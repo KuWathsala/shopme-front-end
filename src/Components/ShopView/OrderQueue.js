@@ -6,17 +6,16 @@ import * as signalR from '@aspnet/signalr';
 import Img from '../../Assets/logo.png';
 import {connect} from 'react-redux';
 import ShopViewHeader from './ShopViewHeader';
+import Spinner from '../../Containers/Spinner/Spinner_2';
 
 class OrderQueue extends Component{
     state={
         WaitingOrders:[],
         connection:'',
+        loading:false,
     }
 
     componentDidMount(){
-        // console.log("this.props.seller.user")
-        // console.log(this.props.seller.user)
-
         this.state.connection=new signalR.HubConnectionBuilder().withUrl("https://backend-webapi20191102020215.azurewebsites.net/connectionHub").build()
         this.state.connection.start()
         .then(()=> {
@@ -24,15 +23,16 @@ class OrderQueue extends Component{
             this.state.connection.invoke("SellerOnline",this.props.userId);//this.props.seller.userId
         })
         .catch(error => console.log(error));
-
+        this.setState({loading:true});
         axios.post(`https://backend-webapi20191102020215.azurewebsites.net/api/orders/getWaitingOrderDetailsBySeller/1`)//this.props.seller.userId
         .then(response=>{
             console.log(response.data)
             for(let i=0; i<response.data.length; i++ )
-                this.setState({WaitingOrders: [...this.state.WaitingOrders, response.data[i]]})
+                this.setState({WaitingOrders: [...this.state.WaitingOrders, response.data[i]],loading:false})
         })
         .catch(error=>{
-            console.log(error)
+            console.log(error);
+            this.setState({loading:false});
         });
     }
 
@@ -48,18 +48,21 @@ class OrderQueue extends Component{
                             </td>
                         ))}
                     />
-             });        
-        return(
-            <div>
-                <ShopViewHeader header={"my portal"} />
-                <section>
-                    <Fragment>
-                        <ColumnTitles/> 
-                        {WaitingOrders}                     
-                    </Fragment>
-                </section>
-                
-            </div>
+             }); 
+        if(this.state.loading)
+            return <Spinner />  
+        else       
+            return(
+                <div>
+                    <ShopViewHeader header={"my portal"} />
+                    <section>
+                        <Fragment>
+                            <ColumnTitles/> 
+                            {WaitingOrders}                     
+                        </Fragment>
+                    </section>
+                    
+                </div>
         );
     };
 }

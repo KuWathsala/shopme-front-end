@@ -24,6 +24,8 @@ import Help from '../../Containers/Blog/Help';
 import Verification from '../../Components/Signup/Verification';
 import ForgetPassword from '../../Components/SignIn/ForgetPassword';
 import SetPassword from '../../Components/SignIn/SetPassword';
+import Payment_sucess from '../../Components/Payment/Payment_sucess';
+import Payment_unsucess from '../../Components/Payment/Payment_unsucess';
 
 
 
@@ -51,6 +53,8 @@ class Blog extends Component{
             <Route path="/verify"exact component={Verification}/>
             <Route path="/forgetPassword"exact component={ForgetPassword}/>
             <Route path="/setPassword"exact component={SetPassword}/>
+            <Route path="/Payment_sucess"exact component={Payment_sucess}/>
+            <Route path="/Payment_unsucess"exact component={Payment_unsucess}/>
             <ProductProvider>
                        <Pindex/>
                     </ProductProvider>
@@ -96,6 +100,8 @@ class Blog extends Component{
                     <Route path="/logout" component={Logout}/>
                     <Route path="/spinner" exact component={Spinner}/>
                     <Route path="/Signin" exact component={SignIn}/>
+                    <Route path="/Payment_sucess"exact component={Payment_sucess}/>
+                    <Route path="/Payment_unsucess"exact component={Payment_unsucess}/>
                     <ProductProvider>
                        <Pindex/>
                     </ProductProvider>
@@ -123,6 +129,8 @@ class Blog extends Component{
                         <Route path="/verify"exact component={Verification}/>
                         <Route path="/forgetPassword"exact component={ForgetPassword}/>
                         <Route path="/setPassword"exact component={SetPassword}/>
+                        <Route path="/Payment_sucess"exact component={Payment_sucess}/>
+                        <Route path="/Payment_unsucess"exact component={Payment_unsucess}/>
                 </Switch>
                 </React.Fragment>
              );

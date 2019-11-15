@@ -15,18 +15,18 @@ class Map extends React.Component{
 
 state = {
    address: '',
+   loading:false,
   }
  
  
 /**
   * Get the current address from the default map position and set those values in the state
   */
-isloading=false
  componentDidMount() {
-   this.isloading=true;
+   this.setState({loading:true});
   Geocode.fromLatLng( this.props.center.lat , this.props.center.lng ).then(
-    this.isloading=false,
    response => {
+    this.setState({loading:false});
     const address = response.results[0].formatted_address;
     this.props.onsetLocation(this.props.center.lat , this.props.center.lng,address );
     this.setState( {
@@ -34,18 +34,12 @@ isloading=false
     } )
    },
    error => {
-    this.isloading=false;
+    this.setState({loading:false});
     console.error(error);
    }
   );
  };
-/**
-  * Component should only update ( meaning re-render ), when the user selects the address, or drags the pin
-  *
-  * @param nextProps
-  * @param nextState
-  * @return {boolean}
-  */
+
  shouldComponentUpdate( nextProps, nextState ){
   if (
     this.props.latitude !== this.props.center.lat ||
@@ -59,17 +53,10 @@ isloading=false
  onChange = ( event ) => {
   this.setState({ [event.target.name]: event.target.value });
  };
-/**
-  * This Event triggers when the marker window is closed
-  *
-  * @param event
-  */
+
  onInfoWindowClose = ( event ) => {
 };
-/**
-  * When the user types an address in the search box
-  * @param place
-  */
+
  onPlaceSelected = ( place ) => {
 const address = place.formatted_address,
    latValue = place.geometry.location.lat(),
@@ -80,13 +67,7 @@ const address = place.formatted_address,
    address: ( address ) ? address : '',
   })
  };
-/**
-  * When the marker is dragged you get the lat and long using the functions available from event object.
-  * Use geocode to get the address, city, area and state from the lat and lng positions.
-  * And then set those values in the state.
-  *
-  * @param event
-  */
+
  onMarkerDragEnd = ( event ) => {
   console.log( 'event', event );
   let newLat = event.latLng.lat(),
@@ -169,7 +150,7 @@ const AsyncMap = withScriptjs(
   );
   return(
   <div>
-    {this.isloading ? <Spinner/> :
+    {this.state.loading ? <Spinner/> :
   <div style={{height:'500px'}}>
     
      <div>

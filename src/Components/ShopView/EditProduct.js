@@ -107,7 +107,7 @@ render() {
                 component={renderField2}
                 label="Product Name"
                 //value1={this.state.ProductDetails.name}
-                value1={this.props.initialValues.Name}
+                value1={this.props.initialValues.Name }
                 validate={[required]}
               />
               <Field
