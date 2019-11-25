@@ -12,6 +12,7 @@ class CartColumns extends Component {
                     <th class="col-xs-1 center-block">date/time</th>
                     <th scope="col_3 center-block">ordered items</th>
                     <th class="col-xs-1 center-block">price LKR</th>
+                    <th class="col-xs-1 center-block">Payment status</th>
                     <th class="col-xs-2 center-block">confirm order</th>
                     </tr>
                 </thead>

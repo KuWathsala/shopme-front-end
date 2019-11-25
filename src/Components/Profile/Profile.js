@@ -42,7 +42,7 @@ class Profile extends Component{
 
     render(){
         const purschasedOrders=this.state.orders.map(order=>{
-            return <Orders value={order} OrderId={order.id} time={order.createdAt} total={order.totalPrice} shop={order.shopName} status={order.orderStatus}
+            return <Orders value={order} OrderId={order.id} time={order.createdAt} total={order.totalPrice} shop={order.shopName} status={order.orderStatus} payment={order.paymentStatus}
                          OrderDetails={order.products.map((c,i)=>(
                              <td  class="row-xs-1" >
                                  <div class="row-xs-1">
@@ -94,7 +94,7 @@ class Profile extends Component{
                             <br/><br/>
                         </div>
                         </div>:null}
-                            <a href='/'>Edit Profile</a>
+                            {/* <a href='/'>Edit Profile</a> */}
                     </div>
                     {this.props.userType=="Customer" ?
                     <div>
@@ -107,6 +107,7 @@ class Profile extends Component{
                             <th class="col-xs-1 center-block">Price LKR</th>
                             <th class="col-xs-1 center-block">Shop</th>
                             <th class="col-xs-1 center-block">Order Status</th>
+                            {/* <th class="col-xs-1 center-block">Payment</th> */}
                             </tr>
                         </thead>
                    

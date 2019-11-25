@@ -6,7 +6,7 @@ import * as actions from '../../Stores/Actions/Index';
 import { Field, reduxForm } from 'redux-form';
 import { relative } from "path";
 import Spinner from '../../Containers/Spinner/Spinner_2';
-import Spinner2 from '../../Containers/Spinner/Spinner';
+// import Spinner2 from '../../Containers/Spinner/Spinner';
 import axios from 'axios';
 import {store} from '../../index';
 
@@ -134,7 +134,8 @@ render() {
     if(this.props.isverify==false)
         return <Redirect to="/verify"/>
     else return(
-    <div className="wrapper">
+    <div style={{height:1200}}>
+    <div className="wrapper" >
     {authRedirect}
     <div className="wrapForm">
     {this.props.isloading ? <Spinner/> : <div>
@@ -274,8 +275,7 @@ render() {
                     validate={[required,passwordMatch]}
                 />
 
-                <div style={{textAlign:"left",color:'black'}}>
-                        {this.state.isloading ? <Spinner2/> :
+                <div style={{textAlign:"left",color:'black'}}>     
               <input 
                 style={{backgroundColor:'white',marginBottom:15,width:350,alignContent:'center', borderBottomWidth: 2, borderRadius: 0, borderBottomColor: 'green'}}
                 name="Image"
@@ -283,10 +283,10 @@ render() {
                 onChange={this.fileUploadHandler}
                 value={this.state.image}
                 /> 
-                 }</div>
+                 </div>
          <div style={{alignContent:'center'}}>
             <button type="submit" className="btn btn-success" disabled={submitting}
-                style={{backgroundColor: 'green', borderRadius: 0, width: 350, fontFamily:'calibri', fontSize: 20}}
+                style={{backgroundColor: 'green', borderRadius: 0, width: 350, fontFamily:'calibri', fontSize: 20,marginBottom:50}}
             >
                 SUBMIT
             </button>
@@ -294,9 +294,11 @@ render() {
                 <Link to="/Signin">
                     <text style={{alignSelf:'center', color: 'black', marginLeft: 100}} >Already have an Account</text></Link>
             </div>
+            
         </div>   
     </form>
     </div>}
+</div>
 </div>
 </div>
 );

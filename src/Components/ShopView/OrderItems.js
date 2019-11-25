@@ -18,10 +18,10 @@ class OrderItems extends Component{
     }
 
     componentDidMount(){
-        console.log("this.props.connection")
-        console.log(this.props.connection)
-        console.log("this.props.OrderDetails")
-        console.log(this.props.OrderDetails)
+        // console.log("this.props.connection")
+        // console.log(this.props.connection)
+        // console.log("this.props.OrderDetails")
+        // console.log(this.props.OrderDetails)
     }
 
 
@@ -66,10 +66,13 @@ class OrderItems extends Component{
 
                     {this.props.OrderDetails}
                     <th class="col-xs-1 "><text class="pull-right" >{this.props.total}</text></th>
+                    <th className="col-xs-1 center-block"><text className="pull-right" style={{fontSize:25}}>{this.props.verified==2 ? <span style={{color:"green"}} class="glyphicon glyphicon-ok"></span>:<span style={{color:'red'}} class="glyphicon glyphicon-remove"></span>}</text></th>
                     <th class="col-xs-2"style={{justifyContent: 'center'}} >
-                        <button type="button" className="btn btn-success center-block" style={{color: 'white', borderRadius: 0, backgroundColor: 'green'}} disabled={this.state.loading} loading={this.state.loading} onClick={this.confirmOrderHandeler}>{this.button}{this.state.buttonConfirm}
+                        {this.props.verified==2 ? 
+                            <button type="button" className="btn btn-success center-block" style={{color: 'white', borderRadius: 0, backgroundColor: 'green'}} disabled={this.state.loading} loading={this.state.loading} onClick={this.confirmOrderHandeler}>{this.button}{this.state.buttonConfirm}
                             <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
-                        </button>
+                        </button>:null}
+                        
                     </th>
                 </tr>
             </thead>

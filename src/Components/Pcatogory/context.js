@@ -18,7 +18,8 @@ class ProductProvider extends Component {
             cartTotal:0,
             isCreateOrder: false,
             sellerId: 0,
-            payhereButton: null
+            payhereButton: null,
+            order_id:null,
         };
     };
 
@@ -191,19 +192,18 @@ class ProductProvider extends Component {
             items: itemList
         }
 
-        console.log("order")
-        console.log(order)
+        console.log("orde")
 
         axios.post('https://backend-webapi20191102020215.azurewebsites.net/api/orders/createNewOrder', order) //https://backend-webapi20190825122524.azurewebsites.net/api/orders/createNewOrder${order}
         .then(response=>{
             let orderId=response.data.id;
             console.log(response.data.sellerId, response.data.id)
-            this.setState({isCreateOrder: true, })
+            this.setState({isCreateOrder: true,order_id:response.data.id})
 
             axios.get(`https://backend-webapi20191102020215.azurewebsites.net/api/sellers/${response.data.sellerId}`) //https://backend-webapi20190825122524.azurewebsites.net/api/orders/createNewOrder${order}
             .then(response=>{
                 console.log("merchantId  "+response.data.accountNo)
-                let url=`https://sandbox.payhere.lk/pay/checkout?merchant_id=${response.data.accountNo}&return_url=https://shopme-13454.web.app/Payment_sucess&cancel_url=https://shopme-13454.web.app/Payment_unsucess&items=xxx&currency=LKR&amount=${this.state.cartTotal}&first_name=xxxx&merchant_secret=4eY9dRMBwda4vX96naMCRw4JFnwWJkLwL4DxJ4kS1nPP&last_name=xxxx&email=xxxx&phone=0711234567&address=xxxx&city=xxxx&country=SriLanka&order_id=${orderId}&notify_url=https://backend-webapi20191102020215.azurewebsites.net/api/orders/update-payment?order_id=${orderId}&status_codes=${2}` 
+                let url=`https://sandbox.payhere.lk/pay/checkout?merchant_id=${response.data.accountNo}&return_url=http://10.10.7.105:3000/Payment_sucess&cancel_url=http://10.10.7.105:3000/Payment_unsucess&items=xxx&currency=LKR&amount=${this.state.cartTotal}&first_name=xxxx&last_name=xxxx&email=xxxx&phone=0711234567&address=xxxx&city=xxxx&country=SriLanka&order_id=${orderId}&notify_url=https://backend-webapi20191102020215.azurewebsites.net/api/orders/update-payment` 
                 this.setState({
                     payhereButton: <form method="post" action={url}> 
                             <input name="submit" type="image" src="https://www.payhere.lk/downloads/images/pay_with_payhere.png"

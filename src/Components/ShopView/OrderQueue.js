@@ -24,7 +24,7 @@ class OrderQueue extends Component{
         })
         .catch(error => console.log(error));
         this.setState({loading:true});
-        axios.post(`https://backend-webapi20191102020215.azurewebsites.net/api/orders/getWaitingOrderDetailsBySeller/1`)//this.props.seller.userId
+        axios.post(`https://backend-webapi20191102020215.azurewebsites.net/api/orders/getWaitingOrderDetailsBySeller/${this.props.sellerid}`)//this.props.seller.userId
         .then(response=>{
             console.log(response.data)
             for(let i=0; i<response.data.length; i++ )
@@ -37,9 +37,8 @@ class OrderQueue extends Component{
     }
 
     render(){
-        console.log(this.state.WaitingOrders)
         const WaitingOrders=this.state.WaitingOrders.map(orders=>{
-           return <OrderItems value={orders} OrderId={orders.id} time={orders.createdAt} total={orders.totalPrice} connection={this.state.connection}
+           return <OrderItems value={orders} OrderId={orders.id} time={orders.createdAt} total={orders.totalPrice} verified={orders.paymentStatus} connection={this.state.connection}
                         OrderDetails={orders.products.map((c,i)=>(
                             <td  class="row-xs-1" >
                                 <div class="row-xs-1">
@@ -50,7 +49,7 @@ class OrderQueue extends Component{
                     />
              }); 
         if(this.state.loading)
-            return <Spinner />  
+            return <div style={{height:700,paddingTop:200}}><Spinner /></div>
         else       
             return(
                 <div>

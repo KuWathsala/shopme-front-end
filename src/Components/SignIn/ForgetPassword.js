@@ -26,14 +26,14 @@ const renderField = ({ input,label,type,click,value,meta: { touched, error, warn
 
 const required=value=> value ? undefined:'Required';
 const isValidPassword=value=> value && !/^(?=.{10,}$)(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W).*$/i.test(value) ? 'Required UPPERCASE, lowercase, digit, symbol and minimum 10 characters ':undefined;
-const passwordMatch=(value,allValues)=> value!==allValues.Password ? 'Passwords do not Match':undefined;
+const passwordMatch=(value,allValues)=> value!==allValues.password ? 'Passwords do not Match':undefined;
 
 class ForgetPassword extends Component{
     constructor(props){
         super(props);
     this.state={
         code:null,
-        isTrue:true,
+        isTrue:false,
         email:null,
         emailadd:false,
         sentEmail:null,

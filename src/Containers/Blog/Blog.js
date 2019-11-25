@@ -55,9 +55,6 @@ class Blog extends Component{
             <Route path="/setPassword"exact component={SetPassword}/>
             <Route path="/Payment_sucess"exact component={Payment_sucess}/>
             <Route path="/Payment_unsucess"exact component={Payment_unsucess}/>
-            <ProductProvider>
-                       <Pindex/>
-                    </ProductProvider>
         </Switch>
         
             
@@ -131,6 +128,9 @@ class Blog extends Component{
                         <Route path="/setPassword"exact component={SetPassword}/>
                         <Route path="/Payment_sucess"exact component={Payment_sucess}/>
                         <Route path="/Payment_unsucess"exact component={Payment_unsucess}/>
+                        <ProductProvider>
+                            <Pindex/>
+                        </ProductProvider>
                 </Switch>
                 </React.Fragment>
              );

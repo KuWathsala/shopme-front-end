@@ -2,6 +2,8 @@ import * as ActionTypes from './ActionType';
 import axios from 'axios';
 import { Redirect,withRouter} from 'react-router-dom';
 
+const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
+
 export const authStart=()=>{
     return{
         type:ActionTypes.AUTH_START
@@ -71,6 +73,14 @@ export const auth=(authData)=>{
             axios.post(url,authData)
                 .then(response=>{
             console.log(response);
+            url=`https://backend-webapi20191102020215.azurewebsites.net/api/UserAuth/forgetPassword/${authData.LoginVM.Email}`;
+            axios.post(url,)
+            .then(response=>{
+                console.log(response);  
+            })
+            .catch(err=>{
+                console.log(err);    
+            });
             dispatch(authSuccess(response.data.token,response.data.id,response.data.role,response.data.data));
             dispatch(checkAuthTImeout(3600/*response.data.expiresIn*/));
         })
@@ -84,6 +94,14 @@ export const auth=(authData)=>{
             axios.post(url,authData)
                 .then(response=>{
             console.log(response);
+            url=`https://backend-webapi20191102020215.azurewebsites.net/api/UserAuth/forgetPassword/${authData.LoginVM.Email}`;
+            axios.post(url,)
+            .then(response=>{
+                console.log(response);  
+            })
+            .catch(err=>{
+                console.log(err);    
+            });
             dispatch(authSuccess(response.data.data.token,response.data.data.id,response.data.role,response.data.data));
             dispatch(checkAuthTImeout(3600/*response.data.expiresIn*/));
         })
@@ -97,6 +115,14 @@ export const auth=(authData)=>{
             axios.post(url,authData)
                 .then(response=>{
             console.log(response);
+            url=`https://backend-webapi20191102020215.azurewebsites.net/api/UserAuth/forgetPassword/${authData.LoginVM.Email}`;
+            axios.post(url,)
+            .then(response=>{
+                console.log(response);  
+            })
+            .catch(err=>{
+                console.log(err);    
+            });
             dispatch(authSuccess(response.data.data.token,response.data.data.id,response.data.role));
             dispatch(checkAuthTImeout(3600/*response.data.expiresIn*/));
         })
@@ -105,14 +131,16 @@ export const auth=(authData)=>{
             dispatch(authFail(err));
         });
         }
-        url=`https://backend-webapi20191102020215.azurewebsites.net/api/UserAuth/forgetPassword/${authData.email}`;
-        axios.post(url,)
-        .then(response=>{
-            console.log(response);  
+        sleep(2500).then(()=>{
+            url=`https://backend-webapi20191102020215.azurewebsites.net/api/UserAuth/forgetPassword/${authData.LoginVM.Email}`;
+            axios.post(url,)
+            .then(response=>{
+                console.log(response);  
         })
         .catch(err=>{
             console.log(err);    
         });
+        })
     }
 };
 
@@ -122,7 +150,9 @@ export const authVerify=(authData)=>{
         let url='https://backend-webapi20191102020215.azurewebsites.net/api/UserAuth/signin';
         axios.post(url,authData)
         .then(response=>{
-            if(response.data=='not verified'){
+            if(typeof response.data === 'string')
+                dispatch(authFail(response.data));
+            else if(response.data=='not verified'){
                 dispatch(notVerified());
             }else{
             console.log(response);
@@ -163,7 +193,7 @@ export const authVerify=(authData)=>{
         })
         .catch(err=>{
             console.log(err);
-            dispatch(authFail(err.message));
+            //dispatch(authFail(err.message));
         });
     };
 };

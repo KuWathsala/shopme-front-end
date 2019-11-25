@@ -6,6 +6,7 @@ import axios from 'axios';
 //import BodyData from './BodyData';
 import "./ShopList.css";
 import Spinner from '../../../Containers/Spinner/Spinner_2';
+import { Redirect} from 'react-router-dom';
 
 class ShopList extends Component {
   constructor(props){
@@ -30,6 +31,8 @@ class ShopList extends Component {
   render() {
     if(this.state.loading)
       return <div style={{height:600,opacity:0.6,justifyContent:'center',marginTop:'10%'}}><Spinner/></div>
+    else if(this.props.userType==!'Customer')
+      return <Redirect to='/Signin'/>
     else
       return (
          <React.Fragment>  
@@ -64,7 +67,8 @@ class ShopList extends Component {
 const mapStateToProps=state=>{
   return{
     lng:state.location.lngValue,
-    lat:state.location.latValue
+    lat:state.location.latValue,
+    userType:state.auth.userType
   }
 }
 

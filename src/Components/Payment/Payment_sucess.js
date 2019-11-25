@@ -10,42 +10,40 @@ class Payment_sucess extends Component{
     this.state={
         code:null,
         isTrue:null,
+        payment:false,
+        Id:null
     }
     }
 
-    handleSubmit=(e)=>{
-        e.preventDefault();
-        let url=`https://backend-webapi20191102020215.azurewebsites.net/api/UserAuth/verify/${this.state.code}`;
+    componentDidMount=()=>{
+        const {id}=this.props.match.params;
+        this.setState({Id:id})
+    }
+
+    handleSubmit=()=>{
+        console.log(this.state.Id);
+        let url=``;
         axios.post(url,)
         .then(response=>{
             console.log(response);  
-            this.setState({isTrue:response.data});   
+            this.setState({isTrue:response.data,payment:true});   
         })
         .catch(err=>{
             console.log(err);
+            this.setState({payment:true});
         });
     }
 
-    resend=(e)=>{
-        // e.preventDefault();
-        // let url=`https://backend-webapi20191102020215.azurewebsites.net/api/UserAuth/verify/${this.state.code}`;
-        // axios.post(url,)
-        // .then(response=>{
-        //     console.log(response);  
-        //     this.setState({isTrue:response.data});   
-        // })
-        // .catch(err=>{
-        //     console.log(err);
-        // });
-        console.log("resend");
-    }
     render(){
-        return(
+        if(this.state.payment)
+            return <Redirect to='/'/>
+        else
+            return(
             <div style={{flex:1,height:600,width:'100%',}}> 
                 <h1 style={{marginTop:100}}>Payment Successfully done..</h1>
                 <div className='col'>
                 <img src={Img} style={{width:250,height:250,marginTop:140,position: 'absolute',left:'50%',transform: 'translate(-50%, -50%)'}}/>
-                <button className="btn btn-success" style={{marginTop:330,position: 'absolute',left:'50%',transform: 'translate(-50%, -50%)',width:'10%',height:60,fontSize:25,backgroundColor:'green'}}
+                <button className="btn btn-success" onClick={this.handleSubmit} style={{marginTop:330,position: 'absolute',left:'50%',transform: 'translate(-50%, -50%)',width:'10%',height:60,fontSize:25,backgroundColor:'green'}}
                 >Ok</button>
                 </div>
             </div>
